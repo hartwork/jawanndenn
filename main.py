@@ -1,7 +1,10 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under AGPL v3 or later
 
+from __future__ import print_function
+
 import argparse
+import sys
 
 import bottle
 
@@ -30,6 +33,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
     options = parser.parse_args()
+
+    if not sys.flags.hash_randomization:
+        print('ERROR: Hash randomization found to be disabled. '
+                'Please re-run using "python -R ..." for security.',
+                file=sys.stderr)
+        sys.exit(2)
 
     if options.debug:
         bottle.debug(True)
