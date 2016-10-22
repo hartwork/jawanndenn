@@ -1,0 +1,58 @@
+/* Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
+** Licensed under GPL v3 or later
+*/
+body {
+    margin: 0px;
+    padding: 10px;
+    background-color: #aaa;
+}
+
+#poll {
+    background-color: #fff;
+    padding: 10px;
+}
+
+.person {
+    text-align: right;
+}
+
+.vote {
+    text-align: center;
+}
+
+#setup {
+    width: 400px;
+    float: left;
+    padding: 0px;
+    margin: 10px;
+}
+#preview {
+    margin: 10px;
+    float: right;
+}
+
+#config {
+    width: 100%;
+    height: 300px;
+    margin: 0px;
+}
+
+#renderButton {
+    float: right;
+}
+
+.wellformed {
+    background-color: #efe;
+}
+
+.malformed {
+    background-color: #fee;
+}
+
+.person {
+    text-align: right;
+}
+
+table#pollTable {
+    border-spacing: 0px;
+}
