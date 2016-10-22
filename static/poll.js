@@ -97,14 +97,18 @@ var createPollHtml = function(config, votes) {
     return toHtml( form );
 }
 
+var enableButton = function(selector, enabled) {
+    if (enabled) {
+        selector.removeAttr('disabled');
+    } else {
+        selector.attr('disabled', 'disabled');
+    }
+}
+
 var syncSaveButton = function() {
     var good = ($( '#voterName' ).val().length > 0);
     var saveButton = $( '#submitVote' )
-    if (good) {
-        saveButton.removeAttr('disabled');
-    } else {
-        saveButton.attr('disabled', 'disabled');
-    }
+    enableButton(saveButton, good);
 }
 
 var onClickCheckBox = function(checkbox) {
