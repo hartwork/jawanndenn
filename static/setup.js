@@ -28,6 +28,16 @@ var resetConfig = function() {
 var prevConfigJson = '';
 var prevWellformed = null;
 
+var _addRemoveGoodBad = function(selector, goodClass, badClass, good) {
+    if (good) {
+        selector.addClass( goodClass );
+        selector.removeClass( badClass );
+    } else {
+        selector.addClass( badClass );
+        selector.removeClass( goodClass );
+    }
+}
+
 var syncPreview = function() {
     var configJson = $( '#config' ).val();
 
@@ -39,13 +49,8 @@ var syncPreview = function() {
     }
 
     if (wellformed != prevWellformed) {
-        if (wellformed) {
-            $( "#config" ).addClass( 'wellformed' );
-            $( "#config" ).removeClass( 'malformed' );
-        } else {
-            $( "#config" ).addClass( 'malformed' );
-            $( "#config" ).removeClass( 'wellformed' );
-        }
+        _addRemoveGoodBad( $( "#config" ),
+                'wellformed', 'malformed', wellformed );
         prevWellformed = wellformed;
     }
 
