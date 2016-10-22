@@ -46,6 +46,7 @@ var _addCurrentPersonRow = function(table, options) {
     var tr = table.child( tag('tr') );
     tr.child( tag('td') ).child( tag('input', {
                 id: 'voterName',
+                name: 'voterName',
                 type: 'text',
                 class: 'person',
                 // NOTE: onchange fires "too late"
@@ -55,6 +56,7 @@ var _addCurrentPersonRow = function(table, options) {
         var checkbox = tag('input', {
                     type: 'checkbox',
                     id: 'option' + j,
+                    name: 'option' + j,
                     onclick: 'onClickCheckBox(this);'
                 });
         tr.child( tag('td', {
@@ -84,7 +86,10 @@ var _addSummaryRow = function(table, options, votesPerOption) {
 
 
 var createPollHtml = function(config, votes) {
-    var form = tag('form');
+    var form = tag('form', {
+                id: 'pollForm',
+                method: 'POST',
+            });
     var table = form.child( tag('table', {
             id: 'pollTable'
             }) );

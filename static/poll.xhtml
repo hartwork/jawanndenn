@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!--
+Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
+Licensed under GPL v3 or later
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" />
+
+        <script type="text/javascript" src="../static/html.js" />
+        <script type="text/javascript" src="../static/poll.js" />
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                var pollId = /[0-9a-fA-F]{64}/.exec(window.location.pathname)[0]
+                $.get( '/data/' + pollId, function(data) {
+                    $( '#poll' ).html( createPollHtml( data.config, data.votes ) );
+                    $( '#pollForm' ).attr('action', "/vote/" + pollId);
+                    $( '#voterName' ).focus();
+                }, 'json')
+                .fail(function() {
+                    var html = 'Error: Poll data could not be loaded.';
+                    noty({text: html, type: 'error', timeout: 1000});
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id='poll' />
+    </body>
+</html>

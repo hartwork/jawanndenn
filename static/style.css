@@ -37,7 +37,7 @@ body {
     margin: 0px;
 }
 
-#renderButton {
+#createButton, #renderButton {
     float: right;
 }
 
