@@ -80,6 +80,7 @@ def vote(poll_id):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--port', default=8080, type=int)
     options = parser.parse_args()
 
     if not sys.flags.hash_randomization:
@@ -91,7 +92,7 @@ def main():
     if options.debug:
         bottle.debug(True)
 
-    bottle.run()
+    bottle.run(port=options.port)
 
 
 main()
