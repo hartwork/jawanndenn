@@ -59,9 +59,7 @@ def poll(poll_id):
 def data(poll_id):
     poll = _db.get(poll_id)
     return _to_json({
-        'config': {
-            'options': poll.options,
-        },
+        'config': poll.config,
         'votes': poll.votes,
     })
 

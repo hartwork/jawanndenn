@@ -92,10 +92,15 @@ var _addSummaryRow = function(table, options, votesPerOption) {
 
 
 var createPollHtml = function(config, votes) {
-    var form = tag('form', {
+    var div = tag('div');
+    div.child( tag('h2', {
+                class: 'question'
+            }) ).child( config.title );
+
+    var form = div.child( tag('form', {
                 id: 'pollForm',
                 method: 'POST',
-            });
+            }));
     var table = form.child( tag('table', {
             id: 'pollTable'
             }) );
@@ -105,7 +110,7 @@ var createPollHtml = function(config, votes) {
     _addCurrentPersonRow(table, config.options);
     _addSummaryRow(table, config.options, votesPerOption);
 
-    return toHtml( form );
+    return toHtml( div );
 }
 
 var enableButton = function(selector, enabled) {

@@ -65,3 +65,7 @@ body {
 table#pollTable {
     border-spacing: 0px;
 }
+
+.question {
+    text-align: center;
+}
