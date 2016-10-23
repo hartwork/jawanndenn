@@ -12,6 +12,11 @@ body {
     padding: 10px;
 }
 
+.optionLabel {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
 .person {
     text-align: right;
 }

@@ -5,7 +5,9 @@ var _addHeaderRow = function(table, options) {
     var tr = table.child( tag('tr') );
     tr.child( tag('td') );
     $.each( options, function( i, option ) {
-        tr.child( tag('td') ).child( option );
+        tr.child( tag('td', {
+                class: 'optionLabel'
+            }) ).child( option );
     })
     tr.child( tag('td') );
 }
