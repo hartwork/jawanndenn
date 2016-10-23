@@ -75,20 +75,15 @@ def vote(poll_id):
     bottle.redirect('/poll/%s' % poll_id)
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--debug', action='store_true')
-    parser.add_argument('--host', default='127.0.0.1')
-    parser.add_argument('--port', default=8080, type=int)
-    parser.add_argument('--server', default='paste')
-    options = parser.parse_args()
-
+def _require_hash_randomization():
     if not sys.flags.hash_randomization:
         print('ERROR: Hash randomization found to be disabled. '
                 'Please re-run using "python -R ..." for security.',
                 file=sys.stderr)
         sys.exit(2)
 
+
+def _run_server(options):
     if options.debug:
         bottle.debug(True)
 
@@ -103,6 +98,18 @@ def main():
                 % options.server,
                 file=sys.stderr)
         sys.exit(2)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--host', default='127.0.0.1')
+    parser.add_argument('--port', default=8080, type=int)
+    parser.add_argument('--server', default='paste')
+    options = parser.parse_args()
+
+    _require_hash_randomization()
+    _run_server(options)
 
 
 main()
