@@ -1,5 +1,8 @@
+import cPickle as pickle
 import hashlib
+import logging
 import os
+
 from threading import Lock
 
 
@@ -8,6 +11,15 @@ _MAX_VOTERS_PER_POLL = 40
 
 _KEY_OPTIONS = 'options'
 _KEY_TITLE = 'title'
+
+_PICKLE_PROTOCOL_VERSION = 2
+
+_PICKLE_CONTENT_VERSION = 1
+_PICKLE_POLL_VERSION = 1
+_PICKLE_POLL_DATABASE_VERSION = 1
+
+
+_log = logging.getLogger(__name__)
 
 
 def _get_random_sha256():
@@ -18,6 +30,16 @@ class _Poll(object):
     def __init__(self):
         self.config = []
         self.votes = []
+        self._lock = Lock()
+        self._version = _PICKLE_POLL_VERSION
+
+    def __getstate__(self):
+        d = self.__dict__.copy()
+        del d['_lock']
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
         self._lock = Lock()
 
     @staticmethod
@@ -48,6 +70,16 @@ class PollDatabase(object):
     def __init__(self):
         self._db = {}
         self._db_lock = Lock()
+        self._version = _PICKLE_POLL_DATABASE_VERSION
+
+    def __getstate__(self):
+        d = self.__dict__.copy()
+        del d['_db_lock']
+        return d
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+        self._db_lock = Lock()
 
     def add(self, config):
         poll = _Poll.from_config(config)
@@ -65,3 +97,22 @@ class PollDatabase(object):
     def get(self, poll_id):
         with self._db_lock:
             return self._db[poll_id]
+
+    def load(self, filename):
+        with open(filename, 'rb') as f:
+            d = pickle.load(f)
+
+        if d['version'] != _PICKLE_CONTENT_VERSION:
+            raise ValueError('Content version mismatch')
+
+        self.__dict__.update(d['data'].__dict__)
+        _log.info('%d polls loaded.' % len(self._db))
+
+    def save(self, filename):
+        d = {
+            'version': _PICKLE_CONTENT_VERSION,
+            'data': self,
+        }
+        with open(filename, 'w') as f:
+            pickle.dump(d, f, _PICKLE_PROTOCOL_VERSION)
+        _log.info('%d polls saved.' % len(self._db))

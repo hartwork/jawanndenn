@@ -4,7 +4,10 @@
 from __future__ import print_function
 
 import argparse
+import errno
 import json
+import logging
+import os
 import sys
 
 import bottle
@@ -108,8 +111,23 @@ def main():
     parser.add_argument('--server', default='paste')
     options = parser.parse_args()
 
+    logging.basicConfig(level=logging.DEBUG if options.debug else logging.INFO)
+
     _require_hash_randomization()
-    _run_server(options)
+
+    filename = os.path.expanduser('~/jawanndenn.pickle')
+
+    try:
+        _db.load(filename)
+    except IOError as e:
+        if e.errno != errno.ENOENT:
+            raise
+        _db.save(filename)  # catch saving trouble early
+
+    try:
+        _run_server(options)
+    finally:
+        _db.save(filename)
 
 
 main()
