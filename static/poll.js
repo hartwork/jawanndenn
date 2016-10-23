@@ -78,10 +78,14 @@ var _addSummaryRow = function(table, options, votesPerOption) {
     var tr = table.child( tag('tr') );
     tr.child( tag('td') );
     $.each( options, function( j, option ) {
-        tr.child( tag('td', {
-                class: 'vote',
-                id: 'sum' + j,
-            }) ).child( votesPerOption[j] );
+        var tdAttr = {
+                    class: 'vote',
+                    id: 'sum' + j,
+                }
+        if (votesPerOption[j] > 0) {
+            tdAttr.class += ' sumNonZero';
+        }
+        tr.child( tag('td', tdAttr) ).child( votesPerOption[j] );
     })
     tr.child( tag('td') );
 }
@@ -122,7 +126,17 @@ var onClickCheckBox = function(checkbox) {
     var diff = checkbox.checked ? +1 : -1;
     var sumTdId = checkbox.id.replace( /^option/, 'sum' );
     var sumTd = $( '#pollTable tr td#' + sumTdId );
-    sumTd.html( parseInt(sumTd.html()) + diff );
+    var oldSum = parseInt(sumTd.html());
+    var newSum = oldSum + diff;
+
+    sumTd.html( newSum );
+    if ( oldSum == 0 || newSum == 0 ) {
+        if ( newSum == 0 ) {
+            sumTd.removeClass( 'sumNonZero' );
+        } else {
+            sumTd.addClass( 'sumNonZero' );
+        }
+    }
 }
 
 var onChangeVoterName = function(inputElem) {

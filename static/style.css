@@ -25,6 +25,10 @@ body {
     text-align: center;
 }
 
+.sumNonZero {
+    font-weight: bold;
+}
+
 #setup {
     width: 400px;
     float: left;
