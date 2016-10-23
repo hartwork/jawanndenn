@@ -80,6 +80,7 @@ def vote(poll_id):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', default=8080, type=int)
     options = parser.parse_args()
 
@@ -92,7 +93,7 @@ def main():
     if options.debug:
         bottle.debug(True)
 
-    bottle.run(port=options.port)
+    bottle.run(host=options.host, port=options.port)
 
 
 main()
