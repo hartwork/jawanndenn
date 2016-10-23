@@ -82,6 +82,7 @@ def main():
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', default=8080, type=int)
+    parser.add_argument('--server', default='paste')
     options = parser.parse_args()
 
     if not sys.flags.hash_randomization:
@@ -93,7 +94,17 @@ def main():
     if options.debug:
         bottle.debug(True)
 
-    bottle.run(host=options.host, port=options.port)
+    try:
+        bottle.run(
+                host=options.host,
+                port=options.port,
+                server=options.server,
+                )
+    except ImportError:
+        print('ERROR: WSGI server "%s" does not seem to be available.'
+                % options.server,
+                file=sys.stderr)
+        sys.exit(2)
 
 
 main()
