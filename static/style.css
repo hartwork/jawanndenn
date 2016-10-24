@@ -10,7 +10,7 @@ body {
 #poll {
     display: inline-block;
     background-color: #fff;
-    padding: 10px;
+    padding: 0px;
 
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -78,10 +78,17 @@ body {
 
 table#pollTable {
     border-spacing: 0px;
+    margin: 10px;
 }
 
 .question {
     text-align: center;
+
+    background-color: #fed;
+    border-top: 1px solid #edc;
+    border-bottom: 1px solid #edc;
+
+    margin-bottom: 14px;
 }
 
 .centered {
