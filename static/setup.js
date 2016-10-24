@@ -18,7 +18,7 @@ var createExampleVotes = function(options) {
 }
 
 var exampleConfigJson = JSON.stringify( {
-        title: 'Which fruits do <em>you</em> like?',
+        title: 'Which fruit do <em>you</em> like?',
         options: exampleOptions
         }, null, '  ' );
 
