@@ -1,6 +1,8 @@
 /* Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 ** Licensed under GPL v3 or later
 */
+var INPLACE_LABEL_CLASS = 'inplace-label';
+
 var _addHeaderRow = function(table, options) {
     var tr = table.child( tag('tr') );
     tr.child( tag('td') );
@@ -51,6 +53,7 @@ var _addCurrentPersonRow = function(table, options) {
                 name: 'voterName',
                 type: 'text',
                 class: 'person',
+                title: 'Your name',
                 // NOTE: onchange fires "too late"
                 onkeydown: 'onChangeVoterName(this);',
             }));
@@ -111,6 +114,25 @@ var createPollHtml = function(config, votes) {
     _addSummaryRow(table, config.options, votesPerOption);
 
     return toHtml( div );
+}
+
+var makeTextInputShowTitle = function(textInput) {
+    textInput.val( textInput.attr('title') );
+    textInput.addClass( INPLACE_LABEL_CLASS );
+
+    textInput.focus( function() {
+        if (textInput.val() == textInput.attr('title')) {
+            textInput.val('');
+            textInput.removeClass( INPLACE_LABEL_CLASS );
+        }
+    });
+
+    textInput.blur( function() {
+        if (textInput.val() == '') {
+            textInput.val( textInput.attr('title') );
+            textInput.addClass( INPLACE_LABEL_CLASS );
+        }
+    });
 }
 
 var enableButton = function(selector, enabled) {

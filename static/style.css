@@ -97,3 +97,8 @@ table#pollTable {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+input.inplace-label {
+    color: #aaa;
+    font-weight: bold;
+}

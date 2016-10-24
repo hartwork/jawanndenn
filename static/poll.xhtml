@@ -19,7 +19,7 @@ Licensed under GPL v3 or later
                 $.get( '/data/' + pollId, function(data) {
                     $( '#poll' ).html( createPollHtml( data.config, data.votes ) );
                     $( '#pollForm' ).attr('action', "/vote/" + pollId);
-                    $( '#voterName' ).focus();
+                    makeTextInputShowTitle( $( '#voterName' ) );
                 }, 'json')
                 .fail(function() {
                     var html = 'Error: Poll data could not be loaded.';
