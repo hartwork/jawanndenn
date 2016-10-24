@@ -3,6 +3,11 @@
 */
 var INPLACE_LABEL_CLASS = 'inplace-label';
 
+var Mode = {
+    PREVIEW: true,
+    LIVE: false,
+}
+
 var _addHeaderRow = function(table, options) {
     var tr = table.child( tag('tr') );
     tr.child( tag('td') );
@@ -46,17 +51,21 @@ var _addExistingVoteRows = function(table, options, votes) {
     return votesPerOption;
 }
 
-var _addCurrentPersonRow = function(table, options) {
+var _addCurrentPersonRow = function(table, options, previewMode) {
     var tr = table.child( tag('tr') );
-    tr.child( tag('td') ).child( tag('input', {
+    var inputAttr = {
                 id: 'voterName',
                 name: 'voterName',
                 type: 'text',
                 class: 'person',
-                title: 'Your name',
-                // NOTE: onchange fires "too late"
-                onkeydown: 'onChangeVoterName(this);',
-            }));
+                title: 'Your name'
+            };
+    if (! previewMode) {
+        // NOTE: onchange fires "too late"
+        inputAttr.onkeydown = 'onChangeVoterName(this);';
+    }
+    tr.child( tag('td') ).child( tag('input', inputAttr) );
+
     $.each( options, function( j, option ) {
         var checkbox = tag('input', {
                     type: 'checkbox',
@@ -94,7 +103,7 @@ var _addSummaryRow = function(table, options, votesPerOption) {
 }
 
 
-var createPollHtml = function(config, votes) {
+var createPollHtml = function(config, votes, previewMode) {
     var div = tag('div');
     div.child( tag('h2', {
                 class: 'question'
@@ -110,7 +119,7 @@ var createPollHtml = function(config, votes) {
 
     _addHeaderRow(table, config.options);
     var votesPerOption = _addExistingVoteRows(table, config.options, votes);
-    _addCurrentPersonRow(table, config.options);
+    _addCurrentPersonRow(table, config.options, previewMode);
     _addSummaryRow(table, config.options, votesPerOption);
 
     return toHtml( div );

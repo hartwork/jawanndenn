@@ -17,7 +17,7 @@ Licensed under GPL v3 or later
             $( document ).ready(function() {
                 var pollId = /[0-9a-fA-F]{64}/.exec(window.location.pathname)[0]
                 $.get( '/data/' + pollId, function(data) {
-                    $( '#poll' ).html( createPollHtml( data.config, data.votes ) );
+                    $( '#poll' ).html( createPollHtml( data.config, data.votes, Mode.LIVE ) );
                     $( '#pollForm' ).attr('action', "/vote/" + pollId);
                     makeTextInputShowTitle( $( '#voterName' ) );
                 }, 'json')

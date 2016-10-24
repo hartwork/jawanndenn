@@ -61,7 +61,8 @@ var sync = function() {
         if (configJsonNormalized != prevConfigJson) {
             prevConfigJson = configJsonNormalized;
             $( "#poll" ).html( createPollHtml( config,
-                    createExampleVotes( config.options ) ) );
+                    createExampleVotes( config.options ),
+                    Mode.PREVIEW ) );
             makeTextInputShowTitle( $( "#voterName" ) );
         }
     }
