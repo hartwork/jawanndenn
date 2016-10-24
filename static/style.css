@@ -11,6 +11,11 @@ body {
     display: inline-block;
     background-color: #fff;
     padding: 10px;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border:4px solid #bbb;
 }
 
 .optionLabel {
