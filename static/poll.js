@@ -2,6 +2,11 @@
 ** Licensed under GPL v3 or later
 */
 var INPLACE_LABEL_CLASS = 'inplace-label';
+var VOTED_YES_CLASS = 'votedYes';
+var VOTED_NO_CLASS = 'votedNo';
+
+var _UNICODE_HEAVY_CHECK_MARK = '\u2714';
+var _UNICODE_HEAVY_BALLOT_X = '\u2718';
 
 var Mode = {
     PREVIEW: true,
@@ -33,18 +38,21 @@ var _addExistingVoteRows = function(table, options, votes) {
                     class: 'person',
                 }) ).child( person );
         $.each( options, function( j, option ) {
-            var checkBoxAttr = {
-                        type: 'checkbox',
-                        disabled: 'disabled',
-                    };
+            var tdClass = 'vote';
             if (votes[j]) {
-                checkBoxAttr.checked = true;
                 votesPerOption[j] = (votesPerOption[j] + 1);
+
+                tdClass += ' ' + VOTED_YES_CLASS;
+                spanBody = _UNICODE_HEAVY_CHECK_MARK;
+            } else {
+                tdClass += ' ' + VOTED_NO_CLASS;
+                spanBody = _UNICODE_HEAVY_BALLOT_X;
             }
-            var checkbox = tag('input', checkBoxAttr);
             tr.child( tag('td', {
-                        class: 'vote',
-                    }) ).child( checkbox );
+                        class: tdClass,
+                    }) )
+                    .child( tag('span') )
+                    .child( spanBody );
         })
         tr.child( tag('td') );
     })

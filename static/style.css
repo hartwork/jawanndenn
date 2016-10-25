@@ -74,10 +74,11 @@ body {
 
 .person {
     text-align: right;
+    padding-right: 4px;
 }
 
 table#pollTable {
-    border-spacing: 0px;
+    border-spacing: 2px;
     margin: 10px;
 }
 
@@ -101,4 +102,11 @@ table#pollTable {
 input.inplace-label {
     color: #aaa;
     font-weight: bold;
+}
+
+.votedYes {
+    background-color: #dfd;
+}
+.votedNo {
+    background-color: #fdd;
 }
