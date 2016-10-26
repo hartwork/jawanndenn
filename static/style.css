@@ -30,6 +30,7 @@ body {
 
 .vote {
     text-align: center;
+    height: 26px;
 }
 
 .sumNonZero {
