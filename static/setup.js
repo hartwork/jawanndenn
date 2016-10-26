@@ -29,16 +29,6 @@ var resetConfig = function() {
 var prevConfigJson = '';
 var prevWellformed = null;
 
-var _addRemoveGoodBad = function(selector, goodClass, badClass, good) {
-    if (good) {
-        selector.addClass( goodClass );
-        selector.removeClass( badClass );
-    } else {
-        selector.addClass( badClass );
-        selector.removeClass( goodClass );
-    }
-}
-
 var sync = function() {
     var configJson = $( '#config' ).val();
 
@@ -50,7 +40,7 @@ var sync = function() {
     }
 
     if (wellformed != prevWellformed) {
-        _addRemoveGoodBad( $( "#config" ),
+        addRemoveGoodBad( $( "#config" ),
                 'wellformed', 'malformed', wellformed );
         enableButton( $('#createButton'), wellformed );
         prevWellformed = wellformed;

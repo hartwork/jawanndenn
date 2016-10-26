@@ -13,6 +13,17 @@ var Mode = {
     LIVE: false,
 }
 
+// also used by setup.js
+var addRemoveGoodBad = function(selector, goodClass, badClass, good) {
+    if (good) {
+        selector.addClass( goodClass );
+        selector.removeClass( badClass );
+    } else {
+        selector.addClass( badClass );
+        selector.removeClass( goodClass );
+    }
+}
+
 var _addHeaderRow = function(table, options) {
     var tr = table.child( tag('tr') );
     tr.child( tag('td') );
