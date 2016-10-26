@@ -18,13 +18,34 @@ var createExampleVotes = function(options) {
 }
 
 var exampleConfigJson = JSON.stringify( {
-        title: 'Which fruit do <em>you</em> like?',
+        title: 'Which fruit do *you* like?',
         options: exampleOptions
         }, null, '  ' );
 
 var resetConfig = function() {
     $('#config').val( exampleConfigJson );
 }
+
+// Excapes HTML and renders subset of markdown
+var textToSafeHtml = function(text) {
+    return text
+            .replace( /&/g, '&amp;' )
+            .replace( /</g, '&lt;' )
+            .replace( />/g, '&gt;' )
+            .replace( /\*\*([^*]+)\*\*/g, '<strong>$1</strong>' )
+            .replace( /\*([^*]+)\*/g, '<em>$1</em>' )
+            .replace( /__([^_]+)__/g, '<strong>$1</strong>' )
+            .replace( /_([^_]+)_/g, '<em>$1</em>' )
+            .replace( /`([^`]+)`/g, '<tt>$1</tt>' )
+            ;
+};
+
+var processConfig = function(config) {
+    return {
+        title: textToSafeHtml( config.title ),
+        options: $.map( config.options, textToSafeHtml )
+    };
+};
 
 var prevConfigJson = '';
 var prevWellformed = null;
@@ -50,6 +71,9 @@ var sync = function() {
         var configJsonNormalized = JSON.stringify( config );
         if (configJsonNormalized != prevConfigJson) {
             prevConfigJson = configJsonNormalized;
+
+            config = processConfig( config );
+
             $( "#poll" ).html( createPollHtml( config,
                     createExampleVotes( config.options ),
                     Mode.PREVIEW ) );
