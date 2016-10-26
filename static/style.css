@@ -111,3 +111,6 @@ input.inplace-label {
 .votedNo {
     background-color: #fdd;
 }
+.yetToVote {
+    background-color: #eee;
+}

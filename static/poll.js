@@ -4,6 +4,7 @@
 var INPLACE_LABEL_CLASS = 'inplace-label';
 var VOTED_YES_CLASS = 'votedYes';
 var VOTED_NO_CLASS = 'votedNo';
+var YET_TO_VOTE_CLASS = 'yetToVote';
 
 var _UNICODE_HEAVY_CHECK_MARK = '\u2714';
 var _UNICODE_HEAVY_BALLOT_X = '\u2718';
@@ -93,7 +94,8 @@ var _addCurrentPersonRow = function(table, options, previewMode) {
                     onclick: 'onClickCheckBox(this);'
                 });
         tr.child( tag('td', {
-                class: 'vote',
+                id: 'optionTd' + j,
+                class: 'vote ' + YET_TO_VOTE_CLASS,
             })).child( checkbox );
     })
     var toolsTd = tr.child( tag('td') );
@@ -192,6 +194,12 @@ var onClickCheckBox = function(checkbox) {
             sumTd.addClass( 'sumNonZero' );
         }
     }
+
+    var optionTdId = checkbox.id.replace( /^option/, 'optionTd' );
+    var optionTd = $( '#pollTable tr td#' + optionTdId );
+    optionTd.removeClass( YET_TO_VOTE_CLASS );
+    addRemoveGoodBad( optionTd, VOTED_YES_CLASS, VOTED_NO_CLASS,
+            checkbox.checked );
 }
 
 var onChangeVoterName = function(inputElem) {
