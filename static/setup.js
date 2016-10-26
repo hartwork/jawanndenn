@@ -28,6 +28,7 @@ var resetConfig = function() {
 
 // Excapes HTML and renders subset of markdown
 var textToSafeHtml = function(text) {
+    // KEEP IN SYNC with python server side!
     return text
             .replace( /&/g, '&amp;' )
             .replace( /</g, '&lt;' )

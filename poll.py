@@ -8,6 +8,8 @@ import os
 
 from threading import Lock
 
+from markup import safe_html
+
 
 _MAX_POLLS = 100
 _MAX_VOTERS_PER_POLL = 40
@@ -53,7 +55,10 @@ class _Poll(object):
                 or _KEY_TITLE not in config:
             raise ValueError('Malformed configuration: %s' % config)
 
-        poll.config = config
+        poll.config = {
+            _KEY_TITLE: safe_html(config[_KEY_TITLE]),
+            _KEY_OPTIONS: map(safe_html, config[_KEY_OPTIONS]),
+        }
         return poll
 
     @property
