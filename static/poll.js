@@ -80,6 +80,7 @@ var _addCurrentPersonRow = function(table, options, previewMode) {
                 placeholder: 'Your name'
             };
     if (! previewMode) {
+        inputAttr.autofocus = 'autofocus';
         // NOTE: onchange fires "too late"
         inputAttr.onkeydown = 'onChangeVoterName(this);';
     }
