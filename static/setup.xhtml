@@ -9,21 +9,28 @@ Licensed under GPL v3 or later
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" />
         <script src="https://cdn.rawgit.com/needim/noty/master/js/noty/packaged/jquery.noty.packaged.min.js" />
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js" />
+
         <script type="text/javascript" src="../static/html.js" />
         <script type="text/javascript" src="../static/poll.js" />
         <script type="text/javascript" src="../static/setup.js" />
         <link rel="stylesheet" type="text/css" href="../static/style.css" />
     </head>
     <body>
-        <div id='stage' class='centered'>
+        <div id='stage'>
             <div id='setup'>
-                <label for='config'>Setup</label>
-                <textarea id='config'></textarea>
-                <button id='renderButton' onclick="resetConfig();">Reset</button>
-                <button id='createButton' onclick="createPoll();" disabled="disabled">Create</button>
+                <div class="card-panel">
+                    <div class="input-field">
+                        <textarea id="config" class="materialize-textarea"></textarea>
+                        <label for="config">Setup (JSON)</label>
+                    </div>
+                    <button id='createButton' onclick="createPoll();" class="waves-effect waves-light btn" disabled="disabled">Create</button>
+                    <button id='renderButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
+                </div>
             </div>
+
             <div id='preview'>
-                <label for='poll'>Preview</label>
                 <div id='poll' />
             </div>
         </div>

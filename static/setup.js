@@ -78,7 +78,6 @@ var sync = function() {
             $( "#poll" ).html( createPollHtml( config,
                     createExampleVotes( config.options ),
                     Mode.PREVIEW ) );
-            makeTextInputShowTitle( $( "#voterName" ) );
         }
     }
 }

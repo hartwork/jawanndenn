@@ -1,7 +1,6 @@
 /* Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 ** Licensed under GPL v3 or later
 */
-var INPLACE_LABEL_CLASS = 'inplace-label';
 var VOTED_YES_CLASS = 'votedYes';
 var VOTED_NO_CLASS = 'votedNo';
 var YET_TO_VOTE_CLASS = 'yetToVote';
@@ -78,31 +77,39 @@ var _addCurrentPersonRow = function(table, options, previewMode) {
                 name: 'voterName',
                 type: 'text',
                 class: 'person',
-                title: 'Your name'
+                placeholder: 'Your name'
             };
     if (! previewMode) {
         // NOTE: onchange fires "too late"
         inputAttr.onkeydown = 'onChangeVoterName(this);';
     }
-    tr.child( tag('td') ).child( tag('input', inputAttr) );
+    tr.child( tag('td', {
+                class: 'person'
+            }) ).child( tag('input', inputAttr) );
 
     $.each( options, function( j, option ) {
         var checkbox = tag('input', {
                     type: 'checkbox',
                     id: 'option' + j,
                     name: 'option' + j,
+                    class: 'filled-in',
                     onclick: 'onClickCheckBox(this);'
                 });
-        tr.child( tag('td', {
+        var td = tr.child( tag('td', {
                 id: 'optionTd' + j,
                 class: 'vote ' + YET_TO_VOTE_CLASS,
-            })).child( checkbox );
+            }))
+        td.child( checkbox );
+        td.child( tag('label', {
+                'for': 'option' + j
+                }));
     })
     var toolsTd = tr.child( tag('td') );
     toolsTd.child( tag('input', {
                 id: 'submitVote',
                 type: 'submit',
                 disabled: 'disabled',
+                class: 'waves-effect waves-light btn',
                 value: 'Save',
             }));
 }
@@ -125,7 +132,9 @@ var _addSummaryRow = function(table, options, votesPerOption) {
 
 
 var createPollHtml = function(config, votes, previewMode) {
-    var div = tag('div');
+    var div = tag('div', {
+                class: 'card-panel'
+            });
     div.child( tag('h2', {
                 class: 'question'
             }) ).child( config.title );
@@ -144,25 +153,6 @@ var createPollHtml = function(config, votes, previewMode) {
     _addSummaryRow(table, config.options, votesPerOption);
 
     return toHtml( div );
-}
-
-var makeTextInputShowTitle = function(textInput) {
-    textInput.val( textInput.attr('title') );
-    textInput.addClass( INPLACE_LABEL_CLASS );
-
-    textInput.focus( function() {
-        if (textInput.val() == textInput.attr('title')) {
-            textInput.val('');
-            textInput.removeClass( INPLACE_LABEL_CLASS );
-        }
-    });
-
-    textInput.blur( function() {
-        if (textInput.val() == '') {
-            textInput.val( textInput.attr('title') );
-            textInput.addClass( INPLACE_LABEL_CLASS );
-        }
-    });
 }
 
 var enableButton = function(selector, enabled) {

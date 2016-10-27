@@ -4,28 +4,19 @@
 body {
     margin: 0px;
     padding: 10px;
-    background-color: #aaa;
-}
-
-#poll {
-    display: inline-block;
-    background-color: #fff;
-    padding: 0px;
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    border:4px solid #bbb;
+    background-color: #fcfcfc;
 }
 
 .optionLabel {
     text-align: center;
-    padding-left: 3px;
-    padding-right: 3px;
 }
 
-.person {
+td.person {
     text-align: right;
+    padding-right: 0.3em !important;
+}
+#voterName {
+    margin-bottom: 0 !important;
 }
 
 .vote {
@@ -37,8 +28,22 @@ body {
     font-weight: bold;
 }
 
+#live {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    top: 10%;
+    bottom: 0;
+}
+
 #stage {
     display: inline-block;
+
+    position: fixed;
+    left: 10%;
+    width: 80%;
+    top: 10%;
+    bottom: 0;
 }
 
 #stage div label {
@@ -46,64 +51,70 @@ body {
 }
 
 #setup {
-    width: 400px;
-    float: left;
-    padding: 0px;
-    margin: 10px;
+    display: inline-block;
+
+    width: 30%;
+    height: 70%;
 }
+
+#setup > div.card-panel {
+    height: 100%;
+}
+
+#setup > div.card-panel > div.input-field {
+    display: inline-block;
+
+    width: 100%;
+    height: -webkit-calc(100% - 7.3em);
+    height:    -moz-calc(100% - 7.3em);
+    height:         calc(100% - 7.3em);
+}
+
 #preview {
-    margin: 10px;
-    float: right;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 32%;
+    max-width: 68%;
 }
 
 #config {
-    width: 100%;
-    height: 300px;
-    margin: 0px;
+    height: 100%;
 }
 
-#createButton, #renderButton {
+#renderButton {
+    margin-right: 0.5em;
+    float: right;
+}
+#createButton {
     float: right;
 }
 
 .wellformed {
-    background-color: #efe;
+    background-color: #efe !important;
 }
 
 .malformed {
-    background-color: #fee;
+    background-color: #fee !important;
 }
 
-.person {
-    text-align: right;
-    padding-right: 4px;
-}
-
-table#pollTable {
+#pollTable {
     border-spacing: 2px;
+    border-collapse: separate;
     margin: 10px;
+}
+
+#pollTable tr {
+    padding: 0px 0px;
+    margin: 0px;
+}
+#pollTable tr td {
+    padding: 0px 0px;
+    margin: 0px;
 }
 
 .question {
     text-align: center;
-
-    background-color: #fed;
-    border-top: 1px solid #edc;
-    border-bottom: 1px solid #edc;
-
-    margin-bottom: 14px;
-}
-
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-input.inplace-label {
-    color: #aaa;
-    font-weight: bold;
 }
 
 .votedYes {
@@ -113,5 +124,16 @@ input.inplace-label {
     background-color: #fdd;
 }
 .yetToVote {
-    background-color: #eee;
+    background-color: #dfdfdf;
+}
+
+[type="checkbox"]+label {
+    display: inline-block !important;
+    margin-top: 0.85em;
+    padding: 0 !important;
+    width: 1.3em;
+}
+
+#submitVote {
+    margin-left: 1em;
 }
