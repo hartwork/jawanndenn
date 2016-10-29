@@ -137,3 +137,29 @@ td.person {
 #submitVote {
     margin-left: 1em;
 }
+
+tt, .monospace-text {
+    font-family:
+        /* Android */
+        Noto Mono, Roboto Mono, Droid Sans Mono,
+
+        /* Linux and friends */
+        Liberation Mono,
+            DejaVu Sans Mono, Bitstream Vera Sans Mono,
+            Linux Libertine Mono O,
+            Nimbus Mono L,
+            CMU Typewriter Text,
+            Source Code Pro,
+
+        /* macOS */
+        Consolas,
+
+        /* Windows */
+        Monaco, Lucida Console,
+
+        /* Core fonts */
+        Andale Mono, Courier New,
+
+        /* fallback */
+        monospace;
+}
