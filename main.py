@@ -39,7 +39,8 @@ def static(path):
 
 @bottle.get('/')
 def index():
-    bottle.redirect('%s/%s' % (_STATIC_HOME_REMOTE, 'setup.xhtml'))
+    bottle.response.content_type = 'application/xhtml+xml'
+    return bottle.static_file('setup.xhtml', root=_STATIC_HOME_LOCAL)
 
 
 @bottle.post('/create')
