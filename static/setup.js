@@ -82,28 +82,6 @@ var sync = function() {
     }
 }
 
-var createPoll = function() {
-    var configJson = $( '#config' ).val();
-
-    $.post( "/create", configJson, function(data) {
-        var html = 'Success: <a href="/poll/' + data.pollId + '">'
-                + 'Your poll</a> has been created.';
-        noty({text: html, timeout: false, closeWith: 'button', buttons: [
-                    {
-                        addClass: 'btn btn-primary',
-                        text: 'Ok',
-                        onClick: function($noty) {
-                            $noty.close();
-                        }
-                    }
-                ]});
-    }, 'json')
-    .fail(function() {
-        var html = 'Error: Poll creation failed.';
-        noty({text: html, type: 'error', timeout: 1000});
-    });
-}
-
 $( document ).ready(function() {
     resetConfig();
     sync();

@@ -7,7 +7,6 @@ Licensed under GPL v3 or later
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" />
-        <script src="https://cdn.rawgit.com/needim/noty/master/js/noty/packaged/jquery.noty.packaged.min.js" />
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js" />
@@ -21,12 +20,14 @@ Licensed under GPL v3 or later
         <div id='stage'>
             <div id='setup'>
                 <div class="card-panel">
-                    <div class="input-field">
-                        <textarea id="config" class="materialize-textarea monospace-text"></textarea>
-                        <label for="config">Setup (JSON)</label>
-                    </div>
-                    <button id='createButton' onclick="createPoll();" class="waves-effect waves-light btn" disabled="disabled">Create</button>
-                    <button id='resetButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
+                    <form id='setupForm' action="/create" method="POST">
+                        <div class="input-field">
+                            <textarea id="config" name="config" class="materialize-textarea monospace-text"></textarea>
+                            <label for="config">Setup (JSON)</label>
+                        </div>
+                        <button id='createButton' onclick="$( '#setupForm' ).submit();" class="waves-effect waves-light btn" disabled="disabled">Create</button>
+                        <button id='resetButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
+                    </form>
                 </div>
             </div>
 

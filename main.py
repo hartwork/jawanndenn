@@ -45,11 +45,9 @@ def index():
 
 @bottle.post('/create')
 def create():
-    config = json.loads(bottle.request.body.read())
+    config = json.loads(bottle.request.forms['config'])
     poll_id = _db.add(config)
-    return _to_json({
-                'pollId': poll_id,
-            })
+    bottle.redirect('/poll/%s' % poll_id)
 
 
 @bottle.get('/poll/<poll_id>')

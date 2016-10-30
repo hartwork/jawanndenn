@@ -57,11 +57,15 @@ td.person {
     height: 70%;
 }
 
-#setup > div.card-panel {
+#setup .card-panel {
     height: 100%;
 }
 
-#setup > div.card-panel > div.input-field {
+#setup .card-panel form {
+    height: 100%;
+}
+
+#setup .card-panel .input-field {
     display: inline-block;
 
     width: 100%;
