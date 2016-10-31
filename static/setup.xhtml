@@ -18,6 +18,9 @@ Licensed under GPL v3 or later
     </head>
     <body>
         <div id='stage'>
+            <div id='preview'>
+                <div id='poll' />
+            </div>
             <div id='setup'>
                 <div class="card-panel">
                     <form id='setupForm' action="/create" method="POST">
@@ -29,10 +32,6 @@ Licensed under GPL v3 or later
                         <button type="button" id='resetButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
                     </form>
                 </div>
-            </div>
-
-            <div id='preview'>
-                <div id='poll' />
             </div>
         </div>
     </body>

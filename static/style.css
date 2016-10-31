@@ -28,22 +28,39 @@ td.person {
     font-weight: bold;
 }
 
-#live {
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%);
-    top: 10%;
-    bottom: 0;
+@media screen and (max-width:767px) {
+    #live {
+        position: absolute;
+        top: 2%;
+    }
+}
+@media screen and (min-width:768px) {
+    #live {
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%);
+        top: 10%;
+        bottom: 0;
+    }
 }
 
 #stage {
     display: inline-block;
 
-    position: fixed;
-    left: 10%;
-    width: 80%;
-    top: 10%;
-    bottom: 0;
+}
+@media screen and (max-width:767px) {
+    #stage {
+        width: 100%;
+    }
+}
+@media screen and (min-width:768px) {
+    #stage {
+        position: fixed;
+        left: 10%;
+        width: 80%;
+        top: 10%;
+        bottom: 0;
+    }
 }
 
 #stage div label {
@@ -52,9 +69,18 @@ td.person {
 
 #setup {
     display: inline-block;
-
-    width: 30%;
-    height: 70%;
+}
+@media screen and (max-width:767px) {
+    #setup {
+        width: 100%;
+        height: 24em;
+    }
+}
+@media screen and (min-width:768px) {
+    #setup {
+        width: 30%;
+        height: 70%;
+    }
 }
 
 #setup .card-panel {
@@ -74,12 +100,20 @@ td.person {
     height:         calc(100% - 7.3em);
 }
 
-#preview {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 32%;
-    max-width: 68%;
+@media screen and (max-width:767px) {
+    #preview {
+        display: inline-block;
+        width: 100%;
+    }
+}
+@media screen and (min-width:768px) {
+    #preview {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 32%;
+        max-width: 68%;
+    }
 }
 
 #config {
