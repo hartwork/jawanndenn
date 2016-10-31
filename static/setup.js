@@ -8,7 +8,7 @@ var createExampleVotes = function(options) {
 
     var exampleVotes = [];
     $.each( examplePeople, function( i, person ) {
-        votes = [];
+        var votes = [];
         $.each( options, function() {
             votes.push( Math.random() > 0.5 );
         });
