@@ -11,7 +11,7 @@ var _UNICODE_HEAVY_BALLOT_X = '\u2718';
 var Mode = {
     PREVIEW: true,
     LIVE: false,
-}
+};
 
 // also used by setup.js
 var addRemoveGoodBad = function(selector, goodClass, badClass, good) {
@@ -22,7 +22,7 @@ var addRemoveGoodBad = function(selector, goodClass, badClass, good) {
         selector.addClass( badClass );
         selector.removeClass( goodClass );
     }
-}
+};
 
 var _addHeaderRow = function(table, options) {
     var tr = table.child( tag('tr') );
@@ -31,15 +31,15 @@ var _addHeaderRow = function(table, options) {
         tr.child( tag('td', {
                 class: 'optionLabel'
             }) ).child( option );
-    })
+    });
     tr.child( tag('td') );
-}
+};
 
 var _addExistingVoteRows = function(table, options, votes) {
     var votesPerOption = [];
     $.each( options, function( j, option ) {
         votesPerOption.push( 0 );
-    })
+    });
     $.each( votes, function( i, personVotes ) {
         var person = personVotes[0];
         var votes = personVotes[1];
@@ -64,11 +64,11 @@ var _addExistingVoteRows = function(table, options, votes) {
                     }) )
                     .child( tag('span') )
                     .child( spanBody );
-        })
+        });
         tr.child( tag('td') );
-    })
+    });
     return votesPerOption;
-}
+};
 
 var _addCurrentPersonRow = function(table, options, previewMode) {
     var tr = table.child( tag('tr') );
@@ -99,12 +99,12 @@ var _addCurrentPersonRow = function(table, options, previewMode) {
         var td = tr.child( tag('td', {
                 id: 'optionTd' + j,
                 class: 'vote ' + YET_TO_VOTE_CLASS,
-            }))
+            }));
         td.child( checkbox );
         td.child( tag('label', {
                 'for': 'option' + j
                 }));
-    })
+    });
     var toolsTd = tr.child( tag('td') );
     toolsTd.child( tag('input', {
                 id: 'submitVote',
@@ -113,7 +113,7 @@ var _addCurrentPersonRow = function(table, options, previewMode) {
                 class: 'waves-effect waves-light btn',
                 value: 'Save',
             }));
-}
+};
 
 var _addSummaryRow = function(table, options, votesPerOption) {
     var tr = table.child( tag('tr') );
@@ -122,15 +122,14 @@ var _addSummaryRow = function(table, options, votesPerOption) {
         var tdAttr = {
                     class: 'vote',
                     id: 'sum' + j,
-                }
+                };
         if (votesPerOption[j] > 0) {
             tdAttr.class += ' sumNonZero';
         }
         tr.child( tag('td', tdAttr) ).child( votesPerOption[j] );
-    })
+    });
     tr.child( tag('td') );
-}
-
+};
 
 var createPollHtml = function(config, votes, previewMode) {
     var div = tag('div', {
@@ -154,7 +153,7 @@ var createPollHtml = function(config, votes, previewMode) {
     _addSummaryRow(table, config.options, votesPerOption);
 
     return toHtml( div );
-}
+};
 
 var enableButton = function(selector, enabled) {
     if (enabled) {
@@ -162,13 +161,13 @@ var enableButton = function(selector, enabled) {
     } else {
         selector.attr('disabled', 'disabled');
     }
-}
+};
 
 var syncSaveButton = function() {
     var good = ($( '#voterName' ).val().length > 0);
-    var saveButton = $( '#submitVote' )
+    var saveButton = $( '#submitVote' );
     enableButton(saveButton, good);
-}
+};
 
 var onClickCheckBox = function(checkbox) {
     var diff = checkbox.checked ? +1 : -1;
@@ -178,8 +177,8 @@ var onClickCheckBox = function(checkbox) {
     var newSum = oldSum + diff;
 
     sumTd.html( newSum );
-    if ( oldSum == 0 || newSum == 0 ) {
-        if ( newSum == 0 ) {
+    if ( oldSum === 0 || newSum === 0 ) {
+        if ( newSum === 0 ) {
             sumTd.removeClass( 'sumNonZero' );
         } else {
             sumTd.addClass( 'sumNonZero' );
@@ -191,10 +190,10 @@ var onClickCheckBox = function(checkbox) {
     optionTd.removeClass( YET_TO_VOTE_CLASS );
     addRemoveGoodBad( optionTd, VOTED_YES_CLASS, VOTED_NO_CLASS,
             checkbox.checked );
-}
+};
 
 var onChangeVoterName = function(inputElem) {
     // Without delay we still get the old value
     // on access in Chromium.
     setTimeout( syncSaveButton, 1 );
-}
+};

@@ -8,14 +8,14 @@ var createExampleVotes = function(options) {
 
     var exampleVotes = [];
     $.each( examplePeople, function( i, person ) {
-        votes = []
+        votes = [];
         $.each( options, function() {
             votes.push( Math.random() > 0.5 );
-        })
+        });
         exampleVotes.push( [person, votes] );
-    })
+    });
     return exampleVotes;
-}
+};
 
 var exampleConfigJson = JSON.stringify( {
         title: 'Which fruit do *you* like?',
@@ -24,7 +24,7 @@ var exampleConfigJson = JSON.stringify( {
 
 var resetConfig = function() {
     $('#config').val( exampleConfigJson );
-}
+};
 
 // Excapes HTML and renders subset of markdown
 var textToSafeHtml = function(text) {
@@ -55,8 +55,9 @@ var sync = function() {
     var configJson = $( '#config' ).val();
 
     var wellformed = true;
+    var config = null;
     try {
-        var config = jQuery.parseJSON( configJson );
+        config = jQuery.parseJSON( configJson );
     } catch( err ) {
         wellformed = false;
     }
@@ -80,7 +81,7 @@ var sync = function() {
                     Mode.PREVIEW ) );
         }
     }
-}
+};
 
 $( document ).ready(function() {
     resetConfig();

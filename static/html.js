@@ -21,15 +21,19 @@ var writeHtmlChunks = function(node, chunks) {
     } else {
         chunks.push(node);
     }
-}
+};
 
 var toHtml = function(node) {
     chunks = [];
     writeHtmlChunks(node, chunks);
     return chunks.join('');
-}
+};
 
-var tag = function(name, attr={}) {
+var tag = function(name, attr) {
+    if (typeof attr === 'undefined') {
+        attr = {};
+    }
+
     return {
         name: name,
         attr: attr,
@@ -39,5 +43,5 @@ var tag = function(name, attr={}) {
             this.children.push(node);
             return node;
         },
-    }
-}
+    };
+};
