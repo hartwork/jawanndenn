@@ -11,11 +11,18 @@ import os
 import sys
 
 import bottle
+import pkg_resources
 
+from jawanndenn.metadata import APP_NAME
 from jawanndenn.poll import PollDatabase
 
 
-_STATIC_HOME_LOCAL = 'static'
+_STATIC_HOME_LOCAL = os.path.abspath(os.path.normpath(
+        os.path.join(os.path.dirname(__file__), 'static')
+            if os.path.exists(os.path.join(os.path.dirname(__file__),
+                    '..', 'setup.py')) else
+            pkg_resources.resource_filename(APP_NAME, 'static')
+        ))
 _STATIC_HOME_REMOTE = '/static'
 
 
@@ -119,6 +126,8 @@ def main():
     logging.basicConfig(level=logging.DEBUG if options.debug else logging.INFO)
 
     _require_hash_randomization()
+
+    logging.debug('Serving static files from "%s"' % _STATIC_HOME_LOCAL)
 
     filename = os.path.expanduser('~/jawanndenn.pickle')
 
