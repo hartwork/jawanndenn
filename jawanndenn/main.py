@@ -79,10 +79,16 @@ def vote(poll_id):
 
 def _require_hash_randomization():
     if not sys.flags.hash_randomization:
-        print('ERROR: Hash randomization found to be disabled. '
-                'Please re-run using "python -R ..." for security.',
-                file=sys.stderr)
-        sys.exit(2)
+        logging.info('Hash randomization found to be disabled.')
+        if os.environ.get('PYTHONHASHSEED') == 'random':
+            logging.error('Unexpected re-execution loop detected, shutting down.')
+            sys.exit(1)
+
+        logging.info('Re-executing with hash randomization enabled...')
+        env = os.environ.copy()
+        env['PYTHONHASHSEED'] = 'random'
+        argv = [sys.executable] + sys.argv
+        os.execve(argv[0], argv, env)
 
 
 def _run_server(options):
