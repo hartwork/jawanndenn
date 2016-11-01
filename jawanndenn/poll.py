@@ -8,7 +8,7 @@ import os
 
 from threading import Lock
 
-from markup import safe_html
+from jawanndenn.markup import safe_html
 
 
 _MAX_POLLS = 100

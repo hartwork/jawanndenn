@@ -3,7 +3,7 @@
 
 from unittest import TestCase
 
-from markup import safe_html
+from jawanndenn.markup import safe_html
 
 
 class SafeHtmlTest(TestCase):

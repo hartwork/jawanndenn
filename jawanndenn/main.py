@@ -12,7 +12,7 @@ import sys
 
 import bottle
 
-from poll import PollDatabase
+from jawanndenn.poll import PollDatabase
 
 
 _STATIC_HOME_LOCAL = 'static'
@@ -129,4 +129,5 @@ def main():
         _db.save(filename)
 
 
-main()
+if __name__ == '__main__':
+    main()
