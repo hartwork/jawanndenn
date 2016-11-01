@@ -16,6 +16,11 @@ if __name__ == '__main__':
         author_email='sebastian@pipping.org',
         url='https://github.com/hartwork/jawanndenn',
 
+        install_requires=[
+            'bottle',
+            'paste',
+        ],
+
         packages=[
             APP_NAME,
         ],
