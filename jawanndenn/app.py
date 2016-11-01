@@ -1,9 +1,8 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under AGPL v3 or later
 
-from __future__ import print_function
-
 import json
+import logging
 import os
 import sys
 
@@ -12,6 +11,9 @@ import pkg_resources
 
 from jawanndenn.metadata import APP_NAME
 from jawanndenn.poll import PollDatabase
+
+
+_log = logging.getLogger(__name__)
 
 
 STATIC_HOME_LOCAL = os.path.abspath(os.path.normpath(
@@ -92,7 +94,6 @@ def run_server(options):
                 server=options.server,
                 )
     except ImportError:
-        print('ERROR: WSGI server "%s" does not seem to be available.'
-                % options.server,
-                file=sys.stderr)
+        _log.error('WSGI server "%s" does not seem to be available.'
+                % options.server)
         sys.exit(2)

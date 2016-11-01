@@ -8,14 +8,17 @@ import os
 import sys
 
 
+_log = logging.getLogger(__name__)
+
+
 def _require_hash_randomization():
     if not sys.flags.hash_randomization:
-        logging.info('Hash randomization found to be disabled.')
+        _log.info('Hash randomization found to be disabled.')
         if os.environ.get('PYTHONHASHSEED') == 'random':
             logging.error('Unexpected re-execution loop detected, shutting down.')
             sys.exit(1)
 
-        logging.info('Re-executing with hash randomization enabled...')
+        _log.info('Re-executing with hash randomization enabled...')
         env = os.environ.copy()
         env['PYTHONHASHSEED'] = 'random'
         argv = [sys.executable] + sys.argv
@@ -36,7 +39,7 @@ def main():
 
     from jawanndenn.app import db, run_server, STATIC_HOME_LOCAL
 
-    logging.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
+    _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
 
     filename = os.path.expanduser('~/jawanndenn.pickle')
 
