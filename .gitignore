@@ -1,1 +1,4 @@
+/build
+/dist
+/jawanndenn.egg-info
 *.pyc
