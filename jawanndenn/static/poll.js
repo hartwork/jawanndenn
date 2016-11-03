@@ -197,3 +197,21 @@ var onChangeVoterName = function(inputElem) {
     // on access in Chromium.
     setTimeout( syncSaveButton, 1 );
 };
+
+var createFooterHtml = function() {
+    return '\
+        <p>\
+            <span style="font-size: 150%; position: relative; top: 3px;">&#x2605;</span> \
+            <a href="https://github.com/hartwork/jawanndenn/">jawanndenn</a>\
+            is <a href="https://www.gnu.org/philosophy/free-sw.en.html">libre software</a>\
+            developed by <a href="https://blog.hartwork.org/">Sebastian Pipping</a>,\
+            licensed under the <a href="https://www.gnu.org/licenses/agpl.en.html">Affero GPL license</a>.\
+            Please <a href="https://github.com/hartwork/jawanndenn/issues">report bugs</a>\
+            and let me know\
+            if you <a href="mailto:sebastian@pipping.org">like</a> it.\
+        </p>'
+}
+
+$( document ).ready(function() {
+    $( 'footer' ).html( createFooterHtml() );
+});

@@ -3,8 +3,11 @@
 */
 body {
     margin: 0px;
-    padding: 10px;
     background-color: #fcfcfc;
+}
+
+#stage, #live {
+    margin: 10px;
 }
 
 .optionLabel {
@@ -206,4 +209,42 @@ tt, .monospace-text {
 
         /* fallback */
         monospace;
+}
+
+
+footer {
+    margin: 0;
+}
+@media screen and (max-width:767px) {
+    footer {
+        position: absolute;
+        margin-top: 4%;
+        width: 100%;
+    }
+}
+@media screen and (min-width:768px) {
+    footer {
+        z-index: 1;
+        position: fixed;
+        bottom: 0%;
+        left: 0%;
+        right: 0%;
+    }
+}
+footer {
+    background-color: #848484;
+}
+footer * {
+    color: #ccc;
+}
+footer p {
+    margin: 0;
+    text-align: center;
+}
+footer {
+    padding: 6px 20px 24px 20px;
+}
+footer a {
+    color: #ddd;
+    font-weight: bold;
 }
