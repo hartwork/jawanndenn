@@ -11,8 +11,11 @@ from threading import Lock
 from jawanndenn.markup import safe_html
 
 
-_MAX_POLLS = None
-_MAX_VOTERS_PER_POLL = None
+DEFAULT_MAX_POLLS = 100
+DEFAULT_MAX_VOTER_PER_POLL = 40
+
+_MAX_POLLS = DEFAULT_MAX_POLLS
+_MAX_VOTERS_PER_POLL = DEFAULT_MAX_VOTER_PER_POLL
 
 _KEY_OPTIONS = 'options'
 _KEY_TITLE = 'title'

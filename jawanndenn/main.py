@@ -7,6 +7,9 @@ import logging
 import os
 import sys
 
+from jawanndenn.poll import (apply_limits,
+        DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTER_PER_POLL)
+
 
 _BOTTLE_BACKENDS = (
     'cgi',
@@ -66,9 +69,11 @@ def main():
                 )
 
     limits = parser.add_argument_group('limit configuration')
-    limits.add_argument('--max-polls', type=int, default=100, metavar='COUNT',
+    limits.add_argument('--max-polls', type=int, metavar='COUNT',
+            default=DEFAULT_MAX_POLLS,
             help='Maximum number of polls total (default: %(default)s)')
-    limits.add_argument('--max-votes-per-poll', type=int, default=40, metavar='COUNT',
+    limits.add_argument('--max-votes-per-poll', type=int, metavar='COUNT',
+            default=DEFAULT_MAX_VOTER_PER_POLL,
             help='Maximum number of votes per poll (default: %(default)s)')
 
     options = parser.parse_args()
@@ -79,7 +84,6 @@ def main():
 
     # Heavy imports are down here to keep --help fast
     from jawanndenn.app import db, run_server, STATIC_HOME_LOCAL
-    from jawanndenn.poll import apply_limits
 
     apply_limits(
         polls=options.max_polls,
