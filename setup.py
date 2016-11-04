@@ -12,6 +12,9 @@ if __name__ == '__main__':
         name=APP_NAME,
         version=VERSION_STR,
 
+        license='AGPLv3+',
+        description='Libre alternative to Doodle',
+
         author='Sebastian Pipping',
         author_email='sebastian@pipping.org',
         url='https://github.com/hartwork/jawanndenn',
@@ -36,4 +39,16 @@ if __name__ == '__main__':
                 '%s = %s.main:main' % (APP_NAME, APP_NAME),
             ],
         },
+
+        classifiers=[
+            'Development Status :: 4 - Beta',
+            'Framework :: Bottle',
+            'Framework :: Paste',
+            'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
+            'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+            'Programming Language :: JavaScript',
+            'Programming Language :: Python :: 2.7',
+            'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
+            'Topic :: Office/Business :: Scheduling',
+        ]
     )
