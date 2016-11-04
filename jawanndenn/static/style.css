@@ -248,3 +248,9 @@ footer a {
     color: #ddd;
     font-weight: bold;
 }
+footer #github-star-button {
+    position: relative;
+    top: 5px;
+    margin-left: 10px;
+    width: 90px;
+}

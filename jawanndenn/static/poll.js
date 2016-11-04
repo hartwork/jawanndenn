@@ -209,6 +209,9 @@ var createFooterHtml = function() {
             Please <a href="https://github.com/hartwork/jawanndenn/issues">report bugs</a>\
             and let me know\
             if you <a href="mailto:sebastian@pipping.org">like</a> it.\
+            <iframe id="github-star-button"\
+                    src="https://ghbtns.com/github-btn.html?user=hartwork&amp;repo=jawanndenn&amp;type=star&amp;count=true"\
+                    frameborder="0" scrolling="0" width="170px" height="20px" />\
         </p>'
 }
 
