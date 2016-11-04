@@ -64,6 +64,13 @@ def main():
                 % ', '.join(sorted(b for b in _BOTTLE_BACKENDS
                                    if b != _DEFAULT_BACKEND))
                 )
+
+    limits = parser.add_argument_group('limit configuration')
+    limits.add_argument('--max-polls', type=int, default=100, metavar='COUNT',
+            help='Maximum number of polls total (default: %(default)s)')
+    limits.add_argument('--max-votes-per-poll', type=int, default=40, metavar='COUNT',
+            help='Maximum number of votes per poll (default: %(default)s)')
+
     options = parser.parse_args()
 
     logging.basicConfig(level=logging.DEBUG if options.debug else logging.INFO)
@@ -72,6 +79,12 @@ def main():
 
     # Heavy imports are down here to keep --help fast
     from jawanndenn.app import db, run_server, STATIC_HOME_LOCAL
+    from jawanndenn.poll import apply_limits
+
+    apply_limits(
+        polls=options.max_polls,
+        votes_per_poll=options.max_votes_per_poll,
+    )
 
     _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
 

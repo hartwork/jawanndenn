@@ -11,8 +11,8 @@ from threading import Lock
 from jawanndenn.markup import safe_html
 
 
-_MAX_POLLS = 100
-_MAX_VOTERS_PER_POLL = 40
+_MAX_POLLS = None
+_MAX_VOTERS_PER_POLL = None
 
 _KEY_OPTIONS = 'options'
 _KEY_TITLE = 'title'
@@ -29,6 +29,13 @@ _log = logging.getLogger(__name__)
 
 def _get_random_sha256():
     return hashlib.sha256(os.urandom(256 / 8)).hexdigest()
+
+
+def apply_limits(polls, votes_per_poll):
+    global _MAX_POLLS
+    global _MAX_VOTERS_PER_POLL
+    _MAX_POLLS = polls
+    _MAX_VOTERS_PER_POLL = votes_per_poll
 
 
 class _Poll(object):
