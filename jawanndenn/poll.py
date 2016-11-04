@@ -2,6 +2,7 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import cPickle as pickle
+import datetime
 import hashlib
 import logging
 import os
@@ -23,7 +24,7 @@ _KEY_TITLE = 'title'
 _PICKLE_PROTOCOL_VERSION = 2
 
 _PICKLE_CONTENT_VERSION = 1
-_PICKLE_POLL_VERSION = 1
+_PICKLE_POLL_VERSION = 2
 _PICKLE_POLL_DATABASE_VERSION = 1
 
 
@@ -43,10 +44,14 @@ def apply_limits(polls, votes_per_poll):
 
 class _Poll(object):
     def __init__(self):
+        # Version 1
         self.config = []
         self.votes = []
         self._lock = Lock()
         self._version = _PICKLE_POLL_VERSION
+
+        # Version 2 and later
+        self._created_at = datetime.datetime.now()
 
     def __getstate__(self):
         d = self.__dict__.copy()
@@ -56,6 +61,12 @@ class _Poll(object):
     def __setstate__(self, d):
         self.__dict__.update(d)
         self._lock = Lock()
+
+        if d['_version'] == 1:
+            self._version = _PICKLE_POLL_VERSION
+            self._created_at = datetime.datetime.now()
+            _log.debug('Upgraded poll from version 1 to version %d'
+                    % _PICKLE_POLL_VERSION)
 
     @staticmethod
     def from_config(config):
