@@ -70,6 +70,7 @@ def main():
 
     _require_hash_randomization()
 
+    # Heavy imports are down here to keep --help fast
     from jawanndenn.app import db, run_server, STATIC_HOME_LOCAL
 
     _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
