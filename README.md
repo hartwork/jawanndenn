@@ -40,7 +40,7 @@ When installed, invocation is as simple as
 
 During development, you may want to run *jawanndenn* from the Git clone using
 ```
-PYTHONPATH=. python -R jawanndenn/main.py --debug
+# PYTHONPATH=. python jawanndenn/main.py --debug
 ```
 
 Currently supported arguments are:
