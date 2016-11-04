@@ -33,8 +33,8 @@ To install from a Git clone:
 
 # Deployment with Apache mod_wsgi
 
-To use *jawanndenn* with `mod_wsgi`, there is file `jawanndenn.wsgi`
-For how to integrate `jawanndenn.wsgi` with the Apache configuration,
+To use *jawanndenn* with `mod_wsgi`, there is file `jawanndenn/app.wsgi`
+For how to integrate `jawanndenn/app.wsgi` with the Apache configuration,
 please check the
 [the related documentation of bottle](https://bottlepy.org/docs/dev/deployment.html#apache-mod-wsgi).
 

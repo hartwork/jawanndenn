@@ -2,11 +2,12 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import os
-import sys
 
 import bottle
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
+if os.path.exists(os.path.join(os.path.dirname(__file__), '..', 'setup.py')):
+    import sys
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from jawanndenn import app
 app  # mark as used
