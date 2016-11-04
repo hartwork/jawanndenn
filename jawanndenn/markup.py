@@ -1,5 +1,5 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
-# Licensed under AGPL v3 or later
+# Licensed under GNU Affero GPL v3 or later
 
 import re
 

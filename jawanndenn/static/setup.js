@@ -1,5 +1,5 @@
 /* Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
-** Licensed under GPL v3 or later
+** Licensed under GNU GPL v3 or later
 */
 var exampleOptions = ['Apple', 'Banana', 'Orange', 'Papaya'];
 

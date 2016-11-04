@@ -1,5 +1,5 @@
 /* Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
-** Licensed under GPL v3 or later
+** Licensed under GNU GPL v3 or later
 */
 var VOTED_YES_CLASS = 'votedYes';
 var VOTED_NO_CLASS = 'votedNo';
@@ -205,7 +205,7 @@ var createFooterHtml = function() {
             <a href="https://github.com/hartwork/jawanndenn/">jawanndenn</a>\
             is <a href="https://www.gnu.org/philosophy/free-sw.en.html">libre software</a>\
             developed by <a href="https://blog.hartwork.org/">Sebastian Pipping</a>,\
-            licensed under the <a href="https://www.gnu.org/licenses/agpl.en.html">Affero GPL license</a>.\
+            licensed under the <a href="https://www.gnu.org/licenses/agpl.en.html">GNU Affero GPL license</a>.\
             Please <a href="https://github.com/hartwork/jawanndenn/issues">report bugs</a>\
             and let me know\
             if you <a href="mailto:sebastian@pipping.org">like</a> it.\
