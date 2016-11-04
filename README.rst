@@ -4,8 +4,6 @@ What is jawanndenn?
 .. figure:: jawanndenn-setup.png
    :alt: Screenshot of poll creation in jawanndenn
 
-   Screenshot of poll creation in jawanndenn
-
 *jawanndenn* is a simple web application to schedule meetings and run
 polls, a libre alternative to Doodle. It is written in Python and
 JavaScript using
