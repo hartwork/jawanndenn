@@ -46,7 +46,7 @@ def _static(path):
 @bottle.get('/')
 def _index():
     bottle.response.content_type = 'application/xhtml+xml'
-    return bottle.static_file('setup.xhtml', root=STATIC_HOME_LOCAL)
+    return bottle.static_file('html/setup.xhtml', root=STATIC_HOME_LOCAL)
 
 
 @bottle.post('/create')
@@ -60,7 +60,7 @@ def _create():
 def _poll(poll_id):
     poll_id  # mark as used
     bottle.response.content_type = 'application/xhtml+xml'
-    return bottle.static_file('poll.xhtml', root=STATIC_HOME_LOCAL)
+    return bottle.static_file('html/poll.xhtml', root=STATIC_HOME_LOCAL)
 
 
 @bottle.get('/data/<poll_id>')
