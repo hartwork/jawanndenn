@@ -1,6 +1,22 @@
 /* Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 ** Licensed under GNU GPL v3 or later
 */
+var _REPLACEMENTS_IN_ORDER = [
+    ['**', '<strong>', '</strong>'],
+    ['*', '<em>', '</em>'],
+    ['__', '<strong>', '</strong>'],
+    ['_', '<em>', '</em>'],
+    ['`', '<tt>', '</tt>'],
+];
+
+var _CLOSING_OF = {};
+$.each( _REPLACEMENTS_IN_ORDER, function(_, row) {
+    prefix = row[0];
+    closing = row[2];
+
+    _CLOSING_OF[prefix] = closing;
+});
+
 var exampleOptions = ['Apple', 'Banana', 'Orange', 'Papaya'];
 
 var createExampleVotes = function(options) {
@@ -29,16 +45,53 @@ var resetConfig = function() {
 // Excapes HTML and renders subset of markdown
 var textToSafeHtml = function(text) {
     // KEEP IN SYNC with python server side!
-    return text
+    text = text
             .replace( /&/g, '&amp;' )
             .replace( /</g, '&lt;' )
-            .replace( />/g, '&gt;' )
-            .replace( /\*\*([^*]+)\*\*/g, '<strong>$1</strong>' )
-            .replace( /\*([^*]+)\*/g, '<em>$1</em>' )
-            .replace( /__([^_]+)__/g, '<strong>$1</strong>' )
-            .replace( /_([^_]+)_/g, '<em>$1</em>' )
-            .replace( /`([^`]+)`/g, '<tt>$1</tt>' )
-            ;
+            .replace( />/g, '&gt;' );
+
+    chunks = [];
+
+    opened = [];
+    while (text.length) {
+        var matched = false;
+
+        $.each( _REPLACEMENTS_IN_ORDER, function(_, row) {
+            prefix = row[0];
+            opening = row[1];
+            closing = row[2];
+
+            if ( text.startsWith(prefix) ) {
+                if (opened.length && opened[opened.length - 1] == prefix) {
+                    // Close tag
+                    chunks.push( closing );
+                    opened.pop();
+                } else {
+                    // Open tag
+                    chunks.push( opening );
+                    opened.push( prefix );
+                }
+
+                text = text.slice( prefix.length );
+
+                matched = true;
+                return false;
+            }
+        });
+
+        if (! matched) {
+            chunks.push( text[0] );
+            text = text.slice(1);
+        }
+    }
+
+    // Close all unclosed tags
+    opened.reverse();
+    $.each( opened, function(_, prefix) {
+        chunks.push( _CLOSING_OF[prefix] );
+    });
+
+    return chunks.join('');
 };
 
 var processConfig = function(config) {

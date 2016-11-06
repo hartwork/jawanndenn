@@ -1,14 +1,19 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-import re
+_REPLACEMENTS_IN_ORDER = (
+    ('**', '<strong>', '</strong>'),
+    ('*', '<em>', '</em>'),
+    ('__', '<strong>', '</strong>'),
+    ('_', '<em>', '</em>'),
+    ('`', '<tt>', '</tt>'),
+)
 
-
-_star_bold = re.compile('\\*\\*([^*]+)\\*\\*')
-_star_italic = re.compile('\\*([^*]+)\\*')
-_underscore_bold = re.compile('__([^_]+)__')
-_underscore_italic = re.compile('_([^_]+)_')
-_monospace = re.compile('`([^`]+)`')
+_CLOSING_OF = {
+        prefix: closing
+        for prefix, _, closing
+        in _REPLACEMENTS_IN_ORDER
+}
 
 
 def safe_html(text):
@@ -21,13 +26,29 @@ def safe_html(text):
             .replace('<', '&lt;') \
             .replace('>', '&gt;')
 
-    for pattern, replacement in (
-            (_star_bold, '<strong>\\1</strong>'),
-            (_star_italic, '<em>\\1</em>'),
-            (_underscore_bold, '<strong>\\1</strong>'),
-            (_underscore_italic, '<em>\\1</em>'),
-            (_monospace, '<tt>\\1</tt>'),
-            ):
-        text = re.sub(pattern, replacement, text)
+    chunks = []
 
-    return text
+    opened = []
+    while text:
+        for prefix, opening, closing in _REPLACEMENTS_IN_ORDER:
+            if text.startswith(prefix):
+                if opened and opened[-1] == prefix:
+                    # Close tag
+                    chunks.append(closing)
+                    opened.pop()
+                else:
+                    # Open tag
+                    chunks.append(opening)
+                    opened.append(prefix)
+
+                text = text[len(prefix):]
+                break
+        else:
+            chunks.append(text[0])
+            text = text[1:]
+
+    # Close all unclosed tags
+    for prefix in reversed(opened):
+        chunks.append(_CLOSING_OF[prefix])
+
+    return ''.join(chunks)

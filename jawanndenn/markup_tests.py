@@ -49,6 +49,11 @@ class SafeHtmlTest(TestCase):
                 '_*text*_'),
                 '<em><em>text</em></em>')
 
+    def test_bad_nesting(self):
+        self.assertEquals(safe_html(
+                '*__text*__'),
+                '<em><strong>text<em><strong></strong></em></strong></em>')
+
     def test_non_string(self):
         with self.assertRaises(ValueError):
             safe_html(123)
