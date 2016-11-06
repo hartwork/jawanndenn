@@ -11,8 +11,8 @@ var _REPLACEMENTS_IN_ORDER = [
 
 var _CLOSING_OF = {};
 $.each( _REPLACEMENTS_IN_ORDER, function(_, row) {
-    prefix = row[0];
-    closing = row[2];
+    var prefix = row[0];
+    var closing = row[2];
 
     _CLOSING_OF[prefix] = closing;
 });
@@ -50,16 +50,16 @@ var textToSafeHtml = function(text) {
             .replace( /</g, '&lt;' )
             .replace( />/g, '&gt;' );
 
-    chunks = [];
+    var chunks = [];
 
-    opened = [];
+    var opened = [];
     while (text.length) {
         var matched = false;
 
         $.each( _REPLACEMENTS_IN_ORDER, function(_, row) {
-            prefix = row[0];
-            opening = row[1];
-            closing = row[2];
+            var prefix = row[0];
+            var opening = row[1];
+            var closing = row[2];
 
             if ( text.startsWith(prefix) ) {
                 if (opened.length && opened[opened.length - 1] == prefix) {
