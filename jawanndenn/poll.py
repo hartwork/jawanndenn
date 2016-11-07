@@ -46,7 +46,7 @@ def apply_limits(polls, votes_per_poll):
 class _Poll(object):
     def __init__(self):
         # Version 1
-        self.config = []
+        self.config = {}
         self.votes = []
         self._lock = Lock()
         self._version = _PICKLE_POLL_VERSION
