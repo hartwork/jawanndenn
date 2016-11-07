@@ -87,12 +87,11 @@ class _Poll(object):
         poll = _Poll()
 
         if _KEY_OPTIONS not in config \
-                or _KEY_EQUAL_WIDTH not in config \
                 or _KEY_TITLE not in config:
             raise ValueError('Malformed configuration: %s' % config)
 
         poll.config = {
-            _KEY_EQUAL_WIDTH: bool(config[_KEY_EQUAL_WIDTH]),
+            _KEY_EQUAL_WIDTH: bool(config.get(_KEY_EQUAL_WIDTH, False)),
             _KEY_TITLE: safe_html(config[_KEY_TITLE]),
             _KEY_OPTIONS: map(safe_html, config[_KEY_OPTIONS]),
         }
