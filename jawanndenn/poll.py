@@ -20,11 +20,12 @@ _MAX_VOTERS_PER_POLL = DEFAULT_MAX_VOTER_PER_POLL
 
 _KEY_OPTIONS = 'options'
 _KEY_TITLE = 'title'
+_KEY_EQUAL_WIDTH = 'equal_width'
 
 _PICKLE_PROTOCOL_VERSION = 2
 
 _PICKLE_CONTENT_VERSION = 1
-_PICKLE_POLL_VERSION = 2
+_PICKLE_POLL_VERSION = 3
 _PICKLE_POLL_DATABASE_VERSION = 1
 
 
@@ -53,6 +54,9 @@ class _Poll(object):
         # Version 2 and later
         self._created_at = datetime.datetime.now()
 
+        # Version 3 and later
+        self._equal_width = False
+
     def __getstate__(self):
         d = self.__dict__.copy()
         del d['_lock']
@@ -62,21 +66,33 @@ class _Poll(object):
         self.__dict__.update(d)
         self._lock = Lock()
 
-        if d['_version'] == 1:
-            self._version = _PICKLE_POLL_VERSION
+        initial_version = self._version
+
+        if self._version == 1:
+            self._version = 2
             self._created_at = datetime.datetime.now()
-            _log.debug('Upgraded poll from version 1 to version %d'
-                    % _PICKLE_POLL_VERSION)
+
+        if self._version == 2:
+            self._version = 3
+            self._equal_width = False
+
+        assert self._version == _PICKLE_POLL_VERSION
+
+        if self._version != initial_version:
+            _log.debug('Upgraded poll from version %d to version %d'
+                    % (initial_version, self._version))
 
     @staticmethod
     def from_config(config):
         poll = _Poll()
 
         if _KEY_OPTIONS not in config \
+                or _KEY_EQUAL_WIDTH not in config \
                 or _KEY_TITLE not in config:
             raise ValueError('Malformed configuration: %s' % config)
 
         poll.config = {
+            _KEY_EQUAL_WIDTH: bool(config[_KEY_EQUAL_WIDTH]),
             _KEY_TITLE: safe_html(config[_KEY_TITLE]),
             _KEY_OPTIONS: map(safe_html, config[_KEY_OPTIONS]),
         }

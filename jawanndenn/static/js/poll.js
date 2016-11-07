@@ -215,6 +215,17 @@ var createFooterHtml = function() {
         </p>'
 }
 
+var equalizeWidth = function(poll) {
+    var optionLabels = $( 'td.optionLabel', poll );
+    var optionLabelWidths = optionLabels.map( function() {
+        return $(this).width();
+    }).get();
+    var maxLabelWidth = Math.max.apply(null, optionLabelWidths);
+    optionLabels.each( function() {
+        $(this).width( maxLabelWidth );
+    });
+}
+
 $( document ).ready(function() {
     $( 'footer' ).html( createFooterHtml() );
 });

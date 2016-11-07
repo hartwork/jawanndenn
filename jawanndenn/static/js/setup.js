@@ -34,6 +34,7 @@ var createExampleVotes = function(options) {
 };
 
 var exampleConfigJson = JSON.stringify( {
+        equal_width: false,
         title: 'Which fruit do *you* like?',
         options: exampleOptions
         }, null, '  ' );
@@ -96,6 +97,7 @@ var textToSafeHtml = function(text) {
 
 var processConfig = function(config) {
     return {
+        equal_width: !!config.equal_width,
         title: textToSafeHtml( config.title ),
         options: $.map( config.options, textToSafeHtml )
     };
@@ -129,9 +131,14 @@ var sync = function() {
 
             config = processConfig( config );
 
-            $( "#poll" ).html( createPollHtml( config,
+            var poll = $( "#poll" );
+            poll.html( createPollHtml( config,
                     createExampleVotes( config.options ),
                     Mode.PREVIEW ) );
+
+            if (config.equal_width) {
+                equalizeWidth( poll );
+            }
         }
     }
 };
