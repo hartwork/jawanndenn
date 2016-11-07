@@ -29,27 +29,21 @@ except IOError as e:
 db.save(_db_filename)  # catch saving trouble early
 
 
-def _post():
-    # TODO Do not save as often
-    db.save(_db_filename)
-
-
-class Lifetime(object):
-    def __init__(self, app, pre, post):
+class AutoSaveApp(object):
+    def __init__(self, app):
         self._app = app
-        self._pre = pre
-        self._post = post
-        assert callable(post)
+
+    def _on_request_finished(self):
+        db.save(_db_filename)
 
     def __call__(self, environ, start_response):
         if environ.get('wsgi.multiprocess', True):
             raise ValueError('Single-process deployment needed')
 
-        self._pre()
         try:
             return self._app(environ, start_response)
         finally:
-            self._post()
+            self._on_request_finished()
 
 
-application = Lifetime(bottle.default_app(), lambda: None, _post)
+application = AutoSaveApp(bottle.default_app())
