@@ -4,7 +4,6 @@
 import errno
 import os
 import logging
-from threading import Lock
 
 import bottle
 
@@ -20,7 +19,6 @@ logging.basicConfig(
         level=logging.WARNING)
 
 _db_filename = os.path.expanduser('~/jawanndenn.pickle')
-_db_lock = Lock()
 
 try:
     db.load(_db_filename)
@@ -33,8 +31,7 @@ db.save(_db_filename)  # catch saving trouble early
 
 def _post():
     # TODO Do not save as often
-    with _db_lock:
-        db.save(_db_filename)
+    db.save(_db_filename)
 
 
 class Lifetime(object):

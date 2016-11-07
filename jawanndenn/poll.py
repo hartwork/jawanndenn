@@ -153,10 +153,11 @@ class PollDatabase(object):
         _log.info('%d polls loaded.' % len(self._db))
 
     def save(self, filename):
-        d = {
-            'version': _PICKLE_CONTENT_VERSION,
-            'data': self,
-        }
-        with open(filename, 'w') as f:
-            pickle.dump(d, f, _PICKLE_PROTOCOL_VERSION)
-        _log.info('%d polls saved.' % len(self._db))
+        with self._db_lock:
+            d = {
+                'version': _PICKLE_CONTENT_VERSION,
+                'data': self,
+            }
+            with open(filename, 'w') as f:
+                pickle.dump(d, f, _PICKLE_PROTOCOL_VERSION)
+            _log.info('%d polls saved.' % len(self._db))
