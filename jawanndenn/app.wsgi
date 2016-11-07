@@ -45,6 +45,9 @@ class Lifetime(object):
         assert callable(post)
 
     def __call__(self, environ, start_response):
+        if environ.get('wsgi.multiprocess', True):
+            raise ValueError('Single-process deployment needed')
+
         self._pre()
         try:
             return self._app(environ, start_response)
