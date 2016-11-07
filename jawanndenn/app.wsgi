@@ -34,8 +34,6 @@ db.save(_db_filename)  # catch saving trouble early
 def _post():
     # TODO Do not save as often
     with _db_lock:
-        if not _loaded:
-            return
         db.save(_db_filename)
 
 
