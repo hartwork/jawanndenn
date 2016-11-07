@@ -222,7 +222,8 @@ var equalizeWidth = function(poll) {
     }).get();
     var maxLabelWidth = Math.max.apply(null, optionLabelWidths);
     optionLabels.each( function() {
-        $(this).width( maxLabelWidth );
+        var jitter = Math.floor( Math.random() * 3 );
+        $(this).width( maxLabelWidth + jitter );
     });
 }
 
