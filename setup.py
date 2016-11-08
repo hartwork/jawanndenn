@@ -30,7 +30,9 @@ if __name__ == '__main__':
 
         package_data={
             APP_NAME: [
-                'static/*',
+                'static/css/*',
+                'static/html/*',
+                'static/js/*',
             ],
         },
 
