@@ -58,7 +58,7 @@ def _create():
 
 @bottle.get('/poll/<poll_id>')
 def _poll(poll_id):
-    poll_id  # mark as used
+    db.get(poll_id)
     bottle.response.content_type = 'application/xhtml+xml'
     return bottle.static_file('html/poll.xhtml', root=STATIC_HOME_LOCAL)
 
