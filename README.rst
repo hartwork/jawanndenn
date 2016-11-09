@@ -96,8 +96,8 @@ Currently supported arguments are:
 Goals
 =====
 
--  Libre software to host yourself, other than Doodle
--  More simple, sexy and fun than
+-  Libre software to host yourself, unlike Doodle
+-  More simple, sexy and fun than libre alternatives:
 
    -  `Pleft`_
    -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
@@ -108,7 +108,7 @@ Goals
    -  (`Drupal Date picker formatter`_)
 
 -  Keep things simple, usable, maintainable
--  Support invocation from the command line
+-  Support invocation from the command line, e.g. for spontaneous polls in a LAN
 -  Have security in mind
 
 Please check out the `list of upcoming features`_.
