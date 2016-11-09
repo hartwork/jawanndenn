@@ -7,6 +7,11 @@ from setuptools import setup
 from jawanndenn.metadata import APP_NAME, VERSION_STR
 
 
+def _read(filename):
+    with open(filename, 'r') as f:
+        return f.read()
+
+
 if __name__ == '__main__':
     setup(
         name=APP_NAME,
@@ -14,6 +19,7 @@ if __name__ == '__main__':
 
         license='AGPLv3+',
         description='Libre alternative to Doodle',
+        long_description=_read('README.rst'),
 
         author='Sebastian Pipping',
         author_email='sebastian@pipping.org',
