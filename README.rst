@@ -1,7 +1,7 @@
 What is jawanndenn?
 ===================
 
-.. figure:: jawanndenn-setup.png
+.. figure:: https://raw.githubusercontent.com/hartwork/jawanndenn/master/jawanndenn-setup.png
    :alt: Screenshot of poll creation in jawanndenn
 
 *jawanndenn* is a simple web application to schedule meetings and run
