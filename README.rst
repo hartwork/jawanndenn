@@ -101,7 +101,7 @@ Goals
 
    -  `Pleft`_
    -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
-   -  `Foodle`_
+   -  `Foodle`_ (`on GitHub`_, ex. `DFN scheduler`_, ex. `DFN Terminplaner+`_)
    -  `Dudle`_
    -  `Nuages`_
    -  `RDVz`_
@@ -137,7 +137,10 @@ Non-goals
 .. _Pleft: https://github.com/sander/pleft
 .. _Framadata: https://framadate.org/
 .. _Sources: https://git.framasoft.org/framasoft/framadate
-.. _Foodle: https://github.com/UNINETT/Foodle
+.. _Foodle: https://foodl.org/
+.. _on GitHub: https://github.com/UNINETT/Foodle
+.. _DFN scheduler: https://terminplaner.dfn.de/
+.. _DFN Terminplaner+: https://terminplaner2.dfn.de/
 .. _Dudle: https://dudle.inf.tu-dresden.de/
 .. _Nuages: https://nuages.domainepublic.net/
 .. _RDVz: https://sourceforge.net/projects/rdvz/
