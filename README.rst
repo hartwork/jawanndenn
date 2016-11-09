@@ -97,7 +97,7 @@ Goals
 =====
 
 -  Libre software to host yourself, unlike Doodle
--  More simple, sexy and fun than libre alternatives:
+-  More simple, sexy and fun than `libre alternatives`_:
 
    -  `Pleft`_
    -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
@@ -134,6 +134,7 @@ Non-goals
 .. _the related documentation of bottle: https://bottlepy.org/docs/dev/deployment.html#apache-mod-wsgi
 .. _file a support ticket: https://github.com/hartwork/jawanndenn/issues/new
 .. _drop me a mail: mailto:sebastian@pipping.org
+.. _libre alternatives: http://alternativeto.net/software/doodle/?license=opensource
 .. _Pleft: https://github.com/sander/pleft
 .. _Framadata: https://framadate.org/
 .. _Sources: https://git.framasoft.org/framasoft/framadate
