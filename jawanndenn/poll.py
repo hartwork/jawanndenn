@@ -6,6 +6,8 @@ import datetime
 import hashlib
 import logging
 import os
+import shutil
+import tempfile
 
 from threading import Lock
 
@@ -158,6 +160,17 @@ class PollDatabase(object):
                 'version': _PICKLE_CONTENT_VERSION,
                 'data': self,
             }
-            with open(filename, 'w') as f:
+
+            fd, tempfilename = tempfile.mkstemp(
+                    dir=os.path.dirname(filename),
+                    prefix='%s-tmp' % os.path.basename(
+                            filename.replace('.pickle', '')),
+                    suffix='.pickle',
+                    )
+
+            with os.fdopen(fd, 'w') as f:
                 pickle.dump(d, f, _PICKLE_PROTOCOL_VERSION)
+
+            shutil.move(tempfilename, filename)
+
             _log.info('%d polls saved.' % len(self._db))
