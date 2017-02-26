@@ -19,6 +19,8 @@ $.each( _REPLACEMENTS_IN_ORDER, function(_, row) {
 
 var exampleOptions = ['Apple', 'Banana', 'Orange', 'Papaya'];
 
+var exampleVotesCache = {};
+
 var createExampleVotes = function(options) {
     var examplePeople = ['Joe', 'Lisa', 'Monica', 'Astrid'];
 
@@ -32,6 +34,16 @@ var createExampleVotes = function(options) {
     });
     return exampleVotes;
 };
+
+var getExampleVotesCached = function(options) {
+    if (options.length in exampleVotesCache) {
+        return exampleVotesCache[options.length];
+    } else {
+        var exampleVotes = createExampleVotes(options);
+        exampleVotesCache[options.length] = exampleVotes;
+        return exampleVotes;
+    }
+}
 
 var exampleConfigJson = JSON.stringify( {
         equal_width: false,
@@ -133,7 +145,7 @@ var sync = function() {
 
             var poll = $( "#poll" );
             poll.html( createPollHtml( config,
-                    createExampleVotes( config.options ),
+                    getExampleVotesCached( config.options ),
                     Mode.PREVIEW ) );
 
             if (config.equal_width) {
