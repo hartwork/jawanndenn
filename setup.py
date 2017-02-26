@@ -1,7 +1,6 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-import sys
 from setuptools import setup
 
 from jawanndenn.metadata import APP_NAME, VERSION_STR
