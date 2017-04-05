@@ -14,7 +14,7 @@ from threading import Lock
 from jawanndenn.markup import safe_html
 
 
-DEFAULT_MAX_POLLS = 100
+DEFAULT_MAX_POLLS = 1000
 DEFAULT_MAX_VOTER_PER_POLL = 40
 
 _MAX_POLLS = DEFAULT_MAX_POLLS
