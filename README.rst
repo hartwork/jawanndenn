@@ -97,7 +97,7 @@ Goals
 =====
 
 -  Libre software to host yourself, unlike Doodle
--  More simple, sexy and fun than `libre alternatives`_:
+-  More simple, sexy and/or fun than `libre alternatives`_:
 
    -  `Pleft`_
    -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
