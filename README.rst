@@ -107,6 +107,7 @@ Goals
    -  `RDVz`_
    -  (`Drupal Date picker formatter`_)
    -  `Noodle`_
+   -  `Rallly`_
 
 -  Keep things simple, usable, maintainable
 -  Support invocation from the command line, e.g. for spontaneous polls in a LAN
@@ -148,4 +149,5 @@ Non-goals
 .. _RDVz: https://sourceforge.net/projects/rdvz/
 .. _Drupal Date picker formatter: http://alternativeto.net/software/date-picker-formatter-dudel-for-drupal/?license=opensource
 .. _Noodle: https://github.com/kmerz/noodle
+.. _Rallly: https://github.com/lukevella/Rallly
 .. _list of upcoming features: https://github.com/hartwork/jawanndenn/issues/created_by/hartwork
