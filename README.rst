@@ -1,3 +1,15 @@
+Docker-Fork
+===========
+
+This fork only works correct in the described docker-environment. All other documentation may be wrong!
+
+Run with docker
+===============
+
+You can build a docker image using `docker build -t jawanndenn .` and run it with `docker run -v \`pwd\`/data:/data -p 8080:8080 jawanndenn`.
+
+Serialized data is saved to `data/jawanndenn.pickle` (only if the server shuts down). The app is served on `localhost:8080`.
+
 What is jawanndenn?
 ===================
 
@@ -19,7 +31,6 @@ or later whereas the client code is licensed under the `GNU GPL
 license`_ version 3 or later.
 
 Please `report bugs`_ and let me know if you `like`_ it.
-
 
 Installation
 ============

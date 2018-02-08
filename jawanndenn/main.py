@@ -92,7 +92,7 @@ def main():
 
     _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
 
-    filename = os.path.expanduser('~/jawanndenn.pickle')
+    filename = os.path.expanduser('/data/jawanndenn.pickle')
 
     try:
         db.load(filename)
