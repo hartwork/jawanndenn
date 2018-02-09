@@ -86,7 +86,7 @@ Currently supported arguments are:
       --host HOST           Hostname or IP address to listen at (default:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
-      --filepath FILEPATH   File to write the databse to (default: ~/jawanndenn.pickle)
+      --filepath FILEPATH   File to write the database to (default: ~/jawanndenn.pickle)
       --server BACKEND      bottle backend to use (default: paste); as of this
                             writing bottle supports: auto, bjoern, cgi, cherrypy,
                             diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,

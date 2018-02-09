@@ -60,7 +60,7 @@ def main():
     parser.add_argument('--port', default=8080, type=int, metavar='PORT',
             help='Port to listen at (default: %(default)s)')
     parser.add_argument('--filepath', default='~/jawanndenn.pickle', metavar='FILEPATH',
-            help='File to write the databse to')
+            help='File to write the database to')
     parser.add_argument('--server', default='paste', metavar='BACKEND',
             help='bottle backend to use (default: %%(default)s)'
                 '; as of this writing bottle supports: %s. '
