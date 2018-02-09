@@ -1,15 +1,3 @@
-Docker-Fork
-===========
-
-This fork only works correct in the described docker-environment. All other documentation may be wrong!
-
-Run with docker
-===============
-
-You can build a docker image using `docker build -t jawanndenn .` and run it with `docker run -v \`pwd\`/data:/data -p 8080:8080 jawanndenn`.
-
-Serialized data is saved to `data/jawanndenn.pickle` (only if the server shuts down). The app is served on `localhost:8080`.
-
 What is jawanndenn?
 ===================
 
@@ -59,6 +47,13 @@ documentation of bottle`_.
 Feel free to `file a support ticket`_ or `drop me a mail`_, if you
 cannot get it to work.
 
+Run with docker
+===============
+
+You can build a docker image using `docker build -t jawanndenn .` and run it with `docker run -v $(pwd)/data:/data -p 8080:8080 jawanndenn`.
+
+Serialized data is saved to `data/polls.pickle` (only if the server shuts down). The app is served on `localhost:8080`.
+
 
 Command line usage
 ==================
@@ -91,6 +86,7 @@ Currently supported arguments are:
       --host HOST           Hostname or IP address to listen at (default:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
+      --filepath FILEPATH   File to write the databse to (default: ~/jawanndenn.pickle)
       --server BACKEND      bottle backend to use (default: paste); as of this
                             writing bottle supports: auto, bjoern, cgi, cherrypy,
                             diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,
