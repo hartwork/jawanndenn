@@ -6,10 +6,6 @@ body {
     background-color: #fcfcfc;
 }
 
-#stage, #live {
-    margin: 10px;
-}
-
 .optionLabel {
     text-align: center;
 }
@@ -32,14 +28,9 @@ td.person {
     font-weight: bold;
 }
 
-@media screen and (max-width:767px) {
-    #live {
-        position: absolute;
-        top: 2%;
-    }
-}
 @media screen and (min-width:768px) {
     #live {
+        max-width: calc(100vw - 10px);
         position: fixed;
         left: 50%;
         transform: translate(-50%);
@@ -55,6 +46,9 @@ td.person {
 @media screen and (max-width:767px) {
     #stage {
         width: 100%;
+    }
+    #stage, #live {
+        margin: 10px;
     }
 }
 @media screen and (min-width:768px) {
@@ -140,10 +134,13 @@ td.person {
     background-color: #fee !important;
 }
 
+#pollForm {
+    overflow-y: auto;
+}
+
 #pollTable {
     border-spacing: 2px;
     border-collapse: separate;
-    margin: 10px;
 }
 
 #pollTable tr {
@@ -218,7 +215,6 @@ footer {
 }
 @media screen and (max-width:767px) {
     footer {
-        position: absolute;
         margin-top: 4%;
         width: 100%;
     }

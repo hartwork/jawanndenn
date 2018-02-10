@@ -20,7 +20,6 @@ license`_ version 3 or later.
 
 Please `report bugs`_ and let me know if you `like`_ it.
 
-
 Installation
 ============
 
@@ -47,6 +46,13 @@ documentation of bottle`_.
 
 Feel free to `file a support ticket`_ or `drop me a mail`_, if you
 cannot get it to work.
+
+Run with docker
+===============
+
+You can build a docker image using ``docker build -t jawanndenn .`` and run it with ``docker run -v $(pwd)/data:/data -p 8080:8080 jawanndenn``.
+
+Serialized data is saved to ``data/polls.pickle`` (only if the server shuts down). The app is served on ``http://localhost:8080``.
 
 
 Command line usage
@@ -80,6 +86,7 @@ Currently supported arguments are:
       --host HOST           Hostname or IP address to listen at (default:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
+      --filepath FILEPATH   File to write the database to (default: ~/jawanndenn.pickle)
       --server BACKEND      bottle backend to use (default: paste); as of this
                             writing bottle supports: auto, bjoern, cgi, cherrypy,
                             diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,
