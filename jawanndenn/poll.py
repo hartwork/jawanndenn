@@ -109,7 +109,7 @@ class _Poll(object):
                 raise ValueError('Too many votes per poll')
             if len(votes) != len(self.options):
                 raise ValueError('Malformed vote')
-            self.votes.append((person, votes))
+            self.votes.append((safe_html(person), votes))
 
 
 class PollDatabase(object):
