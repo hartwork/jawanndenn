@@ -75,22 +75,23 @@ Currently supported arguments are:
                       [--max-votes-per-poll COUNT]
 
     optional arguments:
-      -h, --help            show this help message and exit
-      --debug               Enable debug mode (default: disabled)
-      --host HOST           Hostname or IP address to listen at (default:
-                            127.0.0.1)
-      --port PORT           Port to listen at (default: 8080)
-      --server BACKEND      bottle backend to use (default: paste); as of this
-                            writing bottle supports: auto, bjoern, cgi, cherrypy,
-                            diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,
-                            meinheld, rocket, tornado, twisted, waitress, wsgiref.
-                            For the most current list, please check the
-                            documentation of bottle.
+      -h, --help                show this help message and exit
+      --debug                   Enable debug mode (default: disabled)
+      --host HOST               Hostname or IP address to listen at (default:
+                                127.0.0.1)
+      --port PORT               Port to listen at (default: 8080)
+      --database-pickle FILE    File to write the database to (default: ~/jawanndenn.pickle)
+      --server BACKEND          bottle backend to use (default: paste); as of this
+                                writing bottle supports: auto, bjoern, cgi, cherrypy,
+                                diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,
+                                meinheld, rocket, tornado, twisted, waitress, wsgiref.
+                                For the most current list, please check the
+                                documentation of bottle.
 
     limit configuration:
-      --max-polls COUNT     Maximum number of polls total (default: 100)
-      --max-votes-per-poll COUNT
-                            Maximum number of votes per poll (default: 40)
+      --max-polls COUNT         Maximum number of polls total (default: 100)
+      --max-votes-per-poll      COUNT
+                                Maximum number of votes per poll (default: 40)
 
 
 Goals
