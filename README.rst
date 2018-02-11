@@ -48,6 +48,12 @@ documentation of bottle`_.
 Feel free to `file a support ticket`_ or `drop me a mail`_, if you
 cannot get it to work.
 
+Run with docker
+===============
+
+You can build a docker image using `docker build -t jawanndenn .` and run it with `docker run -v $(pwd)/data:/data -p 8080:8080 jawanndenn`.
+
+Serialized data is saved to `/data/polls.pickle` (only if the server shuts down). The app is served on `localhost:8080`.
 
 Command line usage
 ==================
