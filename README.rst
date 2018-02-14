@@ -88,7 +88,7 @@ Currently supported arguments are:
                             documentation of bottle.
 
     limit configuration:
-      --max-polls COUNT     Maximum number of polls total (default: 100)
+      --max-polls COUNT     Maximum number of polls total (default: 1000)
       --max-votes-per-poll COUNT
                             Maximum number of votes per poll (default: 40)
 
