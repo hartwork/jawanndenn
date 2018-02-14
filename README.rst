@@ -48,6 +48,12 @@ documentation of bottle`_.
 Feel free to `file a support ticket`_ or `drop me a mail`_, if you
 cannot get it to work.
 
+Run with docker
+===============
+
+You can build a docker image using `docker build -t jawanndenn .` and run it with `docker run -v $(pwd)/data:/data -p 8080:8080 jawanndenn`.
+
+Serialized data is saved to `/data/polls.pickle` (only if the server shuts down). The app is served on `localhost:8080`.
 
 Command line usage
 ==================
@@ -70,9 +76,9 @@ Currently supported arguments are:
 ::
 
     # jawanndenn --help
-    usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
-                      [--server BACKEND] [--max-polls COUNT]
-                      [--max-votes-per-poll COUNT]
+    usage: main.py [-h] [--debug] [--host HOST] [--port PORT]
+                   [--database-pickle FILE] [--server BACKEND] [--max-polls COUNT]
+                   [--max-votes-per-poll COUNT]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -80,6 +86,9 @@ Currently supported arguments are:
       --host HOST           Hostname or IP address to listen at (default:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
+      --database-pickle FILE
+                            File to write the database to (default:
+                            ~/jawanndenn.pickle)
       --server BACKEND      bottle backend to use (default: paste); as of this
                             writing bottle supports: auto, bjoern, cgi, cherrypy,
                             diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,
@@ -88,7 +97,7 @@ Currently supported arguments are:
                             documentation of bottle.
 
     limit configuration:
-      --max-polls COUNT     Maximum number of polls total (default: 100)
+      --max-polls COUNT     Maximum number of polls total (default: 1000)
       --max-votes-per-poll COUNT
                             Maximum number of votes per poll (default: 40)
 

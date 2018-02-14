@@ -59,6 +59,8 @@ def main():
             help='Hostname or IP address to listen at (default: %(default)s)')
     parser.add_argument('--port', default=8080, type=int, metavar='PORT',
             help='Port to listen at (default: %(default)s)')
+    parser.add_argument('--database-pickle', default='~/jawanndenn.pickle', metavar='FILE',
+            help='File to write the database to (default: %(default)s)')
     parser.add_argument('--server', default='paste', metavar='BACKEND',
             help='bottle backend to use (default: %%(default)s)'
                 '; as of this writing bottle supports: %s. '
@@ -92,7 +94,7 @@ def main():
 
     _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
 
-    filename = os.path.expanduser('~/jawanndenn.pickle')
+    filename = os.path.expanduser(options.database_pickle)
 
     try:
         db.load(filename)
