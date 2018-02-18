@@ -133,6 +133,14 @@ Non-goals
 -  Use of heavy frameworks: building blocks only
 -  Read availability from calendars
 
+
+Thanks
+======
+
+Special thanks to Arne Maier (`@KordonDev`_) for reporting
+an XSS vulnerability, responsibly.
+
+
 .. _bottle: http://bottlepy.org/docs/dev/
 .. _Paste: http://pythonpaste.org/
 .. _jQuery: http://jquery.com/
@@ -162,3 +170,4 @@ Non-goals
 .. _Noodle: https://github.com/kmerz/noodle
 .. _Rallly: https://github.com/lukevella/Rallly
 .. _list of upcoming features: https://github.com/hartwork/jawanndenn/issues/created_by/hartwork
+.. _@KordonDev: https://github.com/KordonDev
