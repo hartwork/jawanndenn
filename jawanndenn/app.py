@@ -93,7 +93,19 @@ def run_server(options):
                 port=options.port,
                 server=options.server,
                 )
-    except ImportError:
-        _log.error('WSGI server "%s" does not seem to be available.'
-                % options.server)
+    except ImportError as e:
+        if (options.server == 'cherrypy' and
+                e.args == ('cannot import name wsgiserver',)):
+            message = 'Bottle does not support CherryPy >=9.0.0, properly.'
+        elif (options.server == 'flup' and
+                e.args == ('No module named _dummy_thread',)):
+            message = 'flup is broken and not supported.'
+        elif (options.server == 'rocket' and
+                e.args == ('No module named methods.wsgi',)):
+            message = 'Rocket is broken and not supported.'
+        else:
+            message = ('WSGI server "%s" does not seem to be available.'
+                       % options.server)
+
+        _log.error(message)
         sys.exit(2)
