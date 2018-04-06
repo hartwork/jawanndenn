@@ -84,6 +84,11 @@ def main():
 
     _require_hash_randomization()
 
+    # NOTE: gevent patching needs to happen before importing bottle
+    if options.server == 'gevent':
+        from gevent.monkey import patch_all
+        patch_all()
+
     # Heavy imports are down here to keep --help fast
     from jawanndenn.app import db, run_server, STATIC_HOME_LOCAL
 
