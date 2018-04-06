@@ -1,6 +1,7 @@
 FROM python:2.7-stretch
 
-ADD . /app
+COPY setup.py README.rst  /app/
+COPY jawanndenn/  /app/jawanndenn/
 
 RUN cd /app && python setup.py install --user && cd / && rm -rf /app
 
