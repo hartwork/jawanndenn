@@ -92,11 +92,10 @@ Currently supported arguments are:
                             File to write the database to (default:
                             ~/jawanndenn.pickle)
       --server BACKEND      bottle backend to use (default: paste); as of this
-                            writing bottle supports: auto, bjoern, cgi, cherrypy,
-                            diesel, eventlet, fapws3, flup, gae, gevent, gunicorn,
-                            meinheld, rocket, tornado, twisted, waitress, wsgiref.
-                            For the most current list, please check the
-                            documentation of bottle.
+                            writing bottle supports: auto, bjoern, diesel,
+                            eventlet, gae, gevent, gunicorn, meinheld, tornado,
+                            twisted, waitress, wsgiref. For the most current list,
+                            please check the documentation of bottle.
 
     limit configuration:
       --max-polls COUNT     Maximum number of polls total (default: 1000)
