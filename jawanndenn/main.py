@@ -12,7 +12,7 @@ from jawanndenn.poll import (apply_limits,
 
 
 _BOTTLE_BACKENDS = (
-    'cgi',
+#   'cgi',  # see https://github.com/bottlepy/bottle/issues/836
 #   'flup',
     'gae',
     'wsgiref',
@@ -24,7 +24,7 @@ _BOTTLE_BACKENDS = (
     'eventlet',
     'gevent',
     'diesel',
-    'fapws3',
+#   'fapws3',  # symptom "XML Parsing Error: no root element found"
     'tornado',
     'twisted',
     'meinheld',
