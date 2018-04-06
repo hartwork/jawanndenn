@@ -78,9 +78,9 @@ Currently supported arguments are:
 ::
 
     # jawanndenn --help
-    usage: main.py [-h] [--debug] [--host HOST] [--port PORT]
-                   [--database-pickle FILE] [--server BACKEND] [--max-polls COUNT]
-                   [--max-votes-per-poll COUNT]
+    usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
+                      [--database-pickle FILE] [--server BACKEND]
+                      [--max-polls COUNT] [--max-votes-per-poll COUNT]
 
     optional arguments:
       -h, --help            show this help message and exit

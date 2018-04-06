@@ -52,7 +52,7 @@ def _require_hash_randomization():
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog='jawanndenn')
     parser.add_argument('--debug', action='store_true',
             help='Enable debug mode (default: disabled)')
     parser.add_argument('--host', default='127.0.0.1', metavar='HOST',
