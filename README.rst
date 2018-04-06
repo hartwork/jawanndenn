@@ -52,9 +52,9 @@ cannot get it to work.
 Run with docker
 ===============
 
-You can build a docker image using ``docker build -t jawanndenn .`` and run it with ``docker run -v $(pwd)/data:/data -p 8080:8080 jawanndenn``.
+You can build a docker image using ``docker-compose build`` and run it with ``docker-compose up``.
 
-Serialized data is saved to ``/data/polls.pickle`` (only if the server shuts down). The app is served on ``localhost:8080``.
+Serialized data is saved to ``~/.jawanndenn-docker/`` outside the container (only if the server shuts down). The app is served on ``localhost:8080``.
 
 
 Command line usage

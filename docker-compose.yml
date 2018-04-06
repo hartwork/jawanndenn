@@ -1,0 +1,12 @@
+# Copyright (C) 2018 Sebastian Pipping <sebastian@pipping.org>
+# Licensed under GNU Affero GPL v3 or later
+
+version: "3"
+
+services:
+  jawanndenn:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - ~/.jawanndenn-docker/:/data
