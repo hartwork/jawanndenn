@@ -3,10 +3,17 @@
 
 version: "3"
 
+networks:
+  ssl-reverse-proxy:
+    external: yes
+
 services:
   jawanndenn:
     build: .
     ports:
       - 127.0.0.1:54080:8080
+    networks:
+      - default
+      - ssl-reverse-proxy
     volumes:
       - ~/.jawanndenn-docker/:/data
