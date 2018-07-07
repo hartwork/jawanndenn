@@ -7,6 +7,6 @@ services:
   jawanndenn:
     build: .
     ports:
-      - 8080:8080
+      - 127.0.0.1:54080:8080
     volumes:
       - ~/.jawanndenn-docker/:/data
