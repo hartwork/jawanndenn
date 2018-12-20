@@ -11,22 +11,22 @@ Licensed under GNU GPL v3 or later
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" />
-        <script src="../static/3rdparty/noty-2.4.1/js/noty/packaged/jquery.noty.packaged.min.js" />
+        <script src="{{ url_prefix|safe }}/static/3rdparty/noty-2.4.1/js/noty/packaged/jquery.noty.packaged.min.js" />
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js" />
 
-        <script type="text/javascript" src="../static/js/html.js" />
-        <script type="text/javascript" src="../static/js/poll.js" />
-        <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/html.js" />
+        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/poll.js" />
+        <link rel="stylesheet" type="text/css" href="{{ url_prefix|safe }}/static/css/style.css" />
 
         <script type="text/javascript">
             $( document ).ready(function() {
                 var pollId = /[0-9a-fA-F]{64}/.exec(window.location.pathname)[0]
-                $.get( '/data/' + pollId, function(data) {
+                $.get( '{{ url_prefix|safe }}/data/' + pollId, function(data) {
                     var poll = $( '#poll' );
                     poll.html( createPollHtml( data.config, data.votes, Mode.LIVE ) );
-                    $( '#pollForm' ).attr('action', "/vote/" + pollId);
+                    $( '#pollForm' ).attr('action', "{{ url_prefix|safe }}/vote/" + pollId);
                     if (data.config.equal_width) {
                         equalizeWidth( poll );
                     }

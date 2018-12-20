@@ -59,6 +59,8 @@ def main():
             help='Hostname or IP address to listen at (default: %(default)s)')
     parser.add_argument('--port', default=8080, type=int, metavar='PORT',
             help='Port to listen at (default: %(default)s)')
+    parser.add_argument('--url-prefix', default='', metavar='PATH',
+            help='Path to prepend to URLs (default: "%(default)s")')
     parser.add_argument('--database-pickle', default='~/jawanndenn.pickle', metavar='FILE',
             help='File to write the database to (default: %(default)s)')
     parser.add_argument('--server', default=_DEFAULT_BACKEND, metavar='BACKEND',
@@ -108,7 +110,7 @@ def main():
             raise
         db.save(filename)  # catch saving trouble early
 
-    add_routes()
+    add_routes(options.url_prefix)
 
     try:
         run_server(options)

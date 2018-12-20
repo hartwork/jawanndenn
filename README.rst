@@ -79,8 +79,9 @@ Currently supported arguments are:
 
     # jawanndenn --help
     usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
-                      [--database-pickle FILE] [--server BACKEND]
-                      [--max-polls COUNT] [--max-votes-per-poll COUNT]
+                      [--url-prefix PATH] [--database-pickle FILE]
+                      [--server BACKEND] [--max-polls COUNT]
+                      [--max-votes-per-poll COUNT]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -88,6 +89,7 @@ Currently supported arguments are:
       --host HOST           Hostname or IP address to listen at (default:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
+      --url-prefix PATH     Path to prepend to URLs (default: "")
       --database-pickle FILE
                             File to write the database to (default:
                             ~/jawanndenn.pickle)
