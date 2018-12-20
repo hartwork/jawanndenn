@@ -11,7 +11,7 @@ if os.path.exists(os.path.join(os.path.dirname(__file__), '..', 'setup.py')):
     import sys
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from jawanndenn.app import db
+from jawanndenn.app import add_routes, db
 
 
 logging.basicConfig(
@@ -27,6 +27,8 @@ except IOError as e:
         raise
 
 db.save(_db_filename)  # catch saving trouble early
+
+add_routes()
 
 
 class AutoSaveApp(object):

@@ -90,7 +90,7 @@ def main():
         patch_all()
 
     # Heavy imports are down here to keep --help fast
-    from jawanndenn.app import db, run_server, STATIC_HOME_LOCAL
+    from jawanndenn.app import add_routes, db, run_server, STATIC_HOME_LOCAL
 
     apply_limits(
         polls=options.max_polls,
@@ -107,6 +107,8 @@ def main():
         if e.errno != errno.ENOENT:
             raise
         db.save(filename)  # catch saving trouble early
+
+    add_routes()
 
     try:
         run_server(options)

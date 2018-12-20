@@ -32,7 +32,6 @@ def _to_json(e):
     return json.dumps(e)
 
 
-@bottle.get('/static/<path:path>')
 def _static(path):
     content_type = {
                 'css': 'text/css',
@@ -43,27 +42,23 @@ def _static(path):
     return bottle.static_file(path, root=STATIC_HOME_LOCAL)
 
 
-@bottle.get('/')
 def _index():
     bottle.response.content_type = 'application/xhtml+xml'
     return bottle.static_file('html/setup.xhtml', root=STATIC_HOME_LOCAL)
 
 
-@bottle.post('/create')
 def _create():
     config = json.loads(bottle.request.forms['config'])
     poll_id = db.add(config)
     bottle.redirect('/poll/%s' % poll_id)
 
 
-@bottle.get('/poll/<poll_id>')
 def _poll(poll_id):
     db.get(poll_id)
     bottle.response.content_type = 'application/xhtml+xml'
     return bottle.static_file('html/poll.xhtml', root=STATIC_HOME_LOCAL)
 
 
-@bottle.get('/data/<poll_id>')
 def _data(poll_id):
     poll = db.get(poll_id)
     return _to_json({
@@ -72,7 +67,6 @@ def _data(poll_id):
     })
 
 
-@bottle.post('/vote/<poll_id>')
 def _vote(poll_id):
     voterName = bottle.request.forms['voterName']
     poll = db.get(poll_id)
@@ -81,6 +75,15 @@ def _vote(poll_id):
     poll.vote(voterName, votes)
 
     bottle.redirect('/poll/%s' % poll_id)
+
+
+def add_routes():
+    bottle.route('/', 'GET', _index)
+    bottle.route('/create', 'POST', _create)
+    bottle.route('/data/<poll_id>', 'GET', _data)
+    bottle.route('/poll/<poll_id>', 'GET', _poll)
+    bottle.route('/static/<path:path>', 'GET', _static)
+    bottle.route('/vote/<poll_id>', 'POST', _vote)
 
 
 def run_server(options):
