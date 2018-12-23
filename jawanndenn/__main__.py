@@ -32,7 +32,7 @@ _BOTTLE_BACKENDS = (
     'auto',
 )
 
-_DEFAULT_BACKEND = 'paste'
+_DEFAULT_BACKEND = 'tornado'
 
 _log = logging.getLogger(__name__)
 
