@@ -61,7 +61,7 @@ def main():
             help='Port to listen at (default: %(default)s)')
     parser.add_argument('--database-pickle', default='~/jawanndenn.pickle', metavar='FILE',
             help='File to write the database to (default: %(default)s)')
-    parser.add_argument('--server', default='paste', metavar='BACKEND',
+    parser.add_argument('--server', default=_DEFAULT_BACKEND, metavar='BACKEND',
             help='bottle backend to use (default: %%(default)s)'
                 '; as of this writing bottle supports: %s. '
                 'For the most current list, please check the documentation '
