@@ -22,7 +22,6 @@ STATIC_HOME_LOCAL = os.path.abspath(os.path.normpath(
                     '..', 'setup.py')) else
             pkg_resources.resource_filename(APP_NAME, 'static')
         ))
-_STATIC_HOME_REMOTE = '/static'
 
 
 db = PollDatabase()
