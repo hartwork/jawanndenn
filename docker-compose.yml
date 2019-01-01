@@ -17,3 +17,4 @@ services:
       - ssl-reverse-proxy
     volumes:
       - ~/.jawanndenn-docker/:/data
+    restart: unless-stopped
