@@ -112,7 +112,7 @@ Goals
    -  `Dudle`_
    -  (`Drupal Date picker formatter`_)
    -  (`Foodle`_ (discontinued; `on GitHub`_, ex. `DFN scheduler`_, ex. `DFN Terminplaner+`_))
-   -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
+   -  `Framadata`_ (`Sources`_, ex. `OpenSondage`_, ex. `STUdS`_)
    -  `Noodle`_
    -  `Nuages`_
    -  `Pleft`_
@@ -158,6 +158,8 @@ an XSS vulnerability, responsibly.
 .. _Pleft: https://github.com/sander/pleft
 .. _Framadata: https://framadate.org/
 .. _Sources: https://git.framasoft.org/framasoft/framadate
+.. _OpenSondage: https://github.com/leblanc-simon/OpenSondage
+.. _STUdS: http://studs.unistra.fr/
 .. _Foodle: https://foodl.org/
 .. _on GitHub: https://github.com/UNINETT/Foodle
 .. _DFN scheduler: https://terminplaner.dfn.de/
