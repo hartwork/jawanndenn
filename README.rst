@@ -107,17 +107,17 @@ Goals
 =====
 
 -  Libre software to host yourself, unlike Doodle
--  More simple, sexy and/or fun than `libre alternatives`_:
+-  More simple, sexy and/or fun than `libre alternatives`_, in alphabetic order:
 
-   -  `Pleft`_
-   -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
-   -  `Foodle`_ (`on GitHub`_, ex. `DFN scheduler`_, ex. `DFN Terminplaner+`_)
    -  `Dudle`_
-   -  `Nuages`_
-   -  `RDVz`_
    -  (`Drupal Date picker formatter`_)
+   -  (`Foodle`_ (discontinued; `on GitHub`_, ex. `DFN scheduler`_, ex. `DFN Terminplaner+`_))
+   -  `Framadata`_ (`Sources`_, ex. OpenSondage, ex. STUdS)
    -  `Noodle`_
+   -  `Nuages`_
+   -  `Pleft`_
    -  `Rallly`_
+   -  `RDVz`_
 
 -  Keep things simple, usable, maintainable
 -  Support invocation from the command line, e.g. for spontaneous polls in a LAN
