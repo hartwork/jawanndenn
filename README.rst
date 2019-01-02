@@ -8,7 +8,7 @@ What is jawanndenn?
 polls, a libre alternative to Doodle. It is written in Python and
 JavaScript using
 
--  `bottle`_ with `Paste`_ for a default backend
+-  `bottle`_ with `Tornado`_ for a default backend
 -  `jQuery`_ 
 -  `jQuery noty`_
 -  `Materialize`_ Material Design CSS/JS
@@ -79,8 +79,9 @@ Currently supported arguments are:
 
     # jawanndenn --help
     usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
-                      [--database-pickle FILE] [--server BACKEND]
-                      [--max-polls COUNT] [--max-votes-per-poll COUNT]
+                      [--url-prefix PATH] [--database-pickle FILE]
+                      [--server BACKEND] [--max-polls COUNT]
+                      [--max-votes-per-poll COUNT]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -88,12 +89,13 @@ Currently supported arguments are:
       --host HOST           Hostname or IP address to listen at (default:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
+      --url-prefix PATH     Path to prepend to URLs (default: "")
       --database-pickle FILE
                             File to write the database to (default:
                             ~/jawanndenn.pickle)
-      --server BACKEND      bottle backend to use (default: paste); as of this
+      --server BACKEND      bottle backend to use (default: tornado); as of this
                             writing bottle supports: auto, bjoern, diesel,
-                            eventlet, gae, gevent, gunicorn, meinheld, tornado,
+                            eventlet, gae, gevent, gunicorn, meinheld, paste,
                             twisted, waitress, wsgiref. For the most current list,
                             please check the documentation of bottle.
 
@@ -142,7 +144,7 @@ an XSS vulnerability, responsibly.
 
 
 .. _bottle: http://bottlepy.org/docs/dev/
-.. _Paste: http://pythonpaste.org/
+.. _Tornado: https://www.tornadoweb.org/
 .. _jQuery: http://jquery.com/
 .. _jQuery noty: http://ned.im/noty/#/about
 .. _Materialize: http://materializecss.com/

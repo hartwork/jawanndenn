@@ -25,8 +25,9 @@ if __name__ == '__main__':
         url='https://github.com/hartwork/jawanndenn',
 
         install_requires=[
+            'Jinja2',
             'bottle',
-            'paste',
+            'tornado',
         ],
 
         packages=[

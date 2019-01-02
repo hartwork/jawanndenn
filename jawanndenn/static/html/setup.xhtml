@@ -15,10 +15,10 @@ Licensed under GNU GPL v3 or later
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js" />
 
-        <script type="text/javascript" src="../static/js/html.js" />
-        <script type="text/javascript" src="../static/js/poll.js" />
-        <script type="text/javascript" src="../static/js/setup.js" />
-        <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/html.js" />
+        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/poll.js" />
+        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/setup.js" />
+        <link rel="stylesheet" type="text/css" href="{{ url_prefix|safe }}/static/css/style.css" />
     </head>
     <body>
         <div id='stage'>
@@ -27,7 +27,7 @@ Licensed under GNU GPL v3 or later
             </div>
             <div id='setup'>
                 <div class="card-panel">
-                    <form id='setupForm' action="/create" method="POST">
+                    <form id='setupForm' action="{{ url_prefix|safe }}/create" method="POST">
                         <div class="input-field">
                             <textarea id="config" name="config" class="materialize-textarea monospace-text"></textarea>
                             <label for="config">Setup (JSON)</label>

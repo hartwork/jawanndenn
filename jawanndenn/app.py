@@ -5,8 +5,10 @@ import json
 import logging
 import os
 import sys
+from functools import partial
 
 import bottle
+import jinja2
 import pkg_resources
 
 from jawanndenn.metadata import APP_NAME
@@ -22,7 +24,6 @@ STATIC_HOME_LOCAL = os.path.abspath(os.path.normpath(
                     '..', 'setup.py')) else
             pkg_resources.resource_filename(APP_NAME, 'static')
         ))
-_STATIC_HOME_REMOTE = '/static'
 
 
 db = PollDatabase()
@@ -32,7 +33,16 @@ def _to_json(e):
     return json.dumps(e)
 
 
-@bottle.get('/static/<path:path>')
+def _render_template(filename, url_prefix):
+    context_dict = {
+        'url_prefix': url_prefix,
+    }
+    environment = jinja2.Environment()
+    with open(os.path.join(STATIC_HOME_LOCAL, filename)) as f:
+        template = environment.from_string(f.read())
+    return template.render(context_dict)
+
+
 def _static(path):
     content_type = {
                 'css': 'text/css',
@@ -43,27 +53,23 @@ def _static(path):
     return bottle.static_file(path, root=STATIC_HOME_LOCAL)
 
 
-@bottle.get('/')
-def _index():
+def _index(url_prefix):
     bottle.response.content_type = 'application/xhtml+xml'
-    return bottle.static_file('html/setup.xhtml', root=STATIC_HOME_LOCAL)
+    return _render_template('html/setup.xhtml', url_prefix)
 
 
-@bottle.post('/create')
-def _create():
+def _create(url_prefix):
     config = json.loads(bottle.request.forms['config'])
     poll_id = db.add(config)
-    bottle.redirect('/poll/%s' % poll_id)
+    bottle.redirect(url_prefix + '/poll/%s' % poll_id)
 
 
-@bottle.get('/poll/<poll_id>')
-def _poll(poll_id):
+def _poll(url_prefix, poll_id):
     db.get(poll_id)
     bottle.response.content_type = 'application/xhtml+xml'
-    return bottle.static_file('html/poll.xhtml', root=STATIC_HOME_LOCAL)
+    return _render_template('html/poll.xhtml', url_prefix)
 
 
-@bottle.get('/data/<poll_id>')
 def _data(poll_id):
     poll = db.get(poll_id)
     return _to_json({
@@ -72,15 +78,29 @@ def _data(poll_id):
     })
 
 
-@bottle.post('/vote/<poll_id>')
-def _vote(poll_id):
+def _vote(url_prefix, poll_id):
     voterName = bottle.request.forms['voterName']
     poll = db.get(poll_id)
     votes = [bottle.request.forms.get('option%d' % i) == 'on'
             for i in xrange(len(poll.options))]
     poll.vote(voterName, votes)
 
-    bottle.redirect('/poll/%s' % poll_id)
+    bottle.redirect(url_prefix + '/poll/%s' % poll_id)
+
+
+def add_routes(url_prefix='/'):
+    url_prefix = url_prefix.strip('/')
+
+    if url_prefix != '':
+        url_prefix = '/' + url_prefix
+        bottle.route('/', 'GET', lambda: bottle.redirect(url_prefix + '/'))
+
+    bottle.route(url_prefix + '/', 'GET', partial(_index, url_prefix))
+    bottle.route(url_prefix + '/create', 'POST', partial(_create, url_prefix))
+    bottle.route(url_prefix + '/data/<poll_id>', 'GET', _data)
+    bottle.route(url_prefix + '/poll/<poll_id>', 'GET', partial(_poll, url_prefix))
+    bottle.route(url_prefix + '/static/<path:path>', 'GET', _static)
+    bottle.route(url_prefix + '/vote/<poll_id>', 'POST', partial(_vote, url_prefix))
 
 
 def run_server(options):
