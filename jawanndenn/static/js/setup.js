@@ -22,7 +22,7 @@ var exampleOptions = ['Apple', 'Banana', 'Orange', 'Papaya'];
 var exampleVotesCache = {};
 
 var createExampleVotes = function(options) {
-    var examplePeople = ['Arne', 'Lisa', 'Monica', 'Astrid'];
+    var examplePeople = ['Dmitri', 'Jule', 'Vered', 'Matthieu'];
 
     var exampleVotes = [];
     $.each( examplePeople, function( i, person ) {
