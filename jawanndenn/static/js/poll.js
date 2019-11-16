@@ -164,7 +164,7 @@ var enableButton = function(selector, enabled) {
 };
 
 var syncSaveButton = function() {
-    var good = ($( '#voterName' ).val().length > 0);
+    var good = ($( '#voterName' ).val().trim().length > 0);
     var saveButton = $( '#submitVote' );
     enableButton(saveButton, good);
 };
