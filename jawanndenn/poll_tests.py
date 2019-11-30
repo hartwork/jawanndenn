@@ -4,10 +4,9 @@
 import cPickle as pickle
 import datetime
 from StringIO import StringIO
-
 from unittest import TestCase
 
-from jawanndenn.poll import _Poll, _PICKLE_POLL_VERSION
+from jawanndenn.poll import _PICKLE_POLL_VERSION, _Poll
 
 
 def _create_v1_poll():

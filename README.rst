@@ -9,7 +9,7 @@ polls, a libre alternative to Doodle. It is written in Python and
 JavaScript using
 
 -  `bottle`_ with `Tornado`_ for a default backend
--  `jQuery`_ 
+-  `jQuery`_
 -  `jQuery noty`_
 -  `Materialize`_ Material Design CSS/JS
 

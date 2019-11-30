@@ -2,8 +2,8 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import errno
-import os
 import logging
+import os
 
 import bottle
 
@@ -11,7 +11,7 @@ if os.path.exists(os.path.join(os.path.dirname(__file__), '..', 'setup.py')):
     import sys
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from jawanndenn.app import add_routes, db
+from jawanndenn.app import add_routes, db  # noqa: E402
 
 
 logging.basicConfig(

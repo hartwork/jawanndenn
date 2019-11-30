@@ -8,11 +8,9 @@ import logging
 import os
 import shutil
 import tempfile
-
 from threading import Lock
 
 from jawanndenn.markup import safe_html
-
 
 DEFAULT_MAX_POLLS = 1000
 DEFAULT_MAX_VOTER_PER_POLL = 40
@@ -82,7 +80,7 @@ class _Poll(object):
 
         if self._version != initial_version:
             _log.debug('Upgraded poll from version %d to version %d'
-                    % (initial_version, self._version))
+                       % (initial_version, self._version))
 
     @staticmethod
     def from_config(config):

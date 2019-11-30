@@ -7,24 +7,23 @@ import logging
 import os
 import sys
 
-from jawanndenn.poll import (apply_limits,
-        DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTER_PER_POLL)
-
+from jawanndenn.poll import (DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTER_PER_POLL,
+                             apply_limits)
 
 _BOTTLE_BACKENDS = (
-#   'cgi',  # see https://github.com/bottlepy/bottle/issues/836
-#   'flup',
+    # 'cgi',  # see https://github.com/bottlepy/bottle/issues/836
+    # 'flup',
     'gae',
     'wsgiref',
-#   'cherrypy',
+    # 'cherrypy',
     'paste',
-#   'rocket',
+    # 'rocket',
     'waitress',
     'gunicorn',
     'eventlet',
     'gevent',
     'diesel',
-#   'fapws3',  # symptom "XML Parsing Error: no root element found"
+    # 'fapws3',  # symptom "XML Parsing Error: no root element found"
     'tornado',
     'twisted',
     'meinheld',
@@ -54,31 +53,38 @@ def _require_hash_randomization():
 def main():
     parser = argparse.ArgumentParser(prog='jawanndenn')
     parser.add_argument('--debug', action='store_true',
-            help='Enable debug mode (default: disabled)')
+                        help='Enable debug mode (default: disabled)')
     parser.add_argument('--host', default='127.0.0.1', metavar='HOST',
-            help='Hostname or IP address to listen at (default: %(default)s)')
+                        help='Hostname or IP address to listen at'
+                             ' (default: %(default)s)')
     parser.add_argument('--port', default=8080, type=int, metavar='PORT',
-            help='Port to listen at (default: %(default)s)')
+                        help='Port to listen at (default: %(default)s)')
     parser.add_argument('--url-prefix', default='', metavar='PATH',
-            help='Path to prepend to URLs (default: "%(default)s")')
-    parser.add_argument('--database-pickle', default='~/jawanndenn.pickle', metavar='FILE',
-            help='File to write the database to (default: %(default)s)')
-    parser.add_argument('--server', default=_DEFAULT_BACKEND, metavar='BACKEND',
-            help='bottle backend to use (default: %%(default)s)'
-                '; as of this writing bottle supports: %s. '
-                'For the most current list, please check the documentation '
-                'of bottle.'
-                % ', '.join(sorted(b for b in _BOTTLE_BACKENDS
-                                   if b != _DEFAULT_BACKEND))
-                )
+                        help='Path to prepend to URLs'
+                             ' (default: "%(default)s")')
+    parser.add_argument('--database-pickle', default='~/jawanndenn.pickle',
+                        metavar='FILE',
+                        help='File to write the database to'
+                             ' (default: %(default)s)')
+    parser.add_argument('--server', default=_DEFAULT_BACKEND,
+                        metavar='BACKEND',
+                        help='bottle backend to use (default: %%(default)s)'
+                             '; as of this writing bottle supports: %s. '
+                             'For the most current list, please check '
+                             'the documentation of bottle.'
+                             % ', '.join(sorted(b for b in _BOTTLE_BACKENDS
+                                                if b != _DEFAULT_BACKEND))
+                        )
 
     limits = parser.add_argument_group('limit configuration')
     limits.add_argument('--max-polls', type=int, metavar='COUNT',
-            default=DEFAULT_MAX_POLLS,
-            help='Maximum number of polls total (default: %(default)s)')
+                        default=DEFAULT_MAX_POLLS,
+                        help='Maximum number of polls total'
+                             ' (default: %(default)s)')
     limits.add_argument('--max-votes-per-poll', type=int, metavar='COUNT',
-            default=DEFAULT_MAX_VOTER_PER_POLL,
-            help='Maximum number of votes per poll (default: %(default)s)')
+                        default=DEFAULT_MAX_VOTER_PER_POLL,
+                        help='Maximum number of votes per poll'
+                             ' (default: %(default)s)')
 
     options = parser.parse_args()
 

@@ -44,15 +44,15 @@ if __name__ == '__main__':
 
         entry_points={
             'console_scripts': [
-                '%s = %s.__main__:main' % (APP_NAME, APP_NAME),
+                '{} = {}.__main__:main'.format(APP_NAME, APP_NAME),
             ],
         },
 
         classifiers=[
             'Development Status :: 4 - Beta',
             'Framework :: Bottle',
-            'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
-            'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+            'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',  # noqa: E501
+            'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',  # noqa: E501
             'Programming Language :: JavaScript',
             'Programming Language :: Python :: 2.7',
             'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',

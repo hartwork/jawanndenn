@@ -7,23 +7,21 @@ import os
 import sys
 from functools import partial
 
-import bottle
-import jinja2
 import pkg_resources
 
+import bottle
+import jinja2
 from jawanndenn.metadata import APP_NAME
 from jawanndenn.poll import PollDatabase
 
-
 _log = logging.getLogger(__name__)
 
-
 STATIC_HOME_LOCAL = os.path.abspath(os.path.normpath(
-        os.path.join(os.path.dirname(__file__), 'static')
-            if os.path.exists(os.path.join(os.path.dirname(__file__),
-                    '..', 'setup.py')) else
-            pkg_resources.resource_filename(APP_NAME, 'static')
-        ))
+    os.path.join(os.path.dirname(__file__), 'static')
+    if os.path.exists(os.path.join(os.path.dirname(__file__),
+                                   '..', 'setup.py'))
+    else pkg_resources.resource_filename(APP_NAME, 'static')
+))
 
 
 db = PollDatabase()
@@ -82,7 +80,7 @@ def _vote(url_prefix, poll_id):
     voterName = bottle.request.forms['voterName']
     poll = db.get(poll_id)
     votes = [bottle.request.forms.get('option%d' % i) == 'on'
-            for i in xrange(len(poll.options))]
+             for i in range(len(poll.options))]
     poll.vote(voterName, votes)
 
     bottle.redirect(url_prefix + '/poll/%s' % poll_id)
@@ -98,9 +96,11 @@ def add_routes(url_prefix='/'):
     bottle.route(url_prefix + '/', 'GET', partial(_index, url_prefix))
     bottle.route(url_prefix + '/create', 'POST', partial(_create, url_prefix))
     bottle.route(url_prefix + '/data/<poll_id>', 'GET', _data)
-    bottle.route(url_prefix + '/poll/<poll_id>', 'GET', partial(_poll, url_prefix))
+    bottle.route(url_prefix + '/poll/<poll_id>', 'GET', partial(_poll,
+                                                                url_prefix))
     bottle.route(url_prefix + '/static/<path:path>', 'GET', _static)
-    bottle.route(url_prefix + '/vote/<poll_id>', 'POST', partial(_vote, url_prefix))
+    bottle.route(url_prefix + '/vote/<poll_id>', 'POST', partial(_vote,
+                                                                 url_prefix))
 
 
 def run_server(options):

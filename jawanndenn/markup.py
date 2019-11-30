@@ -17,14 +17,14 @@ _CLOSING_OF = {
 
 
 def safe_html(text):
-    if not isinstance(text, basestring):
+    if not isinstance(text, basestring):  # noqa: F821
         raise ValueError('Not a string: %s' % text)
 
     # KEEP IN SYNC with javascript client side!
 
     text = text.replace('&', '&amp;') \
-            .replace('<', '&lt;') \
-            .replace('>', '&gt;')
+               .replace('<', '&lt;') \
+               .replace('>', '&gt;')
 
     chunks = []
 
