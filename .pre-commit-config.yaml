@@ -21,4 +21,3 @@ repos:
     rev: v4.3.21
     hooks:
       - id: isort
-        exclude: '^jawanndenn/app.wsgi$'

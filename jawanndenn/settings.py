@@ -25,9 +25,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ou@c@e2(9oh4*z9+tu0!)zf)j=_($#vmu36iflgy@g19+bkp-m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('JAWANNDENN_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('JAWANNDENN_ALLOWED_HOSTS', ','.join([
+    '127.0.0.1',
+    '0.0.0.0',
+    'localhost',
+])).split(',')
 
 
 # Application definition
@@ -81,7 +85,8 @@ WSGI_APPLICATION = 'jawanndenn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.environ.get('JAWANNDENN_SQLITE_FILE',
+                               os.path.join(BASE_DIR, 'db.sqlite3')),
     }
 }
 

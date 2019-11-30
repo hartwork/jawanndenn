@@ -2,36 +2,13 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import argparse
-import errno
 import logging
 import os
+import subprocess
 import sys
+from unittest.mock import patch
 
-from jawanndenn.poll import (DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTER_PER_POLL,
-                             apply_limits)
-
-_BOTTLE_BACKENDS = (
-    # 'cgi',  # see https://github.com/bottlepy/bottle/issues/836
-    # 'flup',
-    'gae',
-    'wsgiref',
-    # 'cherrypy',
-    'paste',
-    # 'rocket',
-    'waitress',
-    'gunicorn',
-    'eventlet',
-    'gevent',
-    'diesel',
-    # 'fapws3',  # symptom "XML Parsing Error: no root element found"
-    'tornado',
-    'twisted',
-    'meinheld',
-    'bjoern',
-    'auto',
-)
-
-_DEFAULT_BACKEND = 'tornado'
+from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 
 _log = logging.getLogger(__name__)
 
@@ -52,7 +29,7 @@ def _require_hash_randomization():
 
 def main():
     parser = argparse.ArgumentParser(prog='jawanndenn')
-    parser.add_argument('--debug', action='store_true',
+    parser.add_argument('--debug', action='store_true', default=False,
                         help='Enable debug mode (default: disabled)')
     parser.add_argument('--host', default='127.0.0.1', metavar='HOST',
                         help='Hostname or IP address to listen at'
@@ -62,19 +39,10 @@ def main():
     parser.add_argument('--url-prefix', default='', metavar='PATH',
                         help='Path to prepend to URLs'
                              ' (default: "%(default)s")')
-    parser.add_argument('--database-pickle', default='~/jawanndenn.pickle',
+    parser.add_argument('--database-sqlite3', default='~/jawanndenn.sqlite3',
                         metavar='FILE',
                         help='File to write the database to'
                              ' (default: %(default)s)')
-    parser.add_argument('--server', default=_DEFAULT_BACKEND,
-                        metavar='BACKEND',
-                        help='bottle backend to use (default: %%(default)s)'
-                             '; as of this writing bottle supports: %s. '
-                             'For the most current list, please check '
-                             'the documentation of bottle.'
-                             % ', '.join(sorted(b for b in _BOTTLE_BACKENDS
-                                                if b != _DEFAULT_BACKEND))
-                        )
 
     limits = parser.add_argument_group('limit configuration')
     limits.add_argument('--max-polls', type=int, metavar='COUNT',
@@ -82,7 +50,7 @@ def main():
                         help='Maximum number of polls total'
                              ' (default: %(default)s)')
     limits.add_argument('--max-votes-per-poll', type=int, metavar='COUNT',
-                        default=DEFAULT_MAX_VOTER_PER_POLL,
+                        default=DEFAULT_MAX_VOTES_PER_POLL,
                         help='Maximum number of votes per poll'
                              ' (default: %(default)s)')
 
@@ -90,22 +58,6 @@ def main():
     export_args.add_argument('--dumpdata', action='store_true',
                              help='Dump a JSON export of the database to '
                                   'standard output, then quit.')
-    export_args.add_argument('--first-poll', type=int, default=1,
-                             metavar='NUMBER',
-                             help='Lowest primary key to use for '
-                                  'poll objects (default: %(default)s)')
-    export_args.add_argument('--first-poll-option', type=int, default=1,
-                             metavar='NUMBER',
-                             help='Lowest primary key to use for '
-                                  'poll option objects (default: %(default)s)')
-    export_args.add_argument('--first-ballot', type=int, default=1,
-                             metavar='NUMBER',
-                             help='Lowest primary key to use for '
-                                  'ballot objects (default: %(default)s)')
-    export_args.add_argument('--first-vote', type=int, default=1,
-                             metavar='NUMBER',
-                             help='Lowest primary key to use for '
-                                  'vote objects (default: %(default)s)')
 
     options = parser.parse_args()
 
@@ -114,39 +66,39 @@ def main():
     if not options.dumpdata:
         _require_hash_randomization()
 
-        # NOTE: gevent patching needs to happen before importing bottle
-        if options.server == 'gevent':
-            from gevent.monkey import patch_all
-            patch_all()
+    # NOTE: These are read by the the Django settings module
+    os.environ['JAWANNDENN_ALLOWED_HOSTS'] = ','.join([options.host,
+                                                       '127.0.0.1',
+                                                       '0.0.0.0',
+                                                       'localhost'])
+    os.environ['JAWANNDENN_DEBUG'] = str(options.debug)
+    os.environ['JAWANNDENN_MAX_POLLS'] = str(options.max_polls)
+    os.environ['JAWANNDENN_MAX_VOTES_PER_POLL'] = str(options
+                                                      .max_votes_per_poll)
+    os.environ['JAWANNDENN_SQLITE_FILE'] = os.path.expanduser(
+        options.database_sqlite3)
+    os.environ['JAWANNDENN_URL_PREFIX'] = options.url_prefix
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jawanndenn.settings')
 
     # Heavy imports are down here to keep --help fast
-    from jawanndenn.app import add_routes, db, run_server, STATIC_HOME_LOCAL
+    from django.core.management import execute_from_command_line
 
-    if not options.dumpdata:
-        apply_limits(
-            polls=options.max_polls,
-            votes_per_poll=options.max_votes_per_poll,
-        )
-
-        _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
-
-    filename = os.path.expanduser(options.database_pickle)
-
-    try:
-        db.load(filename)
-    except IOError as e:
-        if e.errno != errno.ENOENT:
-            raise
-        db.save(filename)  # catch saving trouble early
+    with patch('sys.stdout', sys.stderr):
+        execute_from_command_line(['./manage.py', 'migrate'])
+        print()
 
     if options.dumpdata:
-        db.dump_as_django_json(options)
+        execute_from_command_line(['./manage.py', 'dumpdata'])
     else:
-        add_routes(options.url_prefix)
-        try:
-            run_server(options)
-        finally:
-            db.save(filename)
+        sys.exit(subprocess.call([
+            'gunicorn',
+            '--name=jawanndenn',
+            f'--bind={options.host}:{options.port}',
+            '--workers=1',  # due to use of sqlite3 storage
+            '--access-logfile=-',
+            'jawanndenn.wsgi',
+        ]))
 
 
 if __name__ == '__main__':
