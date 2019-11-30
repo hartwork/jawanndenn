@@ -1,0 +1,95 @@
+import json
+
+from django.conf import settings
+from django.db import transaction
+from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.template.response import SimpleTemplateResponse
+from django.views.decorators.http import require_GET, require_POST
+from jawanndenn.models import Ballot, Poll, PollOption, Vote
+
+
+@require_GET
+def index_get_view(request):
+    context = {
+        'url_prefix': settings.JAWANNDENN_URL_PREFIX,
+    }
+
+    response = SimpleTemplateResponse(template='html/setup.xhtml',
+                                      context=context,
+                                      content_type='application/xhtml+xml')
+    response._request = request
+    return response
+
+
+@require_POST
+def poll_post_view(request):
+    config = json.loads(request.POST.get('config', '{}'))
+    poll_equal_width = bool(config.get('equal_width', False))
+    poll_title = str(config.get('title', ''))
+    poll_option_names = map(str, config.get('options', []))
+
+    with transaction.atomic():
+        poll = Poll.objects.create(title=poll_title,
+                                   equal_width=poll_equal_width)
+        for i, option_name in enumerate(poll_option_names):
+            PollOption.objects.create(poll=poll, position=i, name=option_name)
+
+    return redirect(poll)
+
+
+@require_GET
+def poll_data_get_view(request, poll_id):
+    with transaction.atomic():
+        poll = Poll.objects.get(slug=poll_id)
+        poll_config = {
+            'equal_width': poll.equal_width,
+            'title': poll.title,
+            'options': list(poll.options.order_by('position')
+                            .values_list('name', flat=True)),
+        }
+        votes = [
+            [ballot.voter_name, [vote.yes for vote
+                                 in ballot.votes.order_by('option__position')]]
+            for ballot
+            in poll.ballots.order_by('created')
+        ]
+
+    data = {
+        'config': poll_config,
+        'votes': votes,
+    }
+
+    return JsonResponse(data)
+
+
+@require_GET
+def poll_get_view(request, poll_id):
+    context = {
+        'url_prefix': settings.JAWANNDENN_URL_PREFIX,
+    }
+
+    response = SimpleTemplateResponse(template='html/poll.xhtml',
+                                      context=context,
+                                      content_type='application/xhtml+xml')
+    response._request = request
+    return response
+
+
+@require_POST
+def vote_post_view(request, poll_id):
+    with transaction.atomic():
+        poll = Poll.objects.get(slug=poll_id)
+
+        voter_name = request.POST.get('voterName')
+        votes = [
+            request.POST.get(f'option{i}', 'off') == 'on'
+            for i
+            in range(poll.options.count())
+        ]
+
+        ballot = Ballot.objects.create(poll=poll, voter_name=voter_name)
+        for option, vote in zip(poll.options.order_by('position'), votes):
+            Vote.objects.create(ballot=ballot, option=option, yes=vote)
+
+    return redirect(poll)

@@ -14,6 +14,7 @@ repos:
       - id: check-merge-conflict
       - id: end-of-file-fixer
       - id: flake8
+        exclude: '^jawanndenn/migrations/'
       - id: trailing-whitespace
 
   - repo: https://github.com/pre-commit/mirrors-isort

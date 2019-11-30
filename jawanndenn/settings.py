@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'jawanndenn',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,9 @@ ROOT_URLCONF = 'jawanndenn.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'jawanndenn', 'static'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,7 +117,19 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Settings specific to jawanndenn
+
+JAWANNDENN_URL_PREFIX = os.environ.get('JAWANNDENN_URL_PREFIX', '').strip('/')
+
+if JAWANNDENN_URL_PREFIX != '':
+    JAWANNDENN_URL_PREFIX = '/' + JAWANNDENN_URL_PREFIX
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = JAWANNDENN_URL_PREFIX + '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'jawanndenn', 'static'),
+]
