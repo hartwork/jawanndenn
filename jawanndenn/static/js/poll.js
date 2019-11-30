@@ -131,7 +131,7 @@ var _addSummaryRow = function(table, options, votesPerOption) {
     tr.child( tag('td') );
 };
 
-var createPollHtml = function(config, votes, previewMode) {
+var createPollHtml = function(config, votes, previewMode, csrf_token) {
     var div = tag('div', {
                 class: 'card-panel'
             });
@@ -142,6 +142,11 @@ var createPollHtml = function(config, votes, previewMode) {
     var form = div.child( tag('form', {
                 id: 'pollForm',
                 method: 'POST',
+            }));
+    var csrfmiddlewaretoken = form.child( tag('input', {
+                type: 'hidden',
+                name: 'csrfmiddlewaretoken',
+                value: csrf_token,
             }));
     var table = form.child( tag('table', {
             id: 'pollTable'
