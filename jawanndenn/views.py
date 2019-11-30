@@ -2,7 +2,7 @@ import json
 
 from django.conf import settings
 from django.db import transaction
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.template.response import SimpleTemplateResponse
 from django.views.decorators.http import require_GET, require_POST
@@ -30,6 +30,11 @@ def poll_post_view(request):
     poll_option_names = map(str, config.get('options', []))
 
     with transaction.atomic():
+        if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:
+            return HttpResponseBadRequest(
+                f'Maximum number of {settings.JAWANNDENN_MAX_POLLS} polls '
+                'reached, please contact the administrator.')
+
         poll = Poll.objects.create(title=poll_title,
                                    equal_width=poll_equal_width)
         for i, option_name in enumerate(poll_option_names):
@@ -80,6 +85,12 @@ def poll_get_view(request, poll_id):
 def vote_post_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
+
+        if poll.ballots.count() >= settings.JAWANNDENN_MAX_VOTES_PER_POLL:
+            return HttpResponseBadRequest(
+                f'Maximum number of {settings.JAWANNDENN_MAX_VOTES_PER_POLL} '
+                'votes reached for this poll'
+                ', please contact the administrator.')
 
         voter_name = request.POST.get('voterName')
         votes = [

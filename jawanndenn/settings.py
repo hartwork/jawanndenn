@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -123,6 +125,11 @@ JAWANNDENN_URL_PREFIX = os.environ.get('JAWANNDENN_URL_PREFIX', '').strip('/')
 
 if JAWANNDENN_URL_PREFIX != '':
     JAWANNDENN_URL_PREFIX = '/' + JAWANNDENN_URL_PREFIX
+
+JAWANNDENN_MAX_POLLS = int(os.environ.get(
+    'JAWANNDENN_MAX_POLLS', str(DEFAULT_MAX_POLLS)))
+JAWANNDENN_MAX_VOTES_PER_POLL = int(os.environ.get(
+    'JAWANNDENN_MAX_VOTES_PER_POLL', str(DEFAULT_MAX_VOTES_PER_POLL)))
 
 
 # Static files (CSS, JavaScript, Images)
