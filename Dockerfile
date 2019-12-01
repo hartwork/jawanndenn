@@ -10,6 +10,7 @@ ENV PATH=/root/.local/bin/:${PATH}
 EXPOSE 8080
 
 ENTRYPOINT ["/root/.local/bin/jawanndenn", "--port", "8080", "--host", "0.0.0.0"]
-CMD ["--database-sqlite3", "/data/polls.sqlite3"]
+CMD ["--database-sqlite3", "/data/polls.sqlite3", \
+     "--django-secret-key-file", "/data/django_secret_key"]
 
 STOPSIGNAL SIGINT

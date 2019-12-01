@@ -4,6 +4,7 @@
 import argparse
 import logging
 import os
+import string
 import subprocess
 import sys
 from unittest.mock import patch
@@ -27,6 +28,32 @@ def _require_hash_randomization():
         os.execve(argv[0], argv, env)
 
 
+def _generate_random_printable_django_secret_key():
+    alphabet = ''.join(b for b in string.printable
+                       if b not in string.whitespace and b not in '\'\\')
+    # reduce number of retries while not introducing modulo bias
+    alphabet = ''.join(alphabet for _ in range(256 // len(alphabet)))
+    chars = []
+    while len(chars) < 50:
+        index = ord(os.urandom(1))
+        if index >= len(alphabet):  # detect and avoid modulo bias
+            continue
+        chars.append(alphabet[index])
+    return ''.join(chars)
+
+
+def _process_django_secret_key_file(filename):
+    secret_key_encoding = 'utf-8'
+    try:
+        with open(filename, 'r', encoding=secret_key_encoding) as f:
+            secret_key = f.read()
+    except FileNotFoundError:
+        secret_key = _generate_random_printable_django_secret_key()
+        with open(filename, 'w', encoding=secret_key_encoding) as f:
+            f.write(secret_key)
+    return secret_key
+
+
 def main():
     parser = argparse.ArgumentParser(prog='jawanndenn')
     parser.add_argument('--debug', action='store_true', default=False,
@@ -42,6 +69,10 @@ def main():
     parser.add_argument('--database-sqlite3', default='~/jawanndenn.sqlite3',
                         metavar='FILE',
                         help='File to write the database to'
+                             ' (default: %(default)s)')
+    parser.add_argument('--django-secret-key-file',
+                        default='~/jawanndenn.secret_key', metavar='FILE',
+                        help='File to use for Django secret key data'
                              ' (default: %(default)s)')
 
     limits = parser.add_argument_group('limit configuration')
@@ -66,6 +97,9 @@ def main():
     if not options.dumpdata:
         _require_hash_randomization()
 
+    secret_key = _process_django_secret_key_file(
+        os.path.expanduser(options.django_secret_key_file))
+
     # NOTE: These are read by the the Django settings module
     os.environ['JAWANNDENN_ALLOWED_HOSTS'] = ','.join([options.host,
                                                        '127.0.0.1',
@@ -75,6 +109,7 @@ def main():
     os.environ['JAWANNDENN_MAX_POLLS'] = str(options.max_polls)
     os.environ['JAWANNDENN_MAX_VOTES_PER_POLL'] = str(options
                                                       .max_votes_per_poll)
+    os.environ['JAWANNDENN_SECRET_KEY'] = secret_key
     os.environ['JAWANNDENN_SQLITE_FILE'] = os.path.expanduser(
         options.database_sqlite3)
     os.environ['JAWANNDENN_URL_PREFIX'] = options.url_prefix
