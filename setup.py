@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 from jawanndenn.metadata import APP_NAME, VERSION_STR
 
@@ -32,10 +32,7 @@ if __name__ == '__main__':
             'tornado<6',  # 6.x requires Python 3.x
         ],
 
-        packages=[
-            APP_NAME,
-        ],
-
+        packages=find_packages(),
         package_data={
             APP_NAME: [
                 'static/css/*',
