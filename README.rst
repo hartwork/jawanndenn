@@ -81,7 +81,9 @@ Currently supported arguments are:
     usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
                       [--url-prefix PATH] [--database-pickle FILE]
                       [--server BACKEND] [--max-polls COUNT]
-                      [--max-votes-per-poll COUNT]
+                      [--max-votes-per-poll COUNT] [--dumpdata]
+                      [--first-poll NUMBER] [--first-poll-option NUMBER]
+                      [--first-ballot NUMBER] [--first-vote NUMBER]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -103,6 +105,20 @@ Currently supported arguments are:
       --max-polls COUNT     Maximum number of polls total (default: 1000)
       --max-votes-per-poll COUNT
                             Maximum number of votes per poll (default: 40)
+
+    data export arguments:
+      --dumpdata            Dump a JSON export of the database to standard output,
+                            then quit.
+      --first-poll NUMBER   Lowest primary key to use for poll objects (default:
+                            1)
+      --first-poll-option NUMBER
+                            Lowest primary key to use for poll option objects
+                            (default: 1)
+      --first-ballot NUMBER
+                            Lowest primary key to use for ballot objects (default:
+                            1)
+      --first-vote NUMBER   Lowest primary key to use for vote objects (default:
+                            1)
 
 
 Goals

@@ -29,6 +29,7 @@ if __name__ == '__main__':
         install_requires=[
             'Jinja2',
             'bottle',
+            'python-dateutil',
             'tornado<6',  # 6.x requires Python 3.x
         ],
 

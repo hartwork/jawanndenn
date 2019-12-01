@@ -86,26 +86,49 @@ def main():
                         help='Maximum number of votes per poll'
                              ' (default: %(default)s)')
 
+    export_args = parser.add_argument_group('data export arguments')
+    export_args.add_argument('--dumpdata', action='store_true',
+                             help='Dump a JSON export of the database to '
+                                  'standard output, then quit.')
+    export_args.add_argument('--first-poll', type=int, default=1,
+                             metavar='NUMBER',
+                             help='Lowest primary key to use for '
+                                  'poll objects (default: %(default)s)')
+    export_args.add_argument('--first-poll-option', type=int, default=1,
+                             metavar='NUMBER',
+                             help='Lowest primary key to use for '
+                                  'poll option objects (default: %(default)s)')
+    export_args.add_argument('--first-ballot', type=int, default=1,
+                             metavar='NUMBER',
+                             help='Lowest primary key to use for '
+                                  'ballot objects (default: %(default)s)')
+    export_args.add_argument('--first-vote', type=int, default=1,
+                             metavar='NUMBER',
+                             help='Lowest primary key to use for '
+                                  'vote objects (default: %(default)s)')
+
     options = parser.parse_args()
 
     logging.basicConfig(level=logging.DEBUG if options.debug else logging.INFO)
 
-    _require_hash_randomization()
+    if not options.dumpdata:
+        _require_hash_randomization()
 
-    # NOTE: gevent patching needs to happen before importing bottle
-    if options.server == 'gevent':
-        from gevent.monkey import patch_all
-        patch_all()
+        # NOTE: gevent patching needs to happen before importing bottle
+        if options.server == 'gevent':
+            from gevent.monkey import patch_all
+            patch_all()
 
     # Heavy imports are down here to keep --help fast
     from jawanndenn.app import add_routes, db, run_server, STATIC_HOME_LOCAL
 
-    apply_limits(
-        polls=options.max_polls,
-        votes_per_poll=options.max_votes_per_poll,
-    )
+    if not options.dumpdata:
+        apply_limits(
+            polls=options.max_polls,
+            votes_per_poll=options.max_votes_per_poll,
+        )
 
-    _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
+        _log.debug('Serving static files from "%s"' % STATIC_HOME_LOCAL)
 
     filename = os.path.expanduser(options.database_pickle)
 
@@ -116,12 +139,14 @@ def main():
             raise
         db.save(filename)  # catch saving trouble early
 
-    add_routes(options.url_prefix)
-
-    try:
-        run_server(options)
-    finally:
-        db.save(filename)
+    if options.dumpdata:
+        db.dump_as_django_json(options)
+    else:
+        add_routes(options.url_prefix)
+        try:
+            run_server(options)
+        finally:
+            db.save(filename)
 
 
 if __name__ == '__main__':

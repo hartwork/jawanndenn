@@ -4,12 +4,14 @@
 import cPickle as pickle
 import datetime
 import hashlib
+import json
 import logging
 import os
 import shutil
 import tempfile
 from threading import Lock
 
+from dateutil.tz import tzlocal
 from jawanndenn.markup import safe_html
 
 DEFAULT_MAX_POLLS = 1000
@@ -172,3 +174,75 @@ class PollDatabase(object):
             shutil.move(tempfilename, filename)
 
             _log.info('%d polls saved.' % len(self._db))
+
+    @staticmethod
+    def _datetime_to_str(dt, tzinfo):
+        return dt.replace(tzinfo=tzinfo).isoformat()
+
+    def dump_as_django_json(self, options):
+        tzinfo = tzlocal()
+        objects = []
+
+        next_poll_option_pk = options.first_poll_option
+        next_ballot_pk = options.first_ballot
+        next_vote_pk = options.first_vote
+
+        for poll_index, (poll_slug, poll) in enumerate(self._db.items()):
+            poll_pk = options.first_poll + poll_index
+            poll_created_str = self._datetime_to_str(poll._created_at, tzinfo)
+
+            objects.append({
+                'model': 'jawanndenn.poll',
+                'pk': poll_pk,
+                'fields': {
+                    'created': poll_created_str,
+                    'modified': poll_created_str,
+                    'slug': poll_slug,
+                    'title': poll.config[_KEY_TITLE],
+                    'equal_width': poll.config[_KEY_EQUAL_WIDTH],
+                },
+            })
+
+            option_pk_for_position = {}
+            for option_position, option_name in enumerate(poll.config[
+                                                              _KEY_OPTIONS]):
+                poll_option_pk = next_poll_option_pk
+                objects.append({
+                    'model': 'jawanndenn.polloption',
+                    'pk': poll_option_pk,
+                    'fields': {
+                        'poll': poll_pk,
+                        'position': option_position,
+                        'name': option_name,
+                    },
+                })
+                next_poll_option_pk += 1
+                option_pk_for_position[option_position] = poll_option_pk
+
+            for (voter_name, votes) in poll.votes:
+                ballot_pk = next_ballot_pk
+                objects.append({
+                    'model': 'jawanndenn.ballot',
+                    'pk': ballot_pk,
+                    'fields': {
+                        'created': poll_created_str,  # best we have
+                        'modified': poll_created_str,  # best we have
+                        'poll': poll_pk,
+                        'voter_name': voter_name,
+                    },
+                })
+                next_ballot_pk += 1
+
+                for vote_position, vote in enumerate(votes):
+                    objects.append({
+                        'model': 'jawanndenn.vote',
+                        'pk': next_vote_pk,
+                        'fields': {
+                            'ballot': ballot_pk,
+                            'option': option_pk_for_position[vote_position],
+                            'yes': vote,
+                        }
+                    })
+                    next_vote_pk += 1
+
+        print(json.dumps(objects, sort_keys=True, indent=2))
