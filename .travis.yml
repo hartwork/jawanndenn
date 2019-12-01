@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.7"
+
+jobs:
+  include:
+    - stage: test
+      install:
+        - pip install pre-commit
+        - pre-commit install --install-hooks
+      script:
+        - pre-commit run --all-files
+
+    - stage: test
+      install:
+        - ./setup.py install --user
+      script:
+        - jawanndenn --help
+        - ./setup.py test
