@@ -9,6 +9,7 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.template.response import SimpleTemplateResponse
 from django.views.decorators.http import require_GET, require_POST
+from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, PollOption, Vote
 
 
@@ -29,8 +30,8 @@ def index_get_view(request):
 def poll_post_view(request):
     config = json.loads(request.POST.get('config', '{}'))
     poll_equal_width = bool(config.get('equal_width', False))
-    poll_title = str(config.get('title', ''))
-    poll_option_names = map(str, config.get('options', []))
+    poll_title = safe_html(config.get('title', ''))
+    poll_option_names = map(safe_html, config.get('options', []))
 
     with transaction.atomic():
         if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:
@@ -95,7 +96,7 @@ def vote_post_view(request, poll_id):
                 'votes reached for this poll'
                 ', please contact the administrator.')
 
-        voter_name = request.POST.get('voterName')
+        voter_name = safe_html(request.POST.get('voterName'))
         votes = [
             request.POST.get(f'option{i}', 'off') == 'on'
             for i
