@@ -85,16 +85,19 @@ def main():
                         help='Maximum number of votes per poll'
                              ' (default: %(default)s)')
 
-    export_args = parser.add_argument_group('data export arguments')
+    export_args = parser.add_argument_group('data import/export arguments')
     export_args.add_argument('--dumpdata', action='store_true',
                              help='Dump a JSON export of the database to '
                                   'standard output, then quit.')
+    export_args.add_argument('--loaddata', metavar='FILE.json',
+                             help='Load a JSON export of the database from '
+                                  'FILE.json, then quit.')
 
     options = parser.parse_args()
 
     logging.basicConfig(level=logging.DEBUG if options.debug else logging.INFO)
 
-    if not options.dumpdata:
+    if not options.dumpdata and not options.loaddata:
         _require_hash_randomization()
 
     secret_key = _process_django_secret_key_file(
@@ -125,6 +128,11 @@ def main():
 
     if options.dumpdata:
         execute_from_command_line(['./manage.py', 'dumpdata'])
+    elif options.loaddata:
+        print('Importing JSON dump'
+              ' -- this may take a few seconds...', file=sys.stderr)
+        execute_from_command_line(['./manage.py', 'loaddata',
+                                   os.path.abspath(options.loaddata)])
     else:
         sys.exit(subprocess.call([
             'gunicorn',
