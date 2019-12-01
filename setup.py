@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
         entry_points={
             'console_scripts': [
-                '{} = {}.__main__:main'.format(APP_NAME, APP_NAME),
+                f'{APP_NAME} = {APP_NAME}.__main__:main',
             ],
         },
 
