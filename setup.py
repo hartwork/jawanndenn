@@ -24,6 +24,7 @@ if __name__ == '__main__':
         author_email='sebastian@pipping.org',
         url='https://github.com/hartwork/jawanndenn',
 
+        python_requires='>=2.7, <3',
         install_requires=[
             'Jinja2',
             'bottle',
@@ -54,7 +55,10 @@ if __name__ == '__main__':
             'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',  # noqa: E501
             'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',  # noqa: E501
             'Programming Language :: JavaScript',
+            'Programming Language :: Python',
+            'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 2 :: Only',
             'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
             'Topic :: Office/Business :: Scheduling',
         ]
