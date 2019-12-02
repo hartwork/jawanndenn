@@ -18,6 +18,7 @@ services:
       POSTGRES_DB: ${JAWANNDENN_POSTGRES_NAME:?}
     logging:
       driver: 'none'
+    restart: unless-stopped
 
   jawanndenn:
     depends_on:
