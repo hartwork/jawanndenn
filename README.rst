@@ -71,7 +71,7 @@ using
 
 ::
 
-    # PYTHONPATH=. python jawanndenn/main.py --debug
+    # PYTHONPATH=. python -m jawanndenn --debug
 
 Currently supported arguments are:
 
