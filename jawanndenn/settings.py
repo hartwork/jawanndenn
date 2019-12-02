@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import copy
 import os
 
+from django.utils.log import DEFAULT_LOGGING
 from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -107,6 +109,15 @@ else:
             'NAME': os.environ['JAWANNDENN_SQLITE_FILE'],
         }
     }
+
+
+# Logging
+# https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGGING
+
+LOGGING = copy.copy(DEFAULT_LOGGING)
+LOGGING['handlers']['console']['filters'].remove('require_debug_true')
+if not DEBUG:
+    LOGGING['handlers']['console']['level'] = 'ERROR'
 
 
 # Password validation
