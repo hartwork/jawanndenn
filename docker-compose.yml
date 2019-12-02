@@ -22,7 +22,7 @@ services:
       - postgres
     build: .
     ports:
-      - 127.0.0.1:54080:8080
+      - 127.0.0.1:54080:54080
     networks:
       - default
       - ssl-reverse-proxy

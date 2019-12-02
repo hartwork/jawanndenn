@@ -28,7 +28,7 @@ manage_py migrate
 
 gunicorn_args=(
     --name=jawanndenn
-    --bind=0.0.0.0:8080
+    --bind=0.0.0.0:54080
     --workers="$(nproc --ignore=1)"
     --access-logfile=-
     --logger-class=gunicorn_color.Logger
