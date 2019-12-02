@@ -1,12 +1,16 @@
 FROM python:3.7-alpine
 
-RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client
+RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client shadow
 
-COPY setup.py README.rst requirements.txt  /app/
-COPY jawanndenn/  /app/jawanndenn/
-COPY docker-entrypoint.sh  /root/
+RUN mkdir /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
+RUN useradd --create-home --uid 1001 --non-unique jawanndenn
+USER jawanndenn
 
-RUN cd /app \
+COPY --chown=jawanndenn:jawanndenn setup.py README.rst requirements.txt  /tmp/app/
+COPY --chown=jawanndenn:jawanndenn jawanndenn/                           /tmp/app/jawanndenn/
+COPY --chown=jawanndenn:jawanndenn docker-entrypoint.sh                  /home/jawanndenn/
+
+RUN cd /tmp/app \
         && \
     pip3 install --user --no-warn-script-location -r requirements.txt \
         && \
@@ -18,13 +22,13 @@ RUN cd /app \
         && \
     cd / \
         && \
-    rm -rf /app
+    rm -rf /tmp/app
 
-ENV PATH=/root/.local/bin/:${PATH}
+ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 
 EXPOSE 8080
 
-ENTRYPOINT ["/root/docker-entrypoint.sh"]
+ENTRYPOINT ["/home/jawanndenn/docker-entrypoint.sh"]
 CMD []
 
 STOPSIGNAL SIGINT
