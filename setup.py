@@ -30,7 +30,7 @@ if __name__ == '__main__':
             'django>=2.2.7',
             'django-extensions>=2.2.5',
             'gunicorn>=20.0.4',
-            'gunicorn_color>=0.1.0',
+            'gunicorn-color>=0.1.0',
         ],
 
         packages=find_packages(),
