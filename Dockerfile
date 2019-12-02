@@ -1,9 +1,10 @@
 FROM python:3.7-alpine
 
-RUN apk update && apk add bash diffutils
+RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client
 
 COPY setup.py README.rst requirements.txt  /app/
 COPY jawanndenn/  /app/jawanndenn/
+COPY docker-entrypoint.sh  /root/
 
 RUN cd /app \
         && \
@@ -23,8 +24,7 @@ ENV PATH=/root/.local/bin/:${PATH}
 
 EXPOSE 8080
 
-ENTRYPOINT ["/root/.local/bin/jawanndenn", "--port", "8080", "--host", "0.0.0.0"]
-CMD ["--database-sqlite3", "/data/polls.sqlite3", \
-     "--django-secret-key-file", "/data/django_secret_key"]
+ENTRYPOINT ["/root/docker-entrypoint.sh"]
+CMD []
 
 STOPSIGNAL SIGINT

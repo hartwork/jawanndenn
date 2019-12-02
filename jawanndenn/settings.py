@@ -33,6 +33,8 @@ ALLOWED_HOSTS = os.environ.get('JAWANNDENN_ALLOWED_HOSTS', ','.join([
     'localhost',
 ])).split(',')
 
+_USE_POSTGRES = 'JAWANNDENN_SQLITE_FILE' not in os.environ
+
 
 # Application definition
 
@@ -45,6 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jawanndenn',
 ]
+
+if _USE_POSTGRES:
+    INSTALLED_APPS += [
+        'django_probes',  # management command "wait_for_database"
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,13 +89,24 @@ WSGI_APPLICATION = 'jawanndenn.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.environ.get('JAWANNDENN_SQLITE_FILE',
-                               os.path.join(BASE_DIR, 'db.sqlite3')),
+if _USE_POSTGRES:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['JAWANNDENN_POSTGRES_NAME'],
+            'USER': os.environ['JAWANNDENN_POSTGRES_USER'],
+            'PASSWORD': os.environ['JAWANNDENN_POSTGRES_PASSWORD'],
+            'HOST': os.environ['JAWANNDENN_POSTGRES_HOST'],
+            'PORT': os.environ['JAWANNDENN_POSTGRES_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.environ['JAWANNDENN_SQLITE_FILE'],
+        }
+    }
 
 
 # Password validation
