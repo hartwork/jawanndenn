@@ -18,3 +18,4 @@ services:
     volumes:
       - ~/.jawanndenn-docker/:/data
     restart: unless-stopped
+    tty: true
