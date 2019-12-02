@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python3
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
@@ -25,12 +25,12 @@ if __name__ == '__main__':
         author_email='sebastian@pipping.org',
         url='https://github.com/hartwork/jawanndenn',
 
-        python_requires='>=2.7, <3',
+        python_requires='>=3.6',
         install_requires=[
-            'Jinja2',
-            'bottle',
-            'python-dateutil',
-            'tornado<6',  # 6.x requires Python 3.x
+            'django>=2.2.7',
+            'django-extensions>=2.2.5',
+            'gunicorn>=20.0.4',
+            'gunicorn_color>=0.1.0',
         ],
 
         packages=find_packages(),
@@ -44,20 +44,23 @@ if __name__ == '__main__':
 
         entry_points={
             'console_scripts': [
-                '{} = {}.__main__:main'.format(APP_NAME, APP_NAME),
+                f'{APP_NAME} = {APP_NAME}.__main__:main',
             ],
         },
 
         classifiers=[
             'Development Status :: 4 - Beta',
-            'Framework :: Bottle',
+            'Framework :: Django',
+            'Framework :: Django :: 2.2',
             'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',  # noqa: E501
             'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',  # noqa: E501
             'Programming Language :: JavaScript',
             'Programming Language :: Python',
-            'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.7',
-            'Programming Language :: Python :: 2 :: Only',
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'Programming Language :: Python :: 3.8',
+            'Programming Language :: Python :: 3 :: Only',
             'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
             'Topic :: Office/Business :: Scheduling',
         ]

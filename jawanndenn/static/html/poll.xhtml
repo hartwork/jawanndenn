@@ -17,7 +17,7 @@ Licensed under GNU GPL v3 or later
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js" />
 
         <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/html.js?sha1=85e9e5f0be4160539a04f4af533093f1616820f6" />
-        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/poll.js?sha1=e272752b49eeb2d896dcd1073abfcbb8b209f647" />
+        <script type="text/javascript" src="{{ url_prefix|safe }}/static/js/poll.js?sha1=5342f6f12026a4027a2cc70eed0e79736323f6a6" />
         <link rel="stylesheet" type="text/css" href="{{ url_prefix|safe }}/static/css/style.css?sha1=a024ed989079086c9e2ba073a8f7787e180eb508" />
 
         <script type="text/javascript">
@@ -25,7 +25,7 @@ Licensed under GNU GPL v3 or later
                 var pollId = /[0-9a-fA-F]{64}/.exec(window.location.pathname)[0]
                 $.get( '{{ url_prefix|safe }}/data/' + pollId, function(data) {
                     var poll = $( '#poll' );
-                    poll.html( createPollHtml( data.config, data.votes, Mode.LIVE ) );
+                    poll.html( createPollHtml( data.config, data.votes, Mode.LIVE, '{{ csrf_token }}' ) );
                     $( '#pollForm' ).attr('action', "{{ url_prefix|safe }}/vote/" + pollId);
                     if (data.config.equal_width) {
                         equalizeWidth( poll );

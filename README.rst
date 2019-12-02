@@ -8,7 +8,8 @@ What is jawanndenn?
 polls, a libre alternative to Doodle. It is written in Python and
 JavaScript using
 
--  `bottle`_ with `Tornado`_ for a default backend
+-  `Django`_  (with `django-probes`_)
+-  `Gunicorn`_ (with `gunicorn-color-logger`_)
 -  `jQuery`_
 -  `jQuery noty`_
 -  `Materialize`_ Material Design CSS/JS
@@ -28,33 +29,55 @@ To install the latest release without cloning the Git repository:
 
 ::
 
-    # pip install jawanndenn
+    # pip3 install jawanndenn --user
 
 To install from a Git clone:
 
 ::
 
-    # python setup.py install --user
+    # ./setup.py install --user
+
+
+Deployment with docker-compose
+==============================
+
+Create a simple file ``.env`` like this one:
+
+::
+
+    JAWANNDENN_POSTGRES_NAME=jawanndenn
+    JAWANNDENN_POSTGRES_USER=jawanndenn
+    JAWANNDENN_POSTGRES_PASSWORD=dEb2PIcinemA8poH
+    JAWANNDENN_SECRET_KEY=606ea88f183a27919d5c27ec7f948906d23fdd7821684eb59e8bcf7377e3853b
+
+Make sure to use your own values!
+
+You can then build and run a docker image using ``docker-compose up --build``.
+
+PostgreSQL data is saved to ``~/.jawanndenn-docker-pgdata/`` on the host system.
+The app is served on ``localhost:54080``.
 
 
 Deployment with Apache mod\_wsgi
 ================================
 
-To use *jawanndenn* with ``mod_wsgi``, there is file
-``jawanndenn/app.wsgi`` For how to integrate ``jawanndenn/app.wsgi``
-with the Apache configuration, please check the `the related
-documentation of bottle`_.
+Deployment with ``mod_wsgi`` is possible but **not recommended**,
+e.g. because it is difficult to pass environment variables
+to Django using ``mod_wsgi``.  To make it work,
+the `SetEnv` directive,
+file ``jawanndenn/wsgi.py``, and
+`this StackOverflow answer <https://stackoverflow.com/a/26989936/11626624>`_
+may be of use.  *jawanndenn* needs these variables:
+
+- ``JAWANNDENN_POSTGRES_NAME``
+- ``JAWANNDENN_POSTGRES_USER``
+- ``JAWANNDENN_POSTGRES_PASSWORD``
+- ``JAWANNDENN_SECRET_KEY``
+
+Please check the `the related documentation of Django`_, too.
 
 Feel free to `file a support ticket`_ or `drop me a mail`_, if you
 cannot get it to work.
-
-
-Run with docker
-===============
-
-You can build a docker image using ``docker-compose build`` and run it with ``docker-compose up``.
-
-Serialized data is saved to ``~/.jawanndenn-docker/`` outside the container (only if the server shuts down). The app is served on ``localhost:8080``.
 
 
 Command line usage
@@ -71,7 +94,7 @@ using
 
 ::
 
-    # PYTHONPATH=. python jawanndenn/main.py --debug
+    # PYTHONPATH=. python3 -m jawanndenn --debug
 
 Currently supported arguments are:
 
@@ -79,11 +102,10 @@ Currently supported arguments are:
 
     # jawanndenn --help
     usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
-                      [--url-prefix PATH] [--database-pickle FILE]
-                      [--server BACKEND] [--max-polls COUNT]
+                      [--url-prefix PATH] [--database-sqlite3 FILE]
+                      [--django-secret-key-file FILE] [--max-polls COUNT]
                       [--max-votes-per-poll COUNT] [--dumpdata]
-                      [--first-poll NUMBER] [--first-poll-option NUMBER]
-                      [--first-ballot NUMBER] [--first-vote NUMBER]
+                      [--loaddata FILE.json]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -92,33 +114,53 @@ Currently supported arguments are:
                             127.0.0.1)
       --port PORT           Port to listen at (default: 8080)
       --url-prefix PATH     Path to prepend to URLs (default: "")
-      --database-pickle FILE
+      --database-sqlite3 FILE
                             File to write the database to (default:
-                            ~/jawanndenn.pickle)
-      --server BACKEND      bottle backend to use (default: tornado); as of this
-                            writing bottle supports: auto, bjoern, diesel,
-                            eventlet, gae, gevent, gunicorn, meinheld, paste,
-                            twisted, waitress, wsgiref. For the most current list,
-                            please check the documentation of bottle.
+                            ~/jawanndenn.sqlite3)
+      --django-secret-key-file FILE
+                            File to use for Django secret key data (default:
+                            ~/jawanndenn.secret_key)
 
     limit configuration:
       --max-polls COUNT     Maximum number of polls total (default: 1000)
       --max-votes-per-poll COUNT
                             Maximum number of votes per poll (default: 40)
 
-    data export arguments:
+    data import/export arguments:
       --dumpdata            Dump a JSON export of the database to standard output,
                             then quit.
-      --first-poll NUMBER   Lowest primary key to use for poll objects (default:
-                            1)
-      --first-poll-option NUMBER
-                            Lowest primary key to use for poll option objects
-                            (default: 1)
-      --first-ballot NUMBER
-                            Lowest primary key to use for ballot objects (default:
-                            1)
-      --first-vote NUMBER   Lowest primary key to use for vote objects (default:
-                            1)
+      --loaddata FILE.json  Load a JSON export of the database from FILE.json,
+                            then quit.
+
+
+Migrating data from jawanndenn 1.x to 2.x
+=========================================
+
+Migration takes four steps:
+
+1. Update to the latest version of jawanndenn 1.x, e.g. by running:
+   ``pip2 install --upgrade 'jawanndenn<2'``;
+   the JSON data export was first introduced with release 1.6.3.
+
+2. Export existing polls:
+
+   a) If you're using the commend line app:
+      ``python2 -m jawanndenn --dumpdata > dump.json``
+
+   b) If you're using docker-compose:
+      ``docker-compose run -T jawanndenn --database-pickle /data/polls.pickle --dumpdata > dump.json``
+
+3. Deploy latest jawanndenn 2.x somewhere (as described above) or just
+   ``pip3 install 'jawanndenn>=2'``
+   it somewhere
+
+4. Import the JSON dump created in step (2):
+
+   a) If you're using the commend line app:
+      ``python3 -m jawanndenn --loaddata dump.json``
+
+   b) If you're using docker-compose:
+      ``docker-compose run -T jawanndenn sh -c 'cat > /tmp/dump.json && DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django loaddata /tmp/dump.json' < dump.json``
 
 
 Goals
@@ -159,8 +201,10 @@ Special thanks to Arne Maier (`@KordonDev`_) for reporting
 an XSS vulnerability, responsibly.
 
 
-.. _bottle: http://bottlepy.org/docs/dev/
-.. _Tornado: https://www.tornadoweb.org/
+.. _Django: https://www.djangoproject.com/
+.. _django-probes: https://github.com/vshn/django-probes
+.. _Gunicorn: https://gunicorn.org/
+.. _gunicorn-color-logger: https://github.com/swistakm/gunicorn-color-logger
 .. _jQuery: http://jquery.com/
 .. _jQuery noty: http://ned.im/noty/#/about
 .. _Materialize: http://materializecss.com/
@@ -170,7 +214,7 @@ an XSS vulnerability, responsibly.
 .. _GNU GPL license: https://www.gnu.org/licenses/gpl.html
 .. _report bugs: https://github.com/hartwork/jawanndenn/issues
 .. _like: mailto:sebastian@pipping.org
-.. _the related documentation of bottle: https://bottlepy.org/docs/dev/deployment.html#apache-mod-wsgi
+.. _the related documentation of Django: https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/
 .. _file a support ticket: https://github.com/hartwork/jawanndenn/issues/new
 .. _drop me a mail: mailto:sebastian@pipping.org
 .. _libre alternatives: http://alternativeto.net/software/doodle/?license=opensource

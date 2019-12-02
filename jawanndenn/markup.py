@@ -17,7 +17,7 @@ _CLOSING_OF = {
 
 
 def safe_html(text):
-    if not isinstance(text, basestring):  # noqa: F821
+    if not isinstance(text, str):
         raise ValueError('Not a string: %s' % text)
 
     # KEEP IN SYNC with javascript client side!

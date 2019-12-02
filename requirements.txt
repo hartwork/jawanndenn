@@ -1,0 +1,13 @@
+# Direct dependencies
+Django==2.2.7
+django-extensions==2.2.5
+django-probes==1.2.0
+gunicorn==20.0.4
+gunicorn-color==0.1.0
+psycopg2-binary==2.8.4
+
+# Indirect dependencies
+pytz==2019.3
+six==1.13.0
+sqlparse==0.3.0
+termcolor==1.1.0

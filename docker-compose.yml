@@ -8,13 +8,32 @@ networks:
     external: yes
 
 services:
+  postgres:
+    image: postgres:11.6  # due to postgresql-client version 11.6 in Alpine 3.10
+    volumes:
+      - ~/.jawanndenn-docker-pgdata/:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
+      POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
+      POSTGRES_DB: ${JAWANNDENN_POSTGRES_NAME:?}
+
   jawanndenn:
+    depends_on:
+      - postgres
     build: .
     ports:
-      - 127.0.0.1:54080:8080
+      - 127.0.0.1:54080:54080
     networks:
       - default
       - ssl-reverse-proxy
-    volumes:
-      - ~/.jawanndenn-docker/:/data
+    environment:
+      JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
+      JAWANNDENN_POSTGRES_HOST: postgres
+      JAWANNDENN_POSTGRES_PORT: 5432
+      JAWANNDENN_POSTGRES_NAME: ${JAWANNDENN_POSTGRES_NAME:?}
+      JAWANNDENN_POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
+      JAWANNDENN_POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
+      JAWANNDENN_SECRET_KEY: ${JAWANNDENN_SECRET_KEY:?}
+    user: 1001:1001
     restart: unless-stopped
+    tty: true
