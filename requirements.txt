@@ -1,0 +1,9 @@
+# Direct dependencies
+Django==2.2.7
+django-extensions==2.2.5
+gunicorn==20.0.4
+
+# Indirect dependencies
+pytz==2019.3
+six==1.13.0
+sqlparse==0.3.0
