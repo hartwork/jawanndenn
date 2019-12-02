@@ -31,6 +31,7 @@ gunicorn_args=(
     --bind=0.0.0.0:8080
     --workers="$(nproc --ignore=1)"
     --access-logfile=-
+    --logger-class=gunicorn_color.Logger
     jawanndenn.wsgi
 )
 exec gunicorn "${gunicorn_args[@]}"

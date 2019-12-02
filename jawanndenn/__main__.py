@@ -141,6 +141,7 @@ def _inner_main():
             f'--bind={options.host}:{options.port}',
             '--workers=1',  # due to use of sqlite3 storage
             '--access-logfile=-',
+            '--logger-class=gunicorn_color.Logger',
             'jawanndenn.wsgi',
         ]))
 
