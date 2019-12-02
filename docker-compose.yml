@@ -16,6 +16,8 @@ services:
       POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
       POSTGRES_DB: ${JAWANNDENN_POSTGRES_NAME:?}
+    logging:
+      driver: 'none'
 
   jawanndenn:
     depends_on:
