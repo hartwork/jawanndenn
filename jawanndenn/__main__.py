@@ -4,6 +4,7 @@
 import argparse
 import logging
 import os
+import signal
 import string
 import subprocess
 import sys
@@ -54,7 +55,7 @@ def _process_django_secret_key_file(filename):
     return secret_key
 
 
-def main():
+def _inner_main():
     parser = argparse.ArgumentParser(prog='jawanndenn')
     parser.add_argument('--debug', action='store_true', default=False,
                         help='Enable debug mode (default: disabled)')
@@ -142,6 +143,13 @@ def main():
             '--access-logfile=-',
             'jawanndenn.wsgi',
         ]))
+
+
+def main():
+    try:
+        _inner_main()
+    except KeyboardInterrupt:
+        sys.exit(128 + signal.SIGINT)
 
 
 if __name__ == '__main__':
