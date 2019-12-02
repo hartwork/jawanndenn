@@ -75,7 +75,7 @@ def poll_data_get_view(request, poll_id):
             [ballot.voter_name, [vote.yes for vote
                                  in ballot.votes.order_by('option__position')]]
             for ballot
-            in poll.ballots.order_by('created')
+            in poll.ballots.order_by('created', 'id')
         ]
 
     data = {
