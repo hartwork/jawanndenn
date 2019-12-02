@@ -2,15 +2,28 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import json
+from functools import wraps
 
 from django.conf import settings
 from django.db import transaction
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
+                         JsonResponse)
 from django.shortcuts import redirect
 from django.template.response import SimpleTemplateResponse
 from django.views.decorators.http import require_GET, require_POST
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, PollOption, Vote
+
+
+def _except_poll_does_not_exist(wrappee):
+    @wraps(wrappee)
+    def wrapper(*args, **kwargs):
+        try:
+            return wrappee(*args, **kwargs)
+        except Poll.DoesNotExist:
+            return HttpResponseNotFound('No such poll')
+
+    return wrapper
 
 
 @require_GET
@@ -48,6 +61,7 @@ def poll_post_view(request):
 
 
 @require_GET
+@_except_poll_does_not_exist
 def poll_data_get_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
@@ -86,6 +100,7 @@ def poll_get_view(request, poll_id):
 
 
 @require_POST
+@_except_poll_does_not_exist
 def vote_post_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
