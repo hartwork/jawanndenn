@@ -13,7 +13,11 @@ jobs:
 
     - stage: test
       install:
-        - ./setup.py install --user
+        - ./setup.py install
       script:
         - jawanndenn --help
-        - ./setup.py test
+        - >
+          JAWANNDENN_SQLITE_FILE=test.sqlite3
+          JAWANNDENN_SECRET_KEY=whatever
+          DJANGO_SETTINGS_MODULE=jawanndenn.settings
+          python3 -m django test -v 3
