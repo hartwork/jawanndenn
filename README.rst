@@ -133,6 +133,36 @@ Currently supported arguments are:
                             then quit.
 
 
+Migrating data from jawanndenn 1.x to 2.x
+=========================================
+
+Migration takes four steps:
+
+1. Update to the latest version of jawanndenn 1.x, e.g. by running:
+   ``pip2 install --upgrade 'jawanndenn<2'``;
+   the JSON data export was first introduced with release 1.6.3.
+
+2. Export existing polls:
+
+   a) If you're using the commend line app:
+      ``python2 -m jawanndenn --dumpdata > dump.json``
+
+   b) If you're using docker-compose:
+      ``docker-compose run -T jawanndenn --database-pickle /data/polls.pickle --dumpdata > dump.json``
+
+3. Deploy latest jawanndenn 2.x somewhere (as described above) or just
+   ``pip3 install 'jawanndenn>=2'``
+   it somewhere
+
+4. Import the JSON dump created in step (2):
+
+   a) If you're using the commend line app:
+      ``python3 -m jawanndenn --loaddata dump.json``
+
+   b) If you're using docker-compose:
+      ``docker-compose run -T jawanndenn sh -c 'cat > /tmp/dump.json && DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django loaddata /tmp/dump.json' < dump.json``
+
+
 Goals
 =====
 
