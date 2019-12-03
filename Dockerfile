@@ -26,7 +26,7 @@ RUN cd /tmp/app \
 
 ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 
-EXPOSE 8080
+EXPOSE 54080
 
 ENTRYPOINT ["/home/jawanndenn/docker-entrypoint.sh"]
 CMD []
