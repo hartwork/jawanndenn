@@ -18,6 +18,14 @@ services:
       POSTGRES_DB: ${JAWANNDENN_POSTGRES_NAME:?}
     logging:
       driver: 'none'
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_READ_SEARCH
+      - FOWNER
+      - SETGID
+      - SETUID
     restart: unless-stopped
 
   jawanndenn:
@@ -38,5 +46,7 @@ services:
       JAWANNDENN_POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
       JAWANNDENN_SECRET_KEY: ${JAWANNDENN_SECRET_KEY:?}
     user: 1001:1001
+    cap_drop:
+      - ALL
     restart: unless-stopped
     tty: true
