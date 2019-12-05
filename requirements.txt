@@ -1,5 +1,5 @@
 # Direct dependencies
-Django==2.2.7
+Django==2.2.8
 django-extensions==2.2.5
 django-probes==1.2.0
 gunicorn==20.0.4
