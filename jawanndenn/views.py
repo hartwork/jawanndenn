@@ -3,6 +3,7 @@
 
 import json
 from functools import wraps
+from json import JSONDecodeError
 
 from django.conf import settings
 from django.db import transaction
@@ -41,7 +42,11 @@ def index_get_view(request):
 
 @require_POST
 def poll_post_view(request):
-    config = json.loads(request.POST.get('config', '{}'))
+    try:
+        config = json.loads(request.POST.get('config', '{}'))
+    except JSONDecodeError:
+        return HttpResponseBadRequest('Poll configuration is not '
+                                      'well-formed JSON')
     poll_equal_width = bool(config.get('equal_width', False))
     poll_title = safe_html(config.get('title', ''))
     poll_option_names = map(safe_html, config.get('options', []))
