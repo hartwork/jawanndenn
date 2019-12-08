@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.8-alpine
 
 RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client shadow
 
