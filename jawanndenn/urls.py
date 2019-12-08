@@ -28,11 +28,11 @@ def _staticfiles_urlpatterns():
 
 
 _app_urlpatterns = [
-    path('', index_get_view),
-    path('create', poll_post_view),
-    path('data/<poll_id>', poll_data_get_view),
+    path('', index_get_view, name='frontpage'),
+    path('create', poll_post_view, name='poll-creation'),
+    path('data/<poll_id>', poll_data_get_view, name='poll-data'),
     path('poll/<poll_id>', poll_get_view, name='poll-detail'),
-    path('vote/<poll_id>', vote_post_view),
+    path('vote/<poll_id>', vote_post_view, name='vote'),
 
     path('admin/', admin.site.urls),
 ]
