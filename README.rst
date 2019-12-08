@@ -1,3 +1,7 @@
+.. image:: https://travis-ci.org/hartwork/jawanndenn.svg?branch=master
+    :target: https://travis-ci.org/hartwork/jawanndenn
+
+
 What is jawanndenn?
 ===================
 
