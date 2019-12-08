@@ -92,7 +92,10 @@ def poll_data_get_view(request, poll_id):
 
 
 @require_GET
+@_except_poll_does_not_exist
 def poll_get_view(request, poll_id):
+    Poll.objects.get(slug=poll_id)
+
     context = {
         'url_prefix': settings.JAWANNDENN_URL_PREFIX,
     }
