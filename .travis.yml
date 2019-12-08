@@ -13,7 +13,7 @@ jobs:
 
     - stage: test
       install:
-        - ./setup.py install
+        - pip install .[tests]
       script:
         - jawanndenn --help
         - >

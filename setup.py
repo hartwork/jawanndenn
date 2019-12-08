@@ -12,6 +12,15 @@ def _read(filename):
         return f.read()
 
 
+_tests_require = [
+    'factory-boy>=2.12.0',
+]
+
+_extras_require = {
+    'tests': _tests_require,
+}
+
+
 if __name__ == '__main__':
     setup(
         name=APP_NAME,
@@ -32,6 +41,8 @@ if __name__ == '__main__':
             'gunicorn>=20.0.4',
             'gunicorn-color>=0.1.0',
         ],
+        extras_require=_extras_require,
+        tests_require=_tests_require,
 
         packages=find_packages(),
         package_data={

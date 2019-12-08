@@ -7,7 +7,9 @@ from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-from jawanndenn.models import Ballot, Poll, PollOption, Vote
+from jawanndenn.models import Ballot, Poll
+from jawanndenn.tests.factories import (BallotFactory, PollFactory,
+                                        PollOptionFactory, VoteFactory)
 
 
 class IndexGetViewTest(TestCase):
@@ -65,21 +67,13 @@ class PollDataGetViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.poll_option_names = ['Option One', 'Option Two']
-        cls.poll = Poll.objects.create(title='Some short title',
-                                       equal_width=True)
-        cls.poll_options = [
-            PollOption.objects.create(poll=cls.poll, position=position,
-                                      name=option_name)
-            for position, option_name
-            in enumerate(cls.poll_option_names)
-        ]
-        cls.ballot = Ballot.objects.create(poll=cls.poll, voter_name='Maria')
+        cls.poll = PollFactory(equal_width=True)
+        cls.ballot = BallotFactory(poll=cls.poll)
         cls.votes = [
-            Vote.objects.create(ballot=cls.ballot, option=option,
-                                yes=option == cls.poll_options[0])
-            for option
-            in cls.poll_options
+            VoteFactory(ballot=cls.ballot, option__poll=cls.poll,
+                        yes=(position == 0))
+            for position
+            in range(2)
         ]
 
     def test_poll_exists(self):
@@ -87,7 +81,7 @@ class PollDataGetViewTest(TestCase):
         expected_data = {
             'config': {
                 'equal_width': self.poll.equal_width,
-                'options': self.poll_option_names,
+                'options': [v.option.name for v in self.votes],
                 'title': self.poll.title,
             },
             'votes': [
@@ -113,7 +107,7 @@ class PollGetViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.poll = Poll.objects.create()
+        cls.poll = PollFactory()
 
     def test_poll_exists(self):
         url = self.poll.get_absolute_url()
@@ -134,10 +128,9 @@ class VotePostViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.poll = Poll.objects.create()
-        for position, option_name in enumerate(('Option One', 'Option Two')):
-            PollOption.objects.create(poll=cls.poll, position=position,
-                                      name=option_name)
+        cls.poll = PollFactory()
+        for _ in range(2):
+            PollOptionFactory(poll=cls.poll)
 
     def test_poll_exists(self):
         url = reverse('vote', args=[self.poll.slug])
