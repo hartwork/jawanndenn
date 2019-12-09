@@ -31,7 +31,7 @@ gunicorn_args=(
     --bind=0.0.0.0:54080
     --workers="$(nproc --ignore=1)"
     --access-logfile=-
-    --access-logformat '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
+    --access-logformat '%({x-forwarded-for}i)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
     --logger-class=gunicorn_color.Logger
     jawanndenn.wsgi
 )
