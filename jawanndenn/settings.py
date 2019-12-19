@@ -56,6 +56,8 @@ if _USE_POSTGRES:
     ]
 
 MIDDLEWARE = [
+    'jawanndenn.middleware.set_remote_addr_to_x_forwarded_for',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

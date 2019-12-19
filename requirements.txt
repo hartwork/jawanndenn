@@ -2,6 +2,7 @@
 Django==3.0.1
 django-extensions==2.2.5
 django-probes==1.2.0
+django-ratelimit==2.0.0
 factory-boy==2.12.0
 gunicorn==20.0.4
 gunicorn-color==0.1.0
