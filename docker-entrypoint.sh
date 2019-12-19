@@ -8,6 +8,8 @@ set -u
 PS4='# '
 set -x
 
+id
+ip addr
 
 if [[ $# -gt 0 ]]; then
     exec "$@"
