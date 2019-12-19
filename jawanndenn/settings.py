@@ -52,11 +52,6 @@ INSTALLED_APPS = [
     'jawanndenn',
 ]
 
-if _USE_POSTGRES:
-    INSTALLED_APPS += [
-        'django_probes',  # management command "wait_for_database"
-    ]
-
 MIDDLEWARE = [
     'jawanndenn.middleware.set_remote_addr_to_x_forwarded_for',
 

@@ -1,7 +1,6 @@
 # Direct dependencies
 Django==3.0.1
 django-extensions==2.2.5
-django-probes==1.2.0
 django-ratelimit==2.0.0
 django-redis==4.11.0
 factory-boy==2.12.0

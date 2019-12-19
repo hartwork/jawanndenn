@@ -12,7 +12,7 @@ What is jawanndenn?
 polls, a libre alternative to Doodle. It is written in Python and
 JavaScript using
 
--  `Django`_  (with `Django Ratelimit`_, `django-redis`_ and `django-probes`_)
+-  `Django`_  (with `Django Ratelimit`_ and `django-redis`_)
 -  `Gunicorn`_ (with `gunicorn-color-logger`_)
 -  `jQuery`_
 -  `jQuery noty`_
@@ -208,7 +208,6 @@ an XSS vulnerability, responsibly.
 .. _Django: https://www.djangoproject.com/
 .. _Django Ratelimit: https://github.com/jsocol/django-ratelimit
 .. _django-redis: https://github.com/niwinz/django-redis
-.. _django-probes: https://github.com/vshn/django-probes
 .. _Gunicorn: https://gunicorn.org/
 .. _gunicorn-color-logger: https://github.com/swistakm/gunicorn-color-logger
 .. _jQuery: http://jquery.com/
