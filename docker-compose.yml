@@ -28,9 +28,15 @@ services:
       - SETUID
     restart: unless-stopped
 
+  redis:
+    image: redis:5-alpine
+    logging:
+      driver: 'none'
+
   jawanndenn:
     depends_on:
       - postgres
+      - redis
     build: .
     ports:
       - 127.0.0.1:54080:54080
@@ -44,6 +50,8 @@ services:
       JAWANNDENN_POSTGRES_NAME: ${JAWANNDENN_POSTGRES_NAME:?}
       JAWANNDENN_POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
       JAWANNDENN_POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
+      JAWANNDENN_REDIS_HOST: redis
+      JAWANNDENN_REDIS_PORT: 6379
       JAWANNDENN_SECRET_KEY: ${JAWANNDENN_SECRET_KEY:?}
     user: 1001:1001
     cap_drop:
