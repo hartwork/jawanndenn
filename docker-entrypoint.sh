@@ -19,6 +19,11 @@ manage_py() {
     DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django "$@"
 }
 
+wait_for_it_args=(
+    --service "${JAWANNDENN_REDIS_HOST}:${JAWANNDENN_REDIS_PORT}"
+)
+wait-for-it "${wait_for_it_args[@]}"
+
 wait_for_database_args=(
     --stable 0
     --wait-when-down 1
