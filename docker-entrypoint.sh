@@ -19,12 +19,11 @@ manage_py() {
     DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django "$@"
 }
 
-wait_for_database_args=(
-    --stable 0
-    --wait-when-down 1
-    --wait-when-alive 1
+wait_for_it_args=(
+    --service "${JAWANNDENN_REDIS_HOST}:${JAWANNDENN_REDIS_PORT}"
+    --service "${JAWANNDENN_POSTGRES_HOST}:${JAWANNDENN_POSTGRES_PORT}"
 )
-manage_py wait_for_database "${wait_for_database_args[@]}"
+wait-for-it "${wait_for_it_args[@]}"
 
 manage_py migrate
 

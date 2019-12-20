@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import copy
 import os
 
+from django.conf.global_settings import CACHES
 from django.utils.log import DEFAULT_LOGGING
 from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = os.environ.get('JAWANNDENN_ALLOWED_HOSTS', ','.join([
 ])).split(',')
 
 _USE_POSTGRES = 'JAWANNDENN_SQLITE_FILE' not in os.environ
+_USE_REDIS_CACHE = 'JAWANNDENN_REDIS_HOST' in os.environ
 
 
 # Application definition
@@ -50,12 +52,9 @@ INSTALLED_APPS = [
     'jawanndenn',
 ]
 
-if _USE_POSTGRES:
-    INSTALLED_APPS += [
-        'django_probes',  # management command "wait_for_database"
-    ]
-
 MIDDLEWARE = [
+    'jawanndenn.middleware.set_remote_addr_to_x_forwarded_for',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -174,3 +173,18 @@ STATIC_URL = JAWANNDENN_URL_PREFIX + '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'jawanndenn', 'static'),
 ]
+
+
+# Rate limiting
+
+if _USE_REDIS_CACHE:
+    RATELIMIT_USE_CACHE = 'ratelimit'
+
+    _REDIS_URL = 'redis://{}:{}/1'.format(os.environ['JAWANNDENN_REDIS_HOST'],
+                                          os.environ['JAWANNDENN_REDIS_PORT'])
+
+    CACHES = copy.copy(CACHES)
+    CACHES[RATELIMIT_USE_CACHE] = {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': _REDIS_URL,
+    }
