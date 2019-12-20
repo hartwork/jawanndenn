@@ -34,6 +34,12 @@ services:
       - ~/.jawanndenn-docker-redis/:/data
     logging:
       driver: 'none'
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
 
   jawanndenn:
     depends_on:
