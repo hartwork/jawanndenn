@@ -30,6 +30,8 @@ services:
 
   redis:
     image: redis:5-alpine
+    volumes:
+      - ~/.jawanndenn-docker-redis/:/data
     logging:
       driver: 'none'
 
