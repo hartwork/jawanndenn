@@ -187,4 +187,7 @@ if _USE_REDIS_CACHE:
     CACHES[RATELIMIT_USE_CACHE] = {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': _REDIS_URL,
+        'OPTIONS': {
+            'SERIALIZER': 'django_redis.serializers.msgpack.MSGPackSerializer',
+        },
     }
