@@ -40,16 +40,24 @@ def index_get_view(request):
     return response
 
 
-@require_POST
-def poll_post_view(request):
-    try:
-        config = json.loads(request.POST.get('config', '{}'))
-    except JSONDecodeError:
-        return HttpResponseBadRequest('Poll configuration is not '
-                                      'well-formed JSON')
+def _extract_poll_config(config_json):
+    config = json.loads(config_json)
+
     poll_equal_width = bool(config.get('equal_width', False))
     poll_title = safe_html(config.get('title', ''))
     poll_option_names = map(safe_html, config.get('options', []))
+
+    return poll_equal_width, poll_title, poll_option_names
+
+
+@require_POST
+def poll_post_view(request):
+    try:
+        poll_equal_width, poll_title, poll_option_names \
+            = _extract_poll_config(request.POST.get('config', '{}'))
+    except JSONDecodeError:
+        return HttpResponseBadRequest('Poll configuration is not '
+                                      'well-formed JSON')
 
     with transaction.atomic():
         if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:
