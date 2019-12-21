@@ -10,6 +10,23 @@ from django.utils import timezone
 from jawanndenn.models import Ballot, Poll
 from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
+from jawanndenn.views import _extract_poll_config
+from parameterized import parameterized
+
+
+class PollConfigExtractorTest(TestCase):
+    @parameterized.expand([
+        ('{}', False, '', []),
+        ('{"equal_width": true, "title": "Title", "options": ["One", "Two"]}',
+         True, 'Title', ['One', 'Two']),
+    ])
+    def test_valid(self, json_text, expected_equal_width, expected_title,
+                   expected_option_names):
+        actual_equal_width, actual_title, actual_option_names \
+            = _extract_poll_config(json_text)
+        self.assertEqual(actual_equal_width, expected_equal_width)
+        self.assertEqual(actual_title, expected_title)
+        self.assertEqual(list(actual_option_names), expected_option_names)
 
 
 class IndexGetViewTest(TestCase):
