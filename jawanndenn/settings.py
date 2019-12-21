@@ -201,8 +201,14 @@ if _SENTRY_DSN:
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
+    _sentry_integrations = [DjangoIntegration()]
+
+    if _USE_REDIS_CACHE:
+        from sentry_sdk.integrations.redis import RedisIntegration
+        _sentry_integrations.append(RedisIntegration())
+
     sentry_sdk.init(
         dsn=_SENTRY_DSN,
-        integrations=[DjangoIntegration()],
+        integrations=_sentry_integrations,
         send_default_pii=False
     )
