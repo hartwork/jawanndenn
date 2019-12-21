@@ -191,3 +191,18 @@ if _USE_REDIS_CACHE:
             'SERIALIZER': 'django_redis.serializers.msgpack.MSGPackSerializer',
         },
     }
+
+
+# Sentry integration
+
+_SENTRY_DSN = os.environ.get('JAWANNDENN_SENTRY_DSN')
+
+if _SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=_SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        send_default_pii=False
+    )
