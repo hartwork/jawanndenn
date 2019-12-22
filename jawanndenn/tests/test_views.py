@@ -3,6 +3,7 @@
 
 import json
 from http import HTTPStatus
+from json import JSONDecodeError
 
 from django.test import TestCase
 from django.urls import reverse
@@ -27,6 +28,17 @@ class PollConfigExtractorTest(TestCase):
         self.assertEqual(actual_equal_width, expected_equal_width)
         self.assertEqual(actual_title, expected_title)
         self.assertEqual(list(actual_option_names), expected_option_names)
+
+    @parameterized.expand([
+        ('not valid JSON', JSONDecodeError),
+        ('[]', AttributeError),
+        ('{"title": []}', ValueError),
+        ('{"options": null}', TypeError),
+        ('{"options": 123}', TypeError),
+    ])
+    def test_invalid(self, json_text, expected_exception_class):
+        with self.assertRaises(expected_exception_class):
+            _extract_poll_config(json_text)
 
 
 class IndexGetViewTest(TestCase):
