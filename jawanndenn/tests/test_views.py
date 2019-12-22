@@ -64,6 +64,8 @@ class PollPostViewTest(TestCase):
         response = self.client.post(self.url, data)
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
+        self.assertEqual(response.content,
+                         b'Poll configuration is not well-formed JSON')
         self.assertFalse(Poll.objects.filter(created__gte=before_creation)
                          .exists())
 
