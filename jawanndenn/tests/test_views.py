@@ -4,12 +4,43 @@
 import json
 from http import HTTPStatus
 
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from jawanndenn.models import Ballot, Poll
 from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
+from jawanndenn.views import _extract_poll_config
+from parameterized import parameterized
+
+
+class PollConfigExtractorTest(TestCase):
+    @parameterized.expand([
+        ('{}', False, '', []),
+        ('{"equal_width": true, "title": "Title", "options": ["One", "Two"]}',
+         True, 'Title', ['One', 'Two']),
+        ('{"equal_width": true, "title": 111, "options": [222, null]}',
+         True, '111', ['222', 'None']),
+    ])
+    def test_valid(self, json_text, expected_equal_width, expected_title,
+                   expected_option_names):
+        actual_equal_width, actual_title, actual_option_names \
+            = _extract_poll_config(json_text)
+        self.assertEqual(actual_equal_width, expected_equal_width)
+        self.assertEqual(actual_title, expected_title)
+        self.assertEqual(list(actual_option_names), expected_option_names)
+
+    @parameterized.expand([
+        ('not valid JSON', 'Poll configuration is not well-formed JSON.'),
+        ('[]', 'Poll configuration is not a dictionary.'),
+        ('{"options": null}', 'Poll options is not a list.'),
+    ])
+    def test_invalid(self, json_text, expected_message):
+        with self.assertRaises(ValidationError) as catcher:
+            _extract_poll_config(json_text)
+
+        self.assertEqual(catcher.exception.message, expected_message)
 
 
 class IndexGetViewTest(TestCase):
@@ -33,6 +64,8 @@ class PollPostViewTest(TestCase):
         response = self.client.post(self.url, data)
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
+        self.assertEqual(response.content,
+                         b'Poll configuration is not well-formed JSON.')
         self.assertFalse(Poll.objects.filter(created__gte=before_creation)
                          .exists())
 
