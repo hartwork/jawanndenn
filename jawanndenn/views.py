@@ -46,11 +46,11 @@ def _extract_poll_config(config_json):
         config = json.loads(config_json)
     except JSONDecodeError:
         raise ValidationError('Poll configuration is not '
-                              'well-formed JSON')
+                              'well-formed JSON.')
 
     if not isinstance(config, dict):
         raise ValidationError('Poll configuration is not '
-                              'a dictionary')
+                              'a dictionary.')
 
     poll_equal_width = bool(config.get('equal_width', False))
 
@@ -58,7 +58,7 @@ def _extract_poll_config(config_json):
 
     _raw_poll_option_names = config.get('options', [])
     if not isinstance(_raw_poll_option_names, list):
-        raise ValidationError('Poll options is not a list')
+        raise ValidationError('Poll options is not a list.')
 
     poll_option_names = [safe_html(str(option_name))
                          for option_name in _raw_poll_option_names]

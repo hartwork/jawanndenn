@@ -32,9 +32,9 @@ class PollConfigExtractorTest(TestCase):
         self.assertEqual(list(actual_option_names), expected_option_names)
 
     @parameterized.expand([
-        ('not valid JSON', 'Poll configuration is not well-formed JSON'),
-        ('[]', 'Poll configuration is not a dictionary'),
-        ('{"options": null}', 'Poll options is not a list'),
+        ('not valid JSON', 'Poll configuration is not well-formed JSON.'),
+        ('[]', 'Poll configuration is not a dictionary.'),
+        ('{"options": null}', 'Poll options is not a list.'),
     ])
     def test_invalid(self, json_text, expected_message):
         with self.assertRaises(ValidationError) as catcher:
@@ -65,7 +65,7 @@ class PollPostViewTest(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
         self.assertEqual(response.content,
-                         b'Poll configuration is not well-formed JSON')
+                         b'Poll configuration is not well-formed JSON.')
         self.assertFalse(Poll.objects.filter(created__gte=before_creation)
                          .exists())
 
