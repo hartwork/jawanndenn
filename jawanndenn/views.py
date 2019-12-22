@@ -6,6 +6,7 @@ from functools import wraps
 from json import JSONDecodeError
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
                          JsonResponse)
@@ -41,11 +42,26 @@ def index_get_view(request):
 
 
 def _extract_poll_config(config_json):
-    config = json.loads(config_json)
+    try:
+        config = json.loads(config_json)
+    except JSONDecodeError:
+        raise ValidationError('Poll configuration is not '
+                              'well-formed JSON')
+
+    if not isinstance(config, dict):
+        raise ValidationError('Poll configuration is not '
+                              'a dictionary')
 
     poll_equal_width = bool(config.get('equal_width', False))
-    poll_title = safe_html(config.get('title', ''))
-    poll_option_names = map(safe_html, config.get('options', []))
+
+    poll_title = safe_html(str(config.get('title', '')))
+
+    _raw_poll_option_names = config.get('options', [])
+    if not isinstance(_raw_poll_option_names, list):
+        raise ValidationError('Poll options is not a list')
+
+    poll_option_names = [safe_html(str(option_name))
+                         for option_name in _raw_poll_option_names]
 
     return poll_equal_width, poll_title, poll_option_names
 
@@ -55,9 +71,8 @@ def poll_post_view(request):
     try:
         poll_equal_width, poll_title, poll_option_names \
             = _extract_poll_config(request.POST.get('config', '{}'))
-    except JSONDecodeError:
-        return HttpResponseBadRequest('Poll configuration is not '
-                                      'well-formed JSON')
+    except ValidationError as e:
+        return HttpResponseBadRequest(e.message)
 
     with transaction.atomic():
         if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:

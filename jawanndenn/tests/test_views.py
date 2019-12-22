@@ -3,8 +3,8 @@
 
 import json
 from http import HTTPStatus
-from json import JSONDecodeError
 
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -20,6 +20,8 @@ class PollConfigExtractorTest(TestCase):
         ('{}', False, '', []),
         ('{"equal_width": true, "title": "Title", "options": ["One", "Two"]}',
          True, 'Title', ['One', 'Two']),
+        ('{"equal_width": true, "title": 111, "options": [222, null]}',
+         True, '111', ['222', 'None']),
     ])
     def test_valid(self, json_text, expected_equal_width, expected_title,
                    expected_option_names):
@@ -30,15 +32,15 @@ class PollConfigExtractorTest(TestCase):
         self.assertEqual(list(actual_option_names), expected_option_names)
 
     @parameterized.expand([
-        ('not valid JSON', JSONDecodeError),
-        ('[]', AttributeError),
-        ('{"title": []}', ValueError),
-        ('{"options": null}', TypeError),
-        ('{"options": 123}', TypeError),
+        ('not valid JSON', 'Poll configuration is not well-formed JSON'),
+        ('[]', 'Poll configuration is not a dictionary'),
+        ('{"options": null}', 'Poll options is not a list'),
     ])
-    def test_invalid(self, json_text, expected_exception_class):
-        with self.assertRaises(expected_exception_class):
+    def test_invalid(self, json_text, expected_message):
+        with self.assertRaises(ValidationError) as catcher:
             _extract_poll_config(json_text)
+
+        self.assertEqual(catcher.exception.message, expected_message)
 
 
 class IndexGetViewTest(TestCase):
