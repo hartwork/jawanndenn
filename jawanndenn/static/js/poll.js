@@ -54,10 +54,10 @@ var _addExistingVoteRows = function(table, options, votes) {
                 votesPerOption[j] = (votesPerOption[j] + 1);
 
                 tdClass += ' ' + VOTED_YES_CLASS;
-                spanBody = _UNICODE_HEAVY_CHECK_MARK;
+                var spanBody = _UNICODE_HEAVY_CHECK_MARK;
             } else {
                 tdClass += ' ' + VOTED_NO_CLASS;
-                spanBody = _UNICODE_HEAVY_BALLOT_X;
+                var spanBody = _UNICODE_HEAVY_BALLOT_X;
             }
             tr.child( tag('td', {
                         class: tdClass,
@@ -143,7 +143,7 @@ var createPollHtml = function(config, votes, previewMode, csrf_token) {
                 id: 'pollForm',
                 method: 'POST',
             }));
-    var csrfmiddlewaretoken = form.child( tag('input', {
+    form.child( tag('input', {
                 type: 'hidden',
                 name: 'csrfmiddlewaretoken',
                 value: csrf_token,
