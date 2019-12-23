@@ -24,7 +24,7 @@ var writeHtmlChunks = function(node, chunks) {
 };
 
 var toHtml = function(node) {
-    chunks = [];
+    var chunks = [];
     writeHtmlChunks(node, chunks);
     return chunks.join('');
 };

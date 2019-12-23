@@ -43,7 +43,7 @@ var getExampleVotesCached = function(options) {
         exampleVotesCache[options.length] = exampleVotes;
         return exampleVotes;
     }
-}
+};
 
 var exampleConfigJson = JSON.stringify( {
         equal_width: false,
