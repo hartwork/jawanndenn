@@ -1,7 +1,7 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-import json
+import json  # lgtm [py/import-and-import-from]
 from functools import wraps
 from json import JSONDecodeError
 
