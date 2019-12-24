@@ -30,12 +30,7 @@ def _except_poll_does_not_exist(wrappee):
 
 @require_GET
 def index_get_view(request):
-    context = {
-        'url_prefix': settings.JAWANNDENN_URL_PREFIX,
-    }
-
     response = SimpleTemplateResponse(template='html/setup.xhtml',
-                                      context=context,
                                       content_type='application/xhtml+xml')
     response._request = request
     return response
@@ -119,12 +114,7 @@ def poll_data_get_view(request, poll_id):
 def poll_get_view(request, poll_id):
     Poll.objects.get(slug=poll_id)
 
-    context = {
-        'url_prefix': settings.JAWANNDENN_URL_PREFIX,
-    }
-
     response = SimpleTemplateResponse(template='html/poll.xhtml',
-                                      context=context,
                                       content_type='application/xhtml+xml')
     response._request = request
     return response
