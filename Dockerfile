@@ -5,12 +5,13 @@ RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-
 RUN mkdir /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
 USER jawanndenn
+ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 
 
 COPY --chown=jawanndenn:jawanndenn requirements.txt  /tmp/app/
 RUN cd /tmp/app \
         && \
-    pip3 install --user --no-warn-script-location -r requirements.txt \
+    pip3 install --user -r requirements.txt \
         && \
     pip3 check \
         && \
@@ -20,14 +21,12 @@ COPY --chown=jawanndenn:jawanndenn jawanndenn/          /tmp/app/jawanndenn/
 COPY --chown=jawanndenn:jawanndenn setup.py README.rst  /tmp/app/
 RUN cd /tmp/app \
         && \
-    pip3 install --user --no-warn-script-location . \
+    pip3 install --user . \
         && \
     rm -rf /tmp/app
 
 COPY --chown=jawanndenn:jawanndenn docker-entrypoint.sh  /home/jawanndenn/
 
-
-ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 
 EXPOSE 54080
 
