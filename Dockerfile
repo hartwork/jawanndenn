@@ -11,6 +11,10 @@ ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 COPY --chown=jawanndenn:jawanndenn requirements.txt  /tmp/app/
 RUN cd /tmp/app \
         && \
+    pip3 install --user --ignore-installed pip setuptools wheel \
+        && \
+    hash pip3 \
+        && \
     pip3 install --user -r requirements.txt \
         && \
     pip3 check \
