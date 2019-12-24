@@ -20,6 +20,7 @@ from rest_framework.exceptions import ValidationError
 
 
 def _except_poll_does_not_exist(wrappee):
+    """Decorator that turns Poll.DoesNotExist into 404 Not Found"""
     @wraps(wrappee)
     def wrapper(*args, **kwargs):
         try:
@@ -31,6 +32,7 @@ def _except_poll_does_not_exist(wrappee):
 
 
 def _except_validation_error(wrappee):
+    """Decorator that turns ValidationError into 400 Bad Request"""
     @wraps(wrappee)
     def wrapper(request, *args, **kwargs):
         try:
