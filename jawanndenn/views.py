@@ -11,7 +11,7 @@ from django.db import transaction
 from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
                          JsonResponse)
 from django.shortcuts import redirect
-from django.template.response import SimpleTemplateResponse
+from django.template.response import TemplateResponse
 from django.views.decorators.http import require_GET, require_POST
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, PollOption, Vote
@@ -30,15 +30,9 @@ def _except_poll_does_not_exist(wrappee):
 
 @require_GET
 def index_get_view(request):
-    context = {
-        'url_prefix': settings.JAWANNDENN_URL_PREFIX,
-    }
-
-    response = SimpleTemplateResponse(template='html/setup.xhtml',
-                                      context=context,
-                                      content_type='application/xhtml+xml')
-    response._request = request
-    return response
+    return TemplateResponse(request,
+                            template='html/setup.xhtml',
+                            content_type='application/xhtml+xml')
 
 
 def _extract_poll_config(config_json):
@@ -119,15 +113,9 @@ def poll_data_get_view(request, poll_id):
 def poll_get_view(request, poll_id):
     Poll.objects.get(slug=poll_id)
 
-    context = {
-        'url_prefix': settings.JAWANNDENN_URL_PREFIX,
-    }
-
-    response = SimpleTemplateResponse(template='html/poll.xhtml',
-                                      context=context,
-                                      content_type='application/xhtml+xml')
-    response._request = request
-    return response
+    return TemplateResponse(request,
+                            template='html/poll.xhtml',
+                            content_type='application/xhtml+xml')
 
 
 @require_POST
