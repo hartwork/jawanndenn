@@ -6,7 +6,6 @@ from functools import wraps
 from json import JSONDecodeError
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
                          JsonResponse)
@@ -14,7 +13,9 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.views.decorators.http import require_GET, require_POST
 from jawanndenn.markup import safe_html
-from jawanndenn.models import Ballot, Poll, PollOption, Vote
+from jawanndenn.models import Ballot, Poll, Vote
+from jawanndenn.serializers import PollConfigSerializer
+from rest_framework.exceptions import ValidationError
 
 
 def _except_poll_does_not_exist(wrappee):
@@ -35,38 +36,16 @@ def index_get_view(request):
                             content_type='application/xhtml+xml')
 
 
-def _extract_poll_config(config_json):
+@require_POST
+def poll_post_view(request):
+    config_json = request.POST.get('config', '{}')
     try:
         config = json.loads(config_json)
     except JSONDecodeError:
-        raise ValidationError('Poll configuration is not '
-                              'well-formed JSON.')
+        raise ValidationError('Poll configuration is not well-formed JSON.')
 
-    if not isinstance(config, dict):
-        raise ValidationError('Poll configuration is not '
-                              'a dictionary.')
-
-    poll_equal_width = bool(config.get('equal_width', False))
-
-    poll_title = safe_html(str(config.get('title', '')))
-
-    _raw_poll_option_names = config.get('options', [])
-    if not isinstance(_raw_poll_option_names, list):
-        raise ValidationError('Poll options is not a list.')
-
-    poll_option_names = [safe_html(str(option_name))
-                         for option_name in _raw_poll_option_names]
-
-    return poll_equal_width, poll_title, poll_option_names
-
-
-@require_POST
-def poll_post_view(request):
-    try:
-        poll_equal_width, poll_title, poll_option_names \
-            = _extract_poll_config(request.POST.get('config', '{}'))
-    except ValidationError as e:
-        return HttpResponseBadRequest(e.message)
+    serializer = PollConfigSerializer(data=config)
+    serializer.is_valid(raise_exception=True)
 
     with transaction.atomic():
         if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:
@@ -74,10 +53,7 @@ def poll_post_view(request):
                 f'Maximum number of {settings.JAWANNDENN_MAX_POLLS} polls '
                 'reached, please contact the administrator.')
 
-        poll = Poll.objects.create(title=poll_title,
-                                   equal_width=poll_equal_width)
-        for i, option_name in enumerate(poll_option_names):
-            PollOption.objects.create(poll=poll, position=i, name=option_name)
+        poll = serializer.save()
 
     return redirect(poll)
 

@@ -14,7 +14,6 @@ def _read(filename):
 
 _tests_require = [
     'factory-boy>=2.12.0',
-    'parameterized>=0.7.1',
 ]
 
 _extras_require = {
@@ -40,6 +39,7 @@ if __name__ == '__main__':
             'django>=2.2.7',
             'django-extensions>=2.2.5',
             'django-ratelimit>=2.0.0',
+            'djangorestframework>=3.11.0',
             'gunicorn>=20.0.4',
             'gunicorn-color>=0.1.0',
         ],
