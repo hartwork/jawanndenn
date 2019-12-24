@@ -2,18 +2,16 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import re
-import sys
 from http import HTTPStatus
 
 from django.conf import settings
 from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import include, path, re_path
-from django.views.defaults import bad_request, permission_denied, server_error
+from django.views.defaults import permission_denied
 from django.views.static import serve
 from ratelimit.decorators import ratelimit
 from ratelimit.exceptions import Ratelimited
-from rest_framework.exceptions import ValidationError
 
 from .views import (index_get_view, poll_data_get_view, poll_get_view,
                     poll_post_view, vote_post_view)
@@ -49,15 +47,6 @@ def _permission_denied_or_too_many_requests(request, exception=None):
     return permission_denied(request, exception)
 
 
-def _server_error_or_bad_request(request):
-    _, exception, _ = sys.exc_info()
-
-    if isinstance(exception, ValidationError):
-        return bad_request(request, exception)
-
-    return server_error(request)
-
-
 _limit_read_access = ratelimit(key='user_or_ip', rate='180/m', block=True)
 
 _limit_write_access = ratelimit(key='user_or_ip', rate='30/m', block=True)
@@ -88,5 +77,3 @@ else:
 urlpatterns += _staticfiles_urlpatterns()  # not rate limited
 
 handler403 = _permission_denied_or_too_many_requests
-
-handler500 = _server_error_or_bad_request

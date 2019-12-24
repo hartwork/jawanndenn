@@ -2,16 +2,14 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import json
-from functools import partial
 from http import HTTPStatus
 
-from django.test import Client, TestCase
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from jawanndenn.models import Ballot, Poll
 from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
-from rest_framework.exceptions import ErrorDetail
 
 
 class IndexGetViewTest(TestCase):
@@ -24,7 +22,6 @@ class IndexGetViewTest(TestCase):
 
 
 class PollPostViewTest(TestCase):
-    client_class = partial(Client, raise_request_exception=False)
     url = reverse('poll-creation')
 
     def test_malformed__config_not_json(self):
@@ -36,12 +33,6 @@ class PollPostViewTest(TestCase):
         response = self.client.post(self.url, data)
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
-        _, exception, _ = response.exc_info
-        self.assertEqual(exception.detail, [
-            ErrorDetail(string='Poll configuration is not well-formed JSON.',
-                        code='invalid'),
-        ])
-
         self.assertFalse(Poll.objects.filter(created__gte=before_creation)
                          .exists())
 

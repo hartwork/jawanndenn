@@ -12,6 +12,7 @@ from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.views.decorators.http import require_GET, require_POST
+from django.views.defaults import bad_request
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
@@ -29,6 +30,17 @@ def _except_poll_does_not_exist(wrappee):
     return wrapper
 
 
+def _except_validation_error(wrappee):
+    @wraps(wrappee)
+    def wrapper(request, *args, **kwargs):
+        try:
+            return wrappee(request, *args, **kwargs)
+        except ValidationError as exception:
+            return bad_request(request, exception)
+
+    return wrapper
+
+
 @require_GET
 def index_get_view(request):
     return TemplateResponse(request,
@@ -37,6 +49,7 @@ def index_get_view(request):
 
 
 @require_POST
+@_except_validation_error
 def poll_post_view(request):
     config_json = request.POST.get('config', '{}')
     try:
