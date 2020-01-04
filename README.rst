@@ -9,14 +9,29 @@ What is jawanndenn?
    :alt: Screenshot of poll creation in jawanndenn
 
 *jawanndenn* is a simple web application to schedule meetings and run
-polls, a libre alternative to Doodle. It is written in Python and
-JavaScript using
+polls, a libre alternative to Doodle.  It is using the following technology:
 
--  `Django`_  (with `Django Ratelimit`_ and `django-redis`_)
--  `Gunicorn`_ (with `gunicorn-color-logger`_)
--  `jQuery`_
--  `jQuery noty`_
--  `Materialize`_ Material Design CSS/JS
+- Python
+    - `Docker Compose`_
+    - `Django`_
+        - `Django Extensions`_
+        - `Django Ratelimit`_ + `msgpack-python`_
+        - `django-redis`_
+        - `Django REST framework`_
+        - `Factory Boy`_
+    - `Gunicorn`_ + `gunicorn-color-logger`_
+    - `parameterized`_
+    - `sentry-python`_
+
+- JavaScript / CSS
+    - `jQuery`_
+    - `jQuery noty`_
+    - `Materialize`_
+
+- Storage
+    - `PostgreSQL`_
+    - `Redis`_
+    - `SQLite`_
 
 *jawanndenn* is `libre software`_ developed by `Sebastian Pipping`_. The
 server code is licensed under the `GNU Affero GPL license`_ version 3
@@ -205,14 +220,25 @@ Special thanks to Arne Maier (`@KordonDev`_) for reporting
 an XSS vulnerability, responsibly.
 
 
+.. _Python: https://www.python.org/
+.. _Docker Compose: https://docs.docker.com/compose/
 .. _Django: https://www.djangoproject.com/
+.. _Django Extensions: https://github.com/django-extensions/django-extensions
 .. _Django Ratelimit: https://github.com/jsocol/django-ratelimit
+.. _msgpack-python: https://github.com/msgpack/msgpack-python
 .. _django-redis: https://github.com/niwinz/django-redis
+.. _Django REST framework: https://www.django-rest-framework.org/
+.. _Factory Boy: https://factoryboy.readthedocs.io/en/latest/
 .. _Gunicorn: https://gunicorn.org/
 .. _gunicorn-color-logger: https://github.com/swistakm/gunicorn-color-logger
+.. _parameterized: https://github.com/wolever/parameterized
+.. _sentry-python: https://github.com/getsentry/sentry-python
 .. _jQuery: http://jquery.com/
 .. _jQuery noty: http://ned.im/noty/#/about
 .. _Materialize: http://materializecss.com/
+.. _PostgreSQL: https://www.postgresql.org/
+.. _Redis: https://redis.io/
+.. _SQLite: https://www.sqlite.org/index.html
 .. _libre software: https://www.gnu.org/philosophy/free-sw.en.html
 .. _Sebastian Pipping: https://blog.hartwork.org/
 .. _GNU Affero GPL license: https://www.gnu.org/licenses/agpl.en.html
