@@ -1,5 +1,5 @@
 # Direct dependencies
-Django==3.0.2
+Django==3.0.3
 django-extensions==2.2.6
 django-ratelimit==2.0.0
 django-redis==4.11.0
@@ -7,7 +7,7 @@ djangorestframework==3.11.0
 factory-boy==2.12.0
 gunicorn==20.0.4
 gunicorn-color==0.1.0
-ipython==7.11.1
+ipython==7.12.0
 msgpack==0.6.2
 parameterized==0.7.1
 psycopg2-binary==2.8.4
@@ -22,7 +22,7 @@ decorator==4.4.1
 Faker==4.0.0
 ipython-genutils==0.2.0
 jedi==0.16.0
-parso==0.6.0
+parso==0.6.1
 pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.3
@@ -30,7 +30,7 @@ ptyprocess==0.6.0
 Pygments==2.5.2
 python-dateutil==2.8.1
 pytz==2019.3
-redis==3.4.0
+redis==3.4.1
 six==1.14.0
 sqlparse==0.3.0
 termcolor==1.1.0
