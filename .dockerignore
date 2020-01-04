@@ -1,0 +1,15 @@
+*
+
+!/jawanndenn/migrations/*.py
+!/jawanndenn/static/3rdparty/
+!/jawanndenn/static/css/*.css
+!/jawanndenn/static/html/*.xhtml
+!/jawanndenn/static/js/*.js
+!/jawanndenn/tests/*.py
+!/jawanndenn/*.py
+
+!/docker-entrypoint.sh
+!/manage.py
+!/README.rst
+!/requirements.txt
+!/setup.py
