@@ -52,6 +52,7 @@ services:
       - default
       - ssl-reverse-proxy
     environment:
+      JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
       JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
       JAWANNDENN_POSTGRES_HOST: postgres
       JAWANNDENN_POSTGRES_PORT: 5432
