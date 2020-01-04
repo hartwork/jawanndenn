@@ -1,6 +1,6 @@
 # Direct dependencies
 Django==3.0.2
-django-extensions==2.2.5
+django-extensions==2.2.6
 django-ratelimit==2.0.0
 django-redis==4.11.0
 djangorestframework==3.11.0
@@ -19,7 +19,7 @@ backcall==0.1.0
 certifi==2019.11.28
 Click==7.0
 decorator==4.4.1
-Faker==3.0.0
+Faker==4.0.0
 ipython-genutils==0.2.0
 jedi==0.15.2
 parso==0.5.2
@@ -31,7 +31,7 @@ Pygments==2.5.2
 python-dateutil==2.8.1
 pytz==2019.3
 redis==3.3.11
-six==1.13.0
+six==1.14.0
 sqlparse==0.3.0
 termcolor==1.1.0
 text-unidecode==1.3
