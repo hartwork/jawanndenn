@@ -46,11 +46,16 @@ def _permission_denied_or_too_many_requests(request, exception=None):
     return permission_denied(request, exception)
 
 
+def _decorate_view_of_url_pattern(decorator, url_pattern):
+    url_pattern.callback = decorator(url_pattern.callback)
+    return url_pattern
+
+
 def _decorate_view_triple(decorator, view):
     urlconf_module, _app_name, _namespace = view
 
     for url_pattern in urlconf_module:
-        url_pattern.callback = decorator(url_pattern.callback)
+        _decorate_view_of_url_pattern(decorator, url_pattern)
 
     return view
 
