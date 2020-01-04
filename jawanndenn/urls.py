@@ -88,6 +88,7 @@ if settings.JAWANNDENN_URL_PREFIX:
 else:
     urlpatterns = _app_urlpatterns
 
-urlpatterns += _staticfiles_urlpatterns()  # not rate limited
+urlpatterns += [_decorate_view_of_url_pattern(_limit_read_access, url_pattern)
+                for url_pattern in _staticfiles_urlpatterns()]
 
 handler403 = _permission_denied_or_too_many_requests
