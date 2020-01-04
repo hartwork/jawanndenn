@@ -8,7 +8,7 @@ factory-boy==2.12.0
 gunicorn==20.0.4
 gunicorn-color==0.1.0
 ipython==7.12.0
-msgpack==0.6.2
+msgpack==1.0.0
 parameterized==0.7.1
 psycopg2-binary==2.8.4
 sentry-sdk==0.14.1
@@ -19,7 +19,7 @@ backcall==0.1.0
 certifi==2019.11.28
 Click==7.0
 decorator==4.4.1
-Faker==4.0.0
+Faker==4.0.1
 ipython-genutils==0.2.0
 jedi==0.16.0
 parso==0.6.1
