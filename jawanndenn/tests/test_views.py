@@ -10,6 +10,7 @@ from django.utils import timezone
 from jawanndenn.models import Ballot, Poll
 from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
+from parameterized import parameterized
 
 
 class AdminLoginPageTest(TestCase):
@@ -165,3 +166,16 @@ class VotePostViewTest(TestCase):
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
+
+
+class ServeUsingFindersTest(TestCase):
+    @parameterized.expand([
+        ('jawanndenn', 'js/html.js'),
+        ('django.contrib.admin', 'admin/css/responsive.css'),
+    ])
+    def test(self, _app, path):
+        url = reverse('static', kwargs={'path': path})
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)

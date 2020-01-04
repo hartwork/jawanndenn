@@ -14,6 +14,7 @@ def _read(filename):
 
 _tests_require = [
     'factory-boy>=2.12.0',
+    'parameterized>=0.7.1',
 ]
 
 _extras_require = {

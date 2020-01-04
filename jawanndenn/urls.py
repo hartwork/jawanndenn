@@ -35,7 +35,7 @@ def _staticfiles_urlpatterns():
             settings.STATIC_URL.lstrip('/')),
                 serve_using_finders, kwargs={
                 'show_indexes': settings.DEBUG,
-            }),
+            }, name='static'),
     ]
 
 
