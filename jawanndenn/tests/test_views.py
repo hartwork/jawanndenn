@@ -12,6 +12,13 @@ from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
 
 
+class AdminLoginPageTest(TestCase):
+    def test(self):
+        url = reverse('admin:index')
+        response = self.client.get(url, follow=True)
+        self.assertContains(response, 'Django administration')
+
+
 class IndexGetViewTest(TestCase):
     def test(self):
         url = reverse('frontpage')
