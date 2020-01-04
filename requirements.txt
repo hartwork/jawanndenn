@@ -1,6 +1,6 @@
 # Direct dependencies
 Django==3.0.3
-django-extensions==2.2.6
+django-extensions==2.2.7
 django-ratelimit==2.0.0
 django-redis==4.11.0
 djangorestframework==3.11.0
