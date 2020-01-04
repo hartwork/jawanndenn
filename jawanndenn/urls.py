@@ -47,6 +47,15 @@ def _permission_denied_or_too_many_requests(request, exception=None):
     return permission_denied(request, exception)
 
 
+def _decorate_view_triple(decorator, view):
+    urlconf_module, _app_name, _namespace = view
+
+    for url_pattern in urlconf_module:
+        url_pattern.callback = decorator(url_pattern.callback)
+
+    return view
+
+
 _limit_read_access = ratelimit(key='user_or_ip', rate='180/m', block=True)
 
 _limit_write_access = ratelimit(key='user_or_ip', rate='30/m', block=True)
@@ -60,7 +69,8 @@ _app_urlpatterns = [
          _limit_read_access(poll_get_view), name='poll-detail'),
     path('vote/<poll_id>', _limit_write_access(vote_post_view), name='vote'),
 
-    path('admin/', _limit_write_access(admin.site.urls)),
+    path('admin/', _decorate_view_triple(_limit_write_access,
+                                         admin.site.urls)),
 ]
 
 if settings.JAWANNDENN_URL_PREFIX:
