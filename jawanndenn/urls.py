@@ -9,7 +9,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import include, path, re_path
 from django.views.defaults import permission_denied
-from django.views.static import serve
+from jawanndenn.views import serve_using_finders
 from ratelimit.decorators import ratelimit
 from ratelimit.exceptions import Ratelimited
 
@@ -28,13 +28,12 @@ class _HttpResponseTooManyRequests(HttpResponse):
 def _staticfiles_urlpatterns():
     '''
     Fork of django.contrib.staticfiles.urls.staticfiles_urlpatterns
-    that supports DEBUG=False
+    that supports DEBUG=False and settings.STATICFILES_FINDERS
     '''
     return [
         re_path(r'^%s(?P<path>.*)$' % re.escape(
             settings.STATIC_URL.lstrip('/')),
-                serve, kwargs={
-                'document_root': settings.STATICFILES_DIRS[0],
+                serve_using_finders, kwargs={
                 'show_indexes': settings.DEBUG,
             }),
     ]
