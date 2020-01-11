@@ -209,7 +209,7 @@ Please check out the `list of upcoming features`_.
 Non-goals
 =========
 
--  Use of heavy frameworks: building blocks only
+-  Use of heavy frontend frameworks: building blocks only
 -  Read availability from calendars
 
 
