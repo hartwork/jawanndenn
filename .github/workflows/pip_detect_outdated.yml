@@ -1,0 +1,39 @@
+name: Detect outdated Python dependencies
+
+on:
+  schedule:
+    - cron: '0 16 * * 5'  # Every Friday 4pm
+
+jobs:
+  pip_detect_outdated:
+    name: Detect outdated Python dependencies
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1.1.1
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |-
+          sudo apt-get install --yes --no-install-recommends \
+            libpq-dev
+          pip install \
+            --disable-pip-version-check \
+            --user \
+            --no-warn-script-location \
+            -r requirements.txt
+
+      - name: Check for outdated Python dependencies
+        run: |-
+          diff -U0 <(echo -n) <(pip list \
+            --user \
+            --format columns \
+            --outdated \
+            | tail -n +3 \
+            | grep -v \
+                -e '^setuptools ' \
+                -e '^wheel ' \
+            | sort -f)
