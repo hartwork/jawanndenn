@@ -11,7 +11,7 @@ ipython==7.11.1
 msgpack==0.6.2
 parameterized==0.7.1
 psycopg2-binary==2.8.4
-sentry-sdk==0.13.5
+sentry-sdk==0.14.0
 
 # Indirect dependencies
 asgiref==3.2.3
