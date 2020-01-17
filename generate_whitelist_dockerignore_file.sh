@@ -22,4 +22,4 @@ git ls-files \
             -e '/(^|\/)\./d' \
         | sort -u -V \
         | sort -V -f \
-        | sed 's,^,!/,'
+        | sed 's,^,!,'

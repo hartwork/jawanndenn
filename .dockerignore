@@ -9,18 +9,18 @@
 *
 
 # Unignore files based on "git ls-files"
-!/Dockerfile
-!/jawanndenn/migrations/*.py
-!/jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
-!/jawanndenn/static/3rdparty/noty-2.4.1/*.txt
-!/jawanndenn/static/css/*.css
-!/jawanndenn/static/html/*.xhtml
-!/jawanndenn/static/js/*.js
-!/jawanndenn/tests/*.py
-!/jawanndenn/*.py
-!/*.png
-!/*.py
-!/*.rst
-!/*.sh
-!/*.txt
-!/*.yml
+!Dockerfile
+!jawanndenn/migrations/*.py
+!jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
+!jawanndenn/static/3rdparty/noty-2.4.1/*.txt
+!jawanndenn/static/css/*.css
+!jawanndenn/static/html/*.xhtml
+!jawanndenn/static/js/*.js
+!jawanndenn/tests/*.py
+!jawanndenn/*.py
+!*.png
+!*.py
+!*.rst
+!*.sh
+!*.txt
+!*.yml
