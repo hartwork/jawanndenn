@@ -2,7 +2,6 @@ FROM python:3.8-alpine
 
 RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client shadow
 
-RUN mkdir /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
 USER jawanndenn
 ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
