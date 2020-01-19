@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/hartwork/jawanndenn.svg?branch=master
-    :target: https://travis-ci.org/hartwork/jawanndenn
+.. image:: https://github.com/Libvisual/libvisual/workflows/Build%20and%20test%20using%20Docker/badge.svg
+    :target: https://github.com/hartwork/jawanndenn/actions
 
 
 What is jawanndenn?

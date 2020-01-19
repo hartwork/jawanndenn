@@ -11,10 +11,6 @@ set -x
 id
 ip addr
 
-if [[ $# -gt 0 ]]; then
-    exec "$@"
-fi
-
 manage_py() {
     DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django "$@"
 }
@@ -24,6 +20,10 @@ wait_for_it_args=(
     --service "${JAWANNDENN_POSTGRES_HOST}:${JAWANNDENN_POSTGRES_PORT}"
 )
 wait-for-it "${wait_for_it_args[@]}"
+
+if [[ $# -gt 0 ]]; then
+    exec "$@"
+fi
 
 manage_py migrate
 
