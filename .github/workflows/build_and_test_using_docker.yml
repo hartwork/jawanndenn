@@ -1,0 +1,45 @@
+name: Build and test using Docker
+
+on:
+- pull_request
+- push
+
+jobs:
+  build_and_test:
+    name: Build and test using Docker
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1.1.1
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |-
+          pip install \
+            --disable-pip-version-check \
+            --user \
+            --no-warn-script-location \
+            docker-compose
+          echo "::set-env name=PATH::${HOME}/.local/bin:${PATH}"
+
+      - name: Configure Docker environment
+        run: |-
+          docker network create --internal ssl-reverse-proxy
+          tee .env <<-EOF
+            JAWANNDENN_POSTGRES_NAME=jawanndenn111
+            JAWANNDENN_POSTGRES_USER=jawanndenn222
+            JAWANNDENN_POSTGRES_PASSWORD=jawanndenn333
+            JAWANNDENN_SECRET_KEY=jawanndenn444
+          EOF
+
+      - name: Build Docker image
+        run: |-
+          docker-compose build
+
+      - name: Run tests using Docker
+        run: |-
+          docker-compose run jawanndenn \
+            sh -c 'cd ~/.local/lib/python*/site-packages/jawanndenn && DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django test -v2'
