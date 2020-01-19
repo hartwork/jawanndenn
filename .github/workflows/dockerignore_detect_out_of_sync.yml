@@ -1,0 +1,16 @@
+name: Detect .dockerignore out-of-sync with git ls-files
+
+on:
+- pull_request
+- push
+
+jobs:
+  dockerignore_detect_out_of_sync:
+    name: Detect .dockerignore out-of-sync with git ls-files
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check for out-of-sync .dockerignore
+        run: |-
+          diff -U0 <(./generate_whitelist_dockerignore_file.sh) .dockerignore

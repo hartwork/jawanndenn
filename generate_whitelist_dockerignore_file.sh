@@ -1,3 +1,8 @@
+#! /bin/bash
+# Copyright (C) 2020 Sebastian Pipping <sebastian@pipping.org>
+# Licensed under GNU GPL v3 or later
+
+cat <<EOF
 ##################################################################################
 ## THIS FILE WAS GENERATED -- DO NOT EDIT!
 ##
@@ -9,18 +14,12 @@
 *
 
 # Unignore files based on "git ls-files"
-!Dockerfile
-!jawanndenn/migrations/*.py
-!jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
-!jawanndenn/static/3rdparty/noty-2.4.1/*.txt
-!jawanndenn/static/css/*.css
-!jawanndenn/static/html/*.xhtml
-!jawanndenn/static/js/*.js
-!jawanndenn/tests/*.py
-!jawanndenn/*.py
-!*.png
-!*.py
-!*.rst
-!*.sh
-!*.txt
-!*.yml
+EOF
+
+git ls-files \
+        | sed -r \
+            -e 's,(^|/)[^.][^/]*(\.[^/]+)$,\1*\2,' \
+            -e '/(^|\/)\./d' \
+        | sort -u -V \
+        | sort -V -f \
+        | sed 's,^,!,'
