@@ -1,4 +1,4 @@
-.. image:: https://github.com/Libvisual/libvisual/workflows/Build%20and%20test%20using%20Docker/badge.svg
+.. image:: https://github.com/hartwork/jawanndenn/workflows/Build%20and%20test%20using%20Docker/badge.svg
     :target: https://github.com/hartwork/jawanndenn/actions
 
 
