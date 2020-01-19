@@ -6,13 +6,6 @@ jobs:
   include:
     - stage: test
       install:
-        - pip install pre-commit
-        - pre-commit install --install-hooks
-      script:
-        - pre-commit run --all-files
-
-    - stage: test
-      install:
         - pip install .[tests]
       script:
         - jawanndenn --help
