@@ -186,9 +186,10 @@ Goals
 =====
 
 -  Libre software to host yourself, unlike Doodle
--  More simple, sexy and/or fun than `libre alternatives`_, in alphabetic order:
+-  More simplistic, sexy and/or fun than `libre alternatives`_, in alphabetic order:
 
    -  `Bitpoll`_ (ex. `Dudel`_)
+   -  `Croodle`_
    -  `Dudle`_
    -  (`Drupal Date picker formatter`_)
    -  (`Foodle`_ (discontinued; `on GitHub`_, ex. `DFN scheduler`_, ex. `DFN Terminplaner+`_))
@@ -250,6 +251,7 @@ an XSS vulnerability, responsibly.
 .. _drop me a mail: mailto:sebastian@pipping.org
 .. _libre alternatives: http://alternativeto.net/software/doodle/?license=opensource
 .. _Bitpoll: https://github.com/fsinfuhh/Bitpoll
+.. _Croodle: https://github.com/jelhan/croodle
 .. _Dudel: https://github.com/opatut/dudel
 .. _Pleft: https://github.com/sander/pleft
 .. _Framadata: https://framadate.org/
