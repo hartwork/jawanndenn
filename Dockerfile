@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 
-RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client shadow
+RUN apk update && apk add bash diffutils gcc g++ musl-dev postgresql-dev postgresql-client shadow
 
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
 USER jawanndenn

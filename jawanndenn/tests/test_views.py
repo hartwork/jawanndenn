@@ -1,9 +1,9 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-import json
 from http import HTTPStatus
 
+import rapidjson as json
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
