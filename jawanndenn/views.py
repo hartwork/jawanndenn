@@ -1,10 +1,9 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-import json  # lgtm [py/import-and-import-from]
 from functools import wraps
-from json import JSONDecodeError
 
+import rapidjson as json  # lgtm [py/import-and-import-from]
 from django.conf import settings
 from django.db import transaction
 from django.http import (Http404, HttpResponseBadRequest, HttpResponseNotFound,
@@ -18,6 +17,7 @@ from django.views.static import serve
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
+from rapidjson import JSONDecodeError
 from rest_framework.exceptions import ValidationError
 
 _staticfile_finders = [import_string(cls_string)()

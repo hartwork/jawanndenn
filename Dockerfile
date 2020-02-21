@@ -1,7 +1,8 @@
 FROM python:3.8-alpine
 
-RUN apk update && apk add bash diffutils gcc musl-dev postgresql-dev postgresql-client shadow
+RUN apk update && apk add bash diffutils gcc g++ musl-dev postgresql-dev postgresql-client shadow
 
+RUN mkdir -p /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
 USER jawanndenn
 ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
@@ -10,7 +11,7 @@ ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 COPY --chown=jawanndenn:jawanndenn requirements.txt  /tmp/app/
 RUN cd /tmp/app \
         && \
-    pip3 install --user --ignore-installed pip setuptools wheel \
+    pip3 install --user --ignore-installed --disable-pip-version-check pip setuptools wheel \
         && \
     hash pip3 \
         && \
