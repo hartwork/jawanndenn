@@ -18,7 +18,7 @@ sentry-sdk==0.14.2
 asgiref==3.2.5
 backcall==0.1.0
 certifi==2019.11.28
-Click==7.1.1
+click==7.1.1
 decorator==4.4.2
 Faker==4.0.2
 ipython-genutils==0.2.0
