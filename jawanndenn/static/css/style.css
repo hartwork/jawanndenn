@@ -31,11 +31,11 @@ td.person {
 @media screen and (min-width:768px) {
     #live {
         max-width: calc(100vw - 10px);
-        position: fixed;
+        position: absolute;
         left: 50%;
         transform: translate(-50%);
         top: 10%;
-        bottom: 0;
+        padding-bottom: 10%;
     }
 }
 
