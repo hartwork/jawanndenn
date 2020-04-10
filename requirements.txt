@@ -11,13 +11,13 @@ ipython==7.13.0
 msgpack==1.0.0
 parameterized==0.7.1
 python-rapidjson==0.9.1
-psycopg2-binary==2.8.4
+psycopg2-binary==2.8.5
 sentry-sdk==0.14.3
 
 # Indirect dependencies
 asgiref==3.2.7
 backcall==0.1.0
-certifi==2019.11.28
+certifi==2020.4.5.1
 click==7.1.1
 decorator==4.4.2
 Faker==4.0.2
