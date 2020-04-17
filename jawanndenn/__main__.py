@@ -46,7 +46,7 @@ def _generate_random_printable_django_secret_key():
 def _process_django_secret_key_file(filename):
     secret_key_encoding = 'utf-8'
     try:
-        with open(filename, 'r', encoding=secret_key_encoding) as f:
+        with open(filename, encoding=secret_key_encoding) as f:
             secret_key = f.read()
     except FileNotFoundError:
         secret_key = _generate_random_printable_django_secret_key()
