@@ -2,7 +2,7 @@ exclude: '^jawanndenn/static/3rdparty/'
 
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.2.0
+    rev: v2.3.0
     hooks:
       - id: pyupgrade
         args: ['--py3-plus', '--py36-plus', '--py37-plus']
