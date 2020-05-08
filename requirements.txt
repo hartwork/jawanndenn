@@ -1,5 +1,5 @@
 # Direct dependencies
-Django==3.0.5
+Django==3.0.6
 django-extensions==2.2.9
 django-ratelimit==2.0.0
 django-redis==4.11.0
@@ -7,7 +7,7 @@ djangorestframework==3.11.0
 factory-boy==2.12.0
 gunicorn==20.0.4
 gunicorn-color==0.1.0
-ipython==7.13.0
+ipython==7.14.0
 msgpack==1.0.0
 parameterized==0.7.4
 python-rapidjson==0.9.1
