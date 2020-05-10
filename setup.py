@@ -2,6 +2,8 @@
 # Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
+import os
+
 from setuptools import find_packages, setup
 
 from jawanndenn.metadata import APP_NAME, VERSION_STR
@@ -20,6 +22,13 @@ _tests_require = [
 _extras_require = {
     'tests': _tests_require,
 }
+
+
+def _collect_package_data(top_directory):
+    for root, dirs, files in os.walk(os.path.join(top_directory, 'static')):
+        if files:
+            relative_root = os.path.relpath(root, top_directory)
+            yield os.path.join(relative_root, '*')
 
 
 if __name__ == '__main__':
@@ -49,11 +58,7 @@ if __name__ == '__main__':
 
         packages=find_packages(),
         package_data={
-            APP_NAME: [
-                'static/css/*',
-                'static/html/*',
-                'static/js/*',
-            ],
+            APP_NAME: list(_collect_package_data(APP_NAME)),
         },
 
         entry_points={
