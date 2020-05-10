@@ -14,7 +14,7 @@
 !jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
 !jawanndenn/static/3rdparty/noty-2.4.1/*.txt
 !jawanndenn/static/css/*.css
-!jawanndenn/static/html/*.xhtml
+!jawanndenn/static/html/*.htm
 !jawanndenn/static/js/*.js
 !jawanndenn/tests/*.py
 !jawanndenn/*.py

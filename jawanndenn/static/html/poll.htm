@@ -1,26 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <!--
 Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
 Licensed under GNU GPL v3 or later
 
 {% load static %}
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
     <head>
         <title>jawanndenn: Vote!</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" />
-        <script src="{% static '3rdparty/noty-2.4.1/js/noty/packaged/jquery.noty.packaged.min.js' %}" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="{% static '3rdparty/noty-2.4.1/js/noty/packaged/jquery.noty.packaged.min.js' %}"></script>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
-        <script type="text/javascript" src="{% static 'js/html.js' %}?sha1=85e9e5f0be4160539a04f4af533093f1616820f6" />
-        <script type="text/javascript" src="{% static 'js/poll.js' %}?sha1=5342f6f12026a4027a2cc70eed0e79736323f6a6" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?sha1=7bc5e514037fa511bcf6b93b31778a96920387b6" />
+        <script type="text/javascript" src="{% static 'js/html.js' %}?sha1=85e9e5f0be4160539a04f4af533093f1616820f6"></script>
+        <script type="text/javascript" src="{% static 'js/poll.js' %}?sha1=5342f6f12026a4027a2cc70eed0e79736323f6a6"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?sha1=7bc5e514037fa511bcf6b93b31778a96920387b6">
 
         <script type="text/javascript">
             $( document ).ready(function() {
@@ -45,8 +44,8 @@ Licensed under GNU GPL v3 or later
     </head>
     <body>
         <div id='live'>
-            <div id='poll' />
+            <div id='poll'></div>
         </div>
-        <footer />
+        <footer></footer>
     </body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2016 Sebastian Pipping <sebastian@pipping.org>
+Licensed under GNU GPL v3 or later
+
+{% load static %}
+-->
+<html lang="en">
+    <head>
+        <title>jawanndenn: Create a new poll</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+        <script type="text/javascript" src="{% static 'js/html.js' %}?sha1=85e9e5f0be4160539a04f4af533093f1616820f6"></script>
+        <script type="text/javascript" src="{% static 'js/poll.js' %}?sha1=5342f6f12026a4027a2cc70eed0e79736323f6a6"></script>
+        <script type="text/javascript" src="{% static 'js/setup.js' %}?sha1=b1e8f3b100cd3fc16c649890575c62c66ff70d2b"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?sha1=7bc5e514037fa511bcf6b93b31778a96920387b6">
+    </head>
+    <body>
+        <div id='stage'>
+            <div id='preview'>
+                <div id='poll'></div>
+            </div>
+            <div id='setup'>
+                <div class="card-panel">
+                    <form id='setupForm' action="{% url 'poll-creation' %}" method="POST">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <div class="input-field">
+                            <textarea id="config" name="config" class="materialize-textarea monospace-text"></textarea>
+                            <label for="config">Setup (JSON)</label>
+                        </div>
+                        <button type="submit" id='createButton' onclick="$( '#setupForm' ).submit();" class="waves-effect waves-light btn" disabled="disabled">Create</button>
+                        <button type="button" id='resetButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer></footer>
+    </body>
+</html>
