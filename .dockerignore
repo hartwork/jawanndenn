@@ -11,6 +11,11 @@
 # Unignore files based on "git ls-files"
 !Dockerfile
 !jawanndenn/migrations/*.py
+!jawanndenn/static/3rdparty/materialize-v0.100.2/css/*.css
+!jawanndenn/static/3rdparty/materialize-v0.100.2/fonts/roboto/*.woff
+!jawanndenn/static/3rdparty/materialize-v0.100.2/fonts/roboto/*.woff2
+!jawanndenn/static/3rdparty/materialize-v0.100.2/js/*.js
+!jawanndenn/static/3rdparty/materialize-v0.100.2/LICENSE
 !jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
 !jawanndenn/static/3rdparty/noty-2.4.1/*.txt
 !jawanndenn/static/css/*.css
