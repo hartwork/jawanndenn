@@ -55,6 +55,10 @@ var resetConfig = function() {
     $('#config').val( exampleConfigJson );
 };
 
+var repairConfigLabel = function() {
+    $('#config')[0].dispatchEvent(new Event('focus'))
+}
+
 // Excapes HTML and renders subset of markdown
 var textToSafeHtml = function(text) {
     // KEEP IN SYNC with python server side!
@@ -157,6 +161,7 @@ var sync = function() {
 
 $( document ).ready(function() {
     resetConfig();
+    repairConfigLabel();
     sync();
     setInterval( sync, 500 );
 });

@@ -6,6 +6,13 @@ body {
     background-color: #fcfcfc;
 }
 
+.btn {
+    font-weight: 400;
+    padding-top: 1px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
 .optionLabel {
     text-align: center;
 }
@@ -28,7 +35,7 @@ td.person {
     font-weight: bold;
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #live {
         max-width: calc(100vw - 10px);
         position: absolute;
@@ -43,7 +50,7 @@ td.person {
     display: inline-block;
 
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     #stage {
         width: 100%;
     }
@@ -51,7 +58,7 @@ td.person {
         margin: 10px;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #stage {
         position: fixed;
         left: 10%;
@@ -66,15 +73,16 @@ td.person {
 }
 
 #setup {
+    position: relative;
     display: inline-block;
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     #setup {
         width: 100%;
         height: 24em;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #setup {
         width: 30%;
         height: 70%;
@@ -90,21 +98,29 @@ td.person {
 }
 
 #setup .card-panel .input-field {
+    position: absolute;
     display: inline-block;
 
-    width: 100%;
-    height: -webkit-calc(100% - 7.3em);
-    height:    -moz-calc(100% - 7.3em);
-    height:         calc(100% - 7.3em);
+    left: 20px;
+    width: calc(100% - 40px);
+    height: -webkit-calc(100% - 7.7em);
+    height:    -moz-calc(100% - 7.7em);
+    height:         calc(100% - 7.7em);
 }
 
-@media screen and (max-width:767px) {
+#setupButtons {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
+@media screen and (max-width:1119px) {
     #preview {
         display: inline-block;
         width: 100%;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #preview {
         display: inline-block;
         position: absolute;
@@ -150,6 +166,9 @@ td.person {
 #pollTable tr td {
     padding: 0px 0px;
     margin: 0px;
+}
+#pollTable tr td label span {
+    margin: 10px -10px 0 5px;
 }
 
 .question {
@@ -213,13 +232,13 @@ tt, .monospace-text {
 footer {
     margin: 0;
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     footer {
         margin-top: 4%;
         width: 100%;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     footer {
         z-index: 1;
         position: fixed;
