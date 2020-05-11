@@ -19,6 +19,7 @@
 !jawanndenn/static/3rdparty/materialize-1.0.0/LICENSE
 !jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
 !jawanndenn/static/3rdparty/noty-2.4.1/*.txt
+!jawanndenn/static/3rdparty/roboto-20/COPYING
 !jawanndenn/static/3rdparty/roboto-20/css/*.css
 !jawanndenn/static/3rdparty/roboto-20/fonts/*.eot
 !jawanndenn/static/3rdparty/roboto-20/fonts/*.svg
