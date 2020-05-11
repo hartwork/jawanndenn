@@ -35,8 +35,10 @@ Licensed under GNU GPL v3 or later
                             <textarea id="config" name="config" class="materialize-textarea monospace-text"></textarea>
                             <label for="config">Setup (JSON)</label>
                         </div>
-                        <button type="submit" id='createButton' onclick="$( '#setupForm' ).submit();" class="waves-effect waves-light btn" disabled="disabled">Create</button>
-                        <button type="button" id='resetButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
+                        <div id="setupButtons">
+                            <button type="submit" id='createButton' onclick="$( '#setupForm' ).submit();" class="waves-effect waves-light btn" disabled="disabled">Create</button>
+                            <button type="button" id='resetButton' onclick="resetConfig();" class="waves-effect waves-light btn-flat">Reset</button>
+                        </div>
                     </form>
                 </div>
             </div>

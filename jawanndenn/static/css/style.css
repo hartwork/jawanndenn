@@ -66,6 +66,7 @@ td.person {
 }
 
 #setup {
+    position: relative;
     display: inline-block;
 }
 @media screen and (max-width:767px) {
@@ -90,12 +91,20 @@ td.person {
 }
 
 #setup .card-panel .input-field {
+    position: absolute;
     display: inline-block;
 
-    width: 100%;
-    height: -webkit-calc(100% - 7.3em);
-    height:    -moz-calc(100% - 7.3em);
-    height:         calc(100% - 7.3em);
+    left: 20px;
+    width: calc(100% - 40px);
+    height: -webkit-calc(100% - 7.7em);
+    height:    -moz-calc(100% - 7.7em);
+    height:         calc(100% - 7.7em);
+}
+
+#setupButtons {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
 }
 
 @media screen and (max-width:767px) {
