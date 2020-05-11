@@ -6,6 +6,13 @@ body {
     background-color: #fcfcfc;
 }
 
+.btn {
+    font-weight: 400;
+    padding-top: 1px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
 .optionLabel {
     text-align: center;
 }
