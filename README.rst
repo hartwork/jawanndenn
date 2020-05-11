@@ -24,10 +24,12 @@ polls, a libre alternative to Doodle.  It is using the following technology:
     - `python-rapidjson`_
     - `sentry-python`_
 
-- JavaScript / CSS
+- JavaScript / CSS / Fonts
+    - `Google Webfonts Helper`_
     - `jQuery`_
     - `jQuery noty`_
     - `Materialize`_
+    - `Roboto`_
 
 - Storage
     - `PostgreSQL`_
@@ -236,9 +238,11 @@ an XSS vulnerability, responsibly.
 .. _parameterized: https://github.com/wolever/parameterized
 .. _python-rapidjson: https://github.com/python-rapidjson/python-rapidjson
 .. _sentry-python: https://github.com/getsentry/sentry-python
+.. _Google Webfonts Helper: https://google-webfonts-helper.herokuapp.com/
 .. _jQuery: http://jquery.com/
 .. _jQuery noty: http://ned.im/noty/#/about
 .. _Materialize: http://materializecss.com/
+.. _Roboto: https://fonts.google.com/specimen/Roboto
 .. _PostgreSQL: https://www.postgresql.org/
 .. _Redis: https://redis.io/
 .. _SQLite: https://www.sqlite.org/index.html

@@ -151,6 +151,9 @@ td.person {
     padding: 0px 0px;
     margin: 0px;
 }
+#pollTable tr td label span {
+    margin: 10px -10px 0 5px;
+}
 
 .question {
     text-align: center;

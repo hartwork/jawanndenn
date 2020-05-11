@@ -96,14 +96,14 @@ var _addCurrentPersonRow = function(table, options, previewMode) {
                     class: 'filled-in',
                     onclick: 'onClickCheckBox(this);'
                 });
+        var label = tag('label');
+        label.child( checkbox );
+        label.child( tag('span') );
         var td = tr.child( tag('td', {
                 id: 'optionTd' + j,
                 class: 'vote ' + YET_TO_VOTE_CLASS,
             }));
-        td.child( checkbox );
-        td.child( tag('label', {
-                'for': 'option' + j
-                }));
+        td.child( label );
     });
     var toolsTd = tr.child( tag('td') );
     toolsTd.child( tag('input', {
