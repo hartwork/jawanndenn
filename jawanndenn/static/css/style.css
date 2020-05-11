@@ -28,7 +28,7 @@ td.person {
     font-weight: bold;
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #live {
         max-width: calc(100vw - 10px);
         position: absolute;
@@ -43,7 +43,7 @@ td.person {
     display: inline-block;
 
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     #stage {
         width: 100%;
     }
@@ -51,7 +51,7 @@ td.person {
         margin: 10px;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #stage {
         position: fixed;
         left: 10%;
@@ -69,13 +69,13 @@ td.person {
     position: relative;
     display: inline-block;
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     #setup {
         width: 100%;
         height: 24em;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #setup {
         width: 30%;
         height: 70%;
@@ -107,13 +107,13 @@ td.person {
     right: 20px;
 }
 
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     #preview {
         display: inline-block;
         width: 100%;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     #preview {
         display: inline-block;
         position: absolute;
@@ -225,13 +225,13 @@ tt, .monospace-text {
 footer {
     margin: 0;
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width:1119px) {
     footer {
         margin-top: 4%;
         width: 100%;
     }
 }
-@media screen and (min-width:768px) {
+@media screen and (min-width:1120px) {
     footer {
         z-index: 1;
         position: fixed;
