@@ -6,22 +6,17 @@ from functools import wraps
 import rapidjson as json  # lgtm [py/import-and-import-from]
 from django.conf import settings
 from django.db import transaction
-from django.http import (Http404, HttpResponseBadRequest, HttpResponseNotFound,
+from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
                          JsonResponse)
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.utils.module_loading import import_string
 from django.views.decorators.http import require_GET, require_POST
 from django.views.defaults import bad_request
-from django.views.static import serve
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
 from rapidjson import JSONDecodeError
 from rest_framework.exceptions import ValidationError
-
-_staticfile_finders = [import_string(cls_string)()
-                       for cls_string in settings.STATICFILES_FINDERS]
 
 
 def _except_poll_does_not_exist(wrappee):
@@ -134,19 +129,3 @@ def vote_post_view(request, poll_id):
             Vote.objects.create(ballot=ballot, option=option, yes=vote)
 
     return redirect(poll)
-
-
-@require_GET
-def serve_using_finders(request, path, show_indexes=False):
-    """
-    Wrapper around django.views.static.serve that uses
-    settings.STATICFILES_FINDERS rather than a single document_root
-    """
-    for finder in _staticfile_finders:
-        fullpath = finder.find(path)
-        if fullpath:
-            document_root = fullpath[:-len(path)] if path else fullpath
-            return serve(request, path, document_root=document_root,
-                         show_indexes=show_indexes)
-    else:
-        raise Http404

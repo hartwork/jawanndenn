@@ -6,10 +6,10 @@ from http import HTTPStatus
 
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.staticfiles.views import serve
 from django.http import HttpResponse
 from django.urls import include, path, re_path
 from django.views.defaults import permission_denied
-from jawanndenn.views import serve_using_finders
 from ratelimit.decorators import ratelimit
 from ratelimit.exceptions import Ratelimited
 
@@ -25,17 +25,20 @@ class _HttpResponseTooManyRequests(HttpResponse):
                          content_type='text/html')
 
 
-def _staticfiles_urlpatterns():
+def _staticfiles_urlpatterns(prefix=None, name='static'):
     '''
     Fork of django.contrib.staticfiles.urls.staticfiles_urlpatterns
-    that supports DEBUG=False and settings.STATICFILES_FINDERS
+    that supports DEBUG=False and registering a name for the view
     '''
+    if prefix is None:
+        prefix = settings.STATIC_URL
     return [
-        re_path(r'^%s(?P<path>.*)$' % re.escape(
-            settings.STATIC_URL.lstrip('/')),
-                serve_using_finders, kwargs={
-                'show_indexes': settings.DEBUG,
-            }, name='static'),
+        re_path(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')),
+                serve, kwargs={
+                    'insecure': not settings.DEBUG,
+                    'show_indexes': settings.DEBUG,
+                },
+                name=name),
     ]
 
 
