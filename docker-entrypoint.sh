@@ -31,6 +31,7 @@ gunicorn_args=(
     --name=jawanndenn
     --bind=0.0.0.0:54080
     --workers="$(nproc --ignore=1)"
+    --timeout 5
     --access-logfile=-
     --access-logformat '%({x-forwarded-for}i)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
     --logger-class=gunicorn_color.Logger
