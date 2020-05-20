@@ -203,23 +203,6 @@ var onChangeVoterName = function(inputElem) {
     setTimeout( syncSaveButton, 1 );
 };
 
-var createFooterHtml = function() {
-    return '\
-        <p>\
-            <span style="font-size: 150%; position: relative; top: 3px;">&#x2605;</span> \
-            <a href="https://github.com/hartwork/jawanndenn/">jawanndenn</a>\
-            is <a href="https://www.gnu.org/philosophy/free-sw.en.html">software libre</a>\
-            developed by <a href="https://blog.hartwork.org/">Sebastian Pipping</a>,\
-            licensed under the <a href="https://www.gnu.org/licenses/agpl.en.html">GNU Affero GPL license</a>.\
-            Please <a href="https://github.com/hartwork/jawanndenn/issues">report bugs</a>\
-            and let me know\
-            if you <a href="mailto:sebastian@pipping.org">like</a> it.\
-            <iframe id="github-star-button"\
-                    src="https://ghbtns.com/github-btn.html?user=hartwork&amp;repo=jawanndenn&amp;type=star&amp;count=true"\
-                    frameborder="0" scrolling="0" width="170px" height="20px"></iframe>\
-        </p>'
-}
-
 var equalizeWidth = function(poll) {
     var optionLabels = $( 'td.optionLabel', poll );
     var optionLabelWidths = optionLabels.map( function() {
@@ -231,7 +214,3 @@ var equalizeWidth = function(poll) {
         $(this).width( maxLabelWidth + jitter );
     });
 }
-
-$( document ).ready(function() {
-    $( 'footer' ).html( createFooterHtml() );
-});
