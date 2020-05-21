@@ -175,7 +175,7 @@ class ServeUsingFindersTest(TestCase):
 
         # Our app, asset used in <iframe>
         ('jawanndenn', '3rdparty/github-buttons-4.0.1/docs/github-btn.html',
-         'SAMESITE'),
+         'sameorigin'),
 
         # Arbitrary asset of arbitary other app
         ('django.contrib.admin', 'admin/css/responsive.css', 'DENY'),
