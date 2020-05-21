@@ -80,28 +80,6 @@ PostgreSQL data is saved to ``~/.jawanndenn-docker-pgdata/`` on the host system.
 The app is served on ``localhost:54080``.
 
 
-Deployment with Apache mod\_wsgi
-================================
-
-Deployment with ``mod_wsgi`` is possible but **not recommended**,
-e.g. because it is difficult to pass environment variables
-to Django using ``mod_wsgi``.  To make it work,
-the `SetEnv` directive,
-file ``jawanndenn/wsgi.py``, and
-`this StackOverflow answer <https://stackoverflow.com/a/26989936/11626624>`_
-may be of use.  *jawanndenn* needs these variables:
-
-- ``JAWANNDENN_POSTGRES_NAME``
-- ``JAWANNDENN_POSTGRES_USER``
-- ``JAWANNDENN_POSTGRES_PASSWORD``
-- ``JAWANNDENN_SECRET_KEY``
-
-Please check the `the related documentation of Django`_, too.
-
-Feel free to `file a support ticket`_ or `drop me a mail`_, if you
-cannot get it to work.
-
-
 Command line usage
 ==================
 
