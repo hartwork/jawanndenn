@@ -31,7 +31,7 @@ def _serve_with_headers_fixed(request, path, insecure=False, **kwargs):
     # Allow loading of github-btn.html in an <iframe>
     if (path.startswith('3rdparty/github-buttons-')
             and path.endswith('/docs/github-btn.html')):
-        response['X-Frame-Options'] = 'SAMESITE'
+        response['X-Frame-Options'] = 'sameorigin'
 
     return response
 
