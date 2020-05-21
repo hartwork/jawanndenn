@@ -36,6 +36,8 @@ ALLOWED_HOSTS = os.environ.get('JAWANNDENN_ALLOWED_HOSTS', ','.join([
     'localhost',
 ])).split(',')
 
+SECURE_REFERRER_POLICY = 'origin'
+
 _USE_POSTGRES = 'JAWANNDENN_SQLITE_FILE' not in os.environ
 _USE_REDIS_CACHE = 'JAWANNDENN_REDIS_HOST' in os.environ
 
