@@ -32,7 +32,7 @@ Pygments==2.6.1
 python-dateutil==2.8.1
 pytz==2020.1
 redis==3.5.2
-six==1.14.0
+six==1.15.0
 sqlparse==0.3.1
 termcolor==1.1.0
 text-unidecode==1.3
