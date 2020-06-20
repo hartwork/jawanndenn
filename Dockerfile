@@ -21,6 +21,10 @@ RUN cd /tmp/app \
         && \
     bash -c "diff -u0 <(pip freeze | sort -f) <(sed -e '/^#/d' -e '/^$/d' requirements.txt | sort -f)"
 
+USER root
+RUN apk update && apk upgrade
+USER jawanndenn
+
 COPY --chown=jawanndenn:jawanndenn jawanndenn/          /tmp/app/jawanndenn/
 COPY --chown=jawanndenn:jawanndenn setup.py README.rst  /tmp/app/
 RUN cd /tmp/app \
