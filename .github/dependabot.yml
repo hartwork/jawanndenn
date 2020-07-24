@@ -1,0 +1,15 @@
+version: 2
+updates:
+
+  - package-ecosystem: "pip"
+    commit-message:
+      include: "scope"
+      prefix: "requirements"
+    directory: "/"
+    assignees:
+      - "hartwork"
+    labels:
+      - "dependencies"
+      - "enhancement"
+    schedule:
+      interval: "daily"
