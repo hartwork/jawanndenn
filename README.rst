@@ -21,8 +21,10 @@ polls, a libre alternative to Doodle.  It is using the following technology:
         - `Factory Boy`_
     - `Gunicorn`_ + `gunicorn-color-logger`_
     - `parameterized`_
+    - `pre-commit`_
     - `python-rapidjson`_
     - `sentry-python`_
+    - `wait-for-it`_
 
 - JavaScript / CSS / Fonts
     - `Google Webfonts Helper`_
@@ -214,8 +216,10 @@ an XSS vulnerability, responsibly.
 .. _Gunicorn: https://gunicorn.org/
 .. _gunicorn-color-logger: https://github.com/swistakm/gunicorn-color-logger
 .. _parameterized: https://github.com/wolever/parameterized
+.. _pre-commit: https://pre-commit.com/
 .. _python-rapidjson: https://github.com/python-rapidjson/python-rapidjson
 .. _sentry-python: https://github.com/getsentry/sentry-python
+.. _wait-for-it: https://github.com/clarketm/wait-for-it
 .. _Google Webfonts Helper: https://google-webfonts-helper.herokuapp.com/
 .. _jQuery: http://jquery.com/
 .. _jQuery noty: http://ned.im/noty/#/about
