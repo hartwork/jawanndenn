@@ -1,6 +1,18 @@
 version: 2
 updates:
 
+  - package-ecosystem: "github-actions"
+    commit-message:
+      include: "scope"
+      prefix: "Actions"
+    directory: "/"
+    assignees:
+      - "hartwork"
+    labels:
+      - "enhancement"
+    schedule:
+      interval: "weekly"
+
   - package-ecosystem: "pip"
     commit-message:
       include: "scope"
