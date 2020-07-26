@@ -12,11 +12,12 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.views.decorators.http import require_GET, require_POST
 from django.views.defaults import bad_request
+from rapidjson import JSONDecodeError
+from rest_framework.exceptions import ValidationError
+
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
-from rapidjson import JSONDecodeError
-from rest_framework.exceptions import ValidationError
 
 
 def _except_poll_does_not_exist(wrappee):

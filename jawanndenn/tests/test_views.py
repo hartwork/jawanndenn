@@ -7,10 +7,11 @@ import rapidjson as json
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
+from parameterized import parameterized
+
 from jawanndenn.models import Ballot, Poll
 from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
-from parameterized import parameterized
 
 
 class AdminLoginPageTest(TestCase):

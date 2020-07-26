@@ -2,8 +2,9 @@
 
 import django.db.models.deletion
 import django_extensions.db.fields
-import jawanndenn.models
 from django.db import migrations, models
+
+import jawanndenn.models
 
 
 class Migration(migrations.Migration):
