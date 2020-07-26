@@ -2,24 +2,28 @@ exclude: '^jawanndenn/static/3rdparty/'
 
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.3.0
+    rev: v2.7.2
     hooks:
       - id: pyupgrade
         args: ['--py3-plus', '--py36-plus', '--py37-plus']
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.1.0
     hooks:
       - id: check-json
       - id: check-yaml
       - id: check-merge-conflict
       - id: end-of-file-fixer
-      - id: flake8
-        exclude: '^jawanndenn/migrations/'
       - id: trailing-whitespace
 
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.3
+    hooks:
+      - id: flake8
+        exclude: '^jawanndenn/migrations/'
+
   - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v4.3.21
+    rev: v5.1.4
     hooks:
       - id: isort
 
