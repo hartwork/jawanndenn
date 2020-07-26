@@ -2,10 +2,11 @@
 # Licensed under GNU Affero GPL v3 or later
 
 from django.db import transaction
-from jawanndenn.markup import safe_html
-from jawanndenn.models import Poll, PollOption
 from rest_framework.fields import BooleanField, CharField, ListField
 from rest_framework.serializers import Serializer
+
+from jawanndenn.markup import safe_html
+from jawanndenn.models import Poll, PollOption
 
 
 class PollConfigSerializer(Serializer):

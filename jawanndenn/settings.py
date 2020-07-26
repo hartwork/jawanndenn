@@ -15,6 +15,7 @@ import os
 
 from django.conf.global_settings import CACHES
 from django.utils.log import DEFAULT_LOGGING
+
 from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

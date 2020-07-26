@@ -2,6 +2,7 @@
 # Licensed under GNU Affero GPL v3 or later
 
 from factory import DjangoModelFactory, Sequence, SubFactory
+
 from jawanndenn.models import Ballot, Poll, PollOption, Vote
 
 
