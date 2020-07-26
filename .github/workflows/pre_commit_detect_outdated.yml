@@ -1,0 +1,33 @@
+name: Detect outdated pre-commit hooks
+
+on:
+  schedule:
+    - cron: '0 16 * * 5'  # Every Friday 4pm
+
+jobs:
+  pip_detect_outdated:
+    name: Detect outdated pre-commit hooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2.1.1
+        with:
+          python-version: 3.8
+
+      - name: Install pre-commit
+        run: |-
+          set -e
+          pip install \
+            --disable-pip-version-check \
+            --no-warn-script-location \
+            --user \
+            pre-commit
+          echo "::set-env name=PATH::${HOME}/.local/bin:${PATH}"
+
+      - name: Check for outdated hooks (and fail if any)
+        run: |-
+          set -e
+          pre-commit autoupdate
+          git diff --exit-code -- .pre-commit-config.yaml
