@@ -6,8 +6,6 @@ updates:
       include: "scope"
       prefix: "Actions"
     directory: "/"
-    assignees:
-      - "hartwork"
     labels:
       - "enhancement"
     schedule:
@@ -18,8 +16,6 @@ updates:
       include: "scope"
       prefix: "requirements"
     directory: "/"
-    assignees:
-      - "hartwork"
     labels:
       - "dependencies"
       - "enhancement"
