@@ -1,9 +1,9 @@
 # Direct dependencies
 Django==3.1
-django-extensions==3.0.3
+django-extensions==3.0.4
 django-ratelimit==3.0.1
 django-redis==4.12.1
-djangorestframework==3.11.0
+djangorestframework==3.11.1
 factory-boy==2.12.0
 gunicorn==20.0.4
 gunicorn-color==0.1.0
