@@ -14,7 +14,7 @@ ip addr
 cd ~/.local/lib/python*/site-packages/jawanndenn
 
 manage_py() {
-    DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django "$@"
+    python3 -m django "$@"
 }
 
 wait_for_it_args=(

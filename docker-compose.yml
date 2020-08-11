@@ -53,6 +53,7 @@ services:
       - default
       - ssl-reverse-proxy
     environment:
+      DJANGO_SETTINGS_MODULE: jawanndenn.settings
       JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
       JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
       JAWANNDENN_POSTGRES_HOST: postgres
