@@ -11,6 +11,8 @@ set -x
 id
 ip addr
 
+cd ~/.local/lib/python*/site-packages/jawanndenn
+
 manage_py() {
     DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django "$@"
 }
@@ -23,7 +25,15 @@ wait_for_it_args=(
 wait-for-it "${wait_for_it_args[@]}"
 
 if [[ $# -gt 0 ]]; then
-    exec "$@"
+    case "$1" in
+    test)
+        manage_py "$@"
+        exit 0
+        ;;
+    *)
+        exec "$@"
+        ;;
+    esac
 fi
 
 manage_py migrate

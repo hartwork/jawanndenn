@@ -41,5 +41,4 @@ jobs:
 
       - name: Run tests using Docker
         run: |-
-          docker-compose run jawanndenn \
-            sh -c 'cd ~/.local/lib/python*/site-packages/jawanndenn && DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django test -v2'
+          docker-compose run jawanndenn test -v2
