@@ -1,7 +1,8 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-from factory import DjangoModelFactory, Sequence, SubFactory
+from factory import Sequence, SubFactory
+from factory.django import DjangoModelFactory
 
 from jawanndenn.models import Ballot, Poll, PollOption, Vote
 
