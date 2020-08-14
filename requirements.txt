@@ -12,7 +12,7 @@ msgpack==1.0.0
 parameterized==0.7.4
 python-rapidjson==0.9.1
 psycopg2-binary==2.8.5
-sentry-sdk==0.16.3
+sentry-sdk==0.16.4
 
 # Indirect dependencies
 asgiref==3.2.10
@@ -23,12 +23,14 @@ decorator==4.4.2
 Faker==4.1.1
 ipython-genutils==0.2.0
 jedi==0.17.2
+packaging==20.4
 parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.6
 ptyprocess==0.6.0
 Pygments==2.6.1
+pyparsing==2.4.7
 python-dateutil==2.8.1
 pytz==2020.1
 redis==3.5.3
