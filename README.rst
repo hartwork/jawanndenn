@@ -38,6 +38,9 @@ polls, a libre alternative to Doodle.  It is using the following technology:
     - `Redis`_
     - `SQLite`_
 
+- Scheduling
+    - `Supercronic`_
+
 *jawanndenn* is `libre software`_ developed by `Sebastian Pipping`_. The
 server code is licensed under the `GNU Affero GPL license`_ version 3
 or later whereas the client code is licensed under the `GNU GPL
@@ -228,6 +231,7 @@ an XSS vulnerability, responsibly.
 .. _PostgreSQL: https://www.postgresql.org/
 .. _Redis: https://redis.io/
 .. _SQLite: https://www.sqlite.org/index.html
+.. _Supercronic: https://github.com/aptible/supercronic
 .. _libre software: https://www.gnu.org/philosophy/free-sw.en.html
 .. _Sebastian Pipping: https://blog.hartwork.org/
 .. _GNU Affero GPL license: https://www.gnu.org/licenses/agpl.en.html

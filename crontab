@@ -1,0 +1,2 @@
+# Fox syntax see https://github.com/krallin/cronexpr#implementation
+@hourly  python3 -m django prune_expired_polls
