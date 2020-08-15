@@ -18,6 +18,7 @@ class Poll(TimeStampedModel):
                             unique=True)
     title = models.CharField(max_length=255)
     equal_width = models.BooleanField(default=False)
+    expires_at = models.DateTimeField(null=True)
 
     def get_absolute_url(self):
         return reverse('poll-detail', args=[self.slug])
