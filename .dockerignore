@@ -9,7 +9,11 @@
 *
 
 # Unignore files based on "git ls-files"
+!crontab
 !Dockerfile
+!jawanndenn/management/commands/tests/*.py
+!jawanndenn/management/commands/*.py
+!jawanndenn/management/*.py
 !jawanndenn/migrations/*.py
 !jawanndenn/static/3rdparty/github-buttons-4.0.1/docs/*.html
 !jawanndenn/static/3rdparty/github-buttons-4.0.1/*.md

@@ -53,6 +53,7 @@ services:
       - default
       - ssl-reverse-proxy
     environment:
+      # KEEP IN SYNC with container "cron" below
       DJANGO_SETTINGS_MODULE: jawanndenn.settings
       JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
       JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
@@ -66,6 +67,37 @@ services:
       JAWANNDENN_SECRET_KEY: ${JAWANNDENN_SECRET_KEY:?}
       JAWANNDENN_SENTRY_DSN: ${JAWANNDENN_SENTRY_DSN}
       JAWANNDENN_URL_PREFIX: ${JAWANNDENN_URL_PREFIX}
+      # KEEP IN SYNC with container "cron" below
+    user: 1001:1001
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+    tty: true
+
+  cron:
+    image: ${DOCKER_COMPOSE_PROJECT:-jawanndenn}_jawanndenn
+    command: ["sh", "-c", "supercronic -sentry-dsn \"${JAWANNDENN_SENTRY_DSN}\" ~/crontab"]
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - default
+    environment:
+      # KEEP IN SYNC with container "jawanndenn" above
+      DJANGO_SETTINGS_MODULE: jawanndenn.settings
+      JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
+      JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
+      JAWANNDENN_POSTGRES_HOST: postgres
+      JAWANNDENN_POSTGRES_PORT: 5432
+      JAWANNDENN_POSTGRES_NAME: ${JAWANNDENN_POSTGRES_NAME:?}
+      JAWANNDENN_POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
+      JAWANNDENN_POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
+      JAWANNDENN_REDIS_HOST: redis
+      JAWANNDENN_REDIS_PORT: 6379
+      JAWANNDENN_SECRET_KEY: ${JAWANNDENN_SECRET_KEY:?}
+      JAWANNDENN_SENTRY_DSN: ${JAWANNDENN_SENTRY_DSN}
+      JAWANNDENN_URL_PREFIX: ${JAWANNDENN_URL_PREFIX}
+      # KEEP IN SYNC with container "jawanndenn" above
     user: 1001:1001
     cap_drop:
       - ALL

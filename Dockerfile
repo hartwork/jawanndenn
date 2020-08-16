@@ -1,6 +1,14 @@
 FROM python:3.8-alpine
 
-RUN apk update && apk add bash diffutils gcc g++ musl-dev postgresql-dev postgresql-client shadow
+RUN apk update && apk add \
+        bash \
+        diffutils \
+        g++ \
+        gcc \
+        musl-dev \
+        postgresql-client \
+        postgresql-dev \
+        shadow
 
 RUN mkdir -p /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
@@ -23,6 +31,10 @@ RUN cd /tmp/app \
 
 USER root
 RUN apk update && apk upgrade
+# Enable testing repository for nothing but package "supercronic".
+# It's done down here so that we get as little as possible from testing.
+RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
+RUN apk update && apk add supercronic
 USER jawanndenn
 
 COPY --chown=jawanndenn:jawanndenn jawanndenn/          /tmp/app/jawanndenn/
@@ -33,7 +45,7 @@ RUN cd /tmp/app \
         && \
     rm -rf /tmp/app
 
-COPY --chown=jawanndenn:jawanndenn docker-entrypoint.sh  /home/jawanndenn/
+COPY --chown=jawanndenn:jawanndenn crontab docker-entrypoint.sh  /home/jawanndenn/
 
 
 EXPOSE 54080

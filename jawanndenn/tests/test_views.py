@@ -1,12 +1,14 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
-
+import datetime
 from http import HTTPStatus
+from unittest.mock import patch
 
 import rapidjson as json
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.timezone import now
 from parameterized import parameterized
 
 from jawanndenn.models import Ballot, Poll
@@ -44,6 +46,29 @@ class PollPostViewTest(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
         self.assertFalse(Poll.objects.filter(created__gte=before_creation)
                          .exists())
+
+    @parameterized.expand([
+        ('month', datetime.date(2020, 9, 16)),
+        ('week', datetime.date(2020, 8, 23)),
+    ])
+    def test_lifetime_sets_expires_at_properly(self, lifetime,
+                                               expected_expiry_date):
+        created_at = now().replace(2020, 8, 16)
+        data = {
+            'config': json.dumps({
+                'lifetime': lifetime,
+                'options': ['option1', 'option2'],
+                'title': 'title1',
+            }),
+        }
+
+        with patch.object(timezone, 'now', return_value=created_at):
+            response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        poll = Poll.objects.get(created=created_at)
+        self.assertEqual(response.url, poll.get_absolute_url())
+        self.assertEqual(poll.expires_at.date(), expected_expiry_date)
 
     def test_well_formed(self):
         poll_title = 'Some short title'
