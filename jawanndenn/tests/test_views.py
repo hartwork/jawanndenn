@@ -1,5 +1,6 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
+
 import datetime
 from http import HTTPStatus
 from unittest.mock import patch
