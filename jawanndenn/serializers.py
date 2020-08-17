@@ -3,7 +3,7 @@
 
 from dateutil.relativedelta import relativedelta
 from django.db import transaction
-from django.utils.timezone import now
+from django.utils import timezone
 from rest_framework.fields import (BooleanField, CharField, ChoiceField,
                                    ListField)
 from rest_framework.serializers import Serializer
@@ -33,7 +33,7 @@ class PollConfigSerializer(Serializer):
                            default=_PollLifetime.MONTH)
 
     def create(self, validated_data):
-        poll_expires_at = now() + _PollLifetime.to_relativedelta(
+        poll_expires_at = timezone.now() + _PollLifetime.to_relativedelta(
             validated_data['lifetime'])
         poll_equal_width = validated_data['equal_width']
         poll_title = safe_html(validated_data['title'])
