@@ -75,7 +75,7 @@ services:
     tty: true
 
   cron:
-    image: ${DOCKER_COMPOSE_PROJECT:-jawanndenn}_jawanndenn
+    image: ${COMPOSE_PROJECT_NAME:-jawanndenn}_jawanndenn
     command: ["sh", "-c", "supercronic -sentry-dsn \"${JAWANNDENN_SENTRY_DSN}\" ~/crontab"]
     depends_on:
       - postgres
