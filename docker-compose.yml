@@ -55,6 +55,7 @@ services:
     environment:
       # KEEP IN SYNC with container "cron" below
       DJANGO_SETTINGS_MODULE: jawanndenn.settings
+      JAWANNDENN_ALLOWED_HOSTS: ${JAWANNDENN_ALLOWED_HOSTS}
       JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
       JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
       JAWANNDENN_POSTGRES_HOST: postgres
@@ -85,6 +86,7 @@ services:
     environment:
       # KEEP IN SYNC with container "jawanndenn" above
       DJANGO_SETTINGS_MODULE: jawanndenn.settings
+      JAWANNDENN_ALLOWED_HOSTS: ${JAWANNDENN_ALLOWED_HOSTS}
       JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
       JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
       JAWANNDENN_POSTGRES_HOST: postgres
