@@ -7,13 +7,13 @@ djangorestframework==3.11.1
 factory-boy==3.0.1
 gunicorn==20.0.4
 gunicorn-color==0.1.0
-ipython==7.17.0
+ipython==7.18.0
 msgpack==1.0.0
 parameterized==0.7.4
 python-dateutil==2.8.1
 python-rapidjson==0.9.1
 psycopg2-binary==2.8.5
-sentry-sdk==0.17.0
+sentry-sdk==0.17.1
 wait-for-it==2.1.1
 
 # Indirect dependencies
