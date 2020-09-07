@@ -12,7 +12,7 @@ msgpack==1.0.0
 parameterized==0.7.4
 python-dateutil==2.8.1
 python-rapidjson==0.9.1
-psycopg2-binary==2.8.5
+psycopg2-binary==2.8.6
 sentry-sdk==0.17.3
 wait-for-it==2.1.1
 
