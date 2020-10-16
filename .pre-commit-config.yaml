@@ -23,7 +23,7 @@ repos:
         exclude: '^jawanndenn/migrations/'
 
   - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.6.1
+    rev: v5.6.4
     hooks:
       - id: isort
 
