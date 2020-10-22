@@ -31,11 +31,14 @@ SECRET_KEY = os.environ['JAWANNDENN_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('JAWANNDENN_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('JAWANNDENN_ALLOWED_HOSTS', ','.join([
+_ALLOWED_HOSTS_DEFAULT = ','.join([
     '127.0.0.1',
     '0.0.0.0',
     'localhost',
-])).split(',')
+])
+ALLOWED_HOSTS = (
+    os.environ.get('JAWANNDENN_ALLOWED_HOSTS') or _ALLOWED_HOSTS_DEFAULT
+).split(',')
 
 SECURE_REFERRER_POLICY = 'origin'
 
