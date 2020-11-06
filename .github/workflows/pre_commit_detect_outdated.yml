@@ -24,7 +24,7 @@ jobs:
             --no-warn-script-location \
             --user \
             pre-commit
-          echo "::set-env name=PATH::${HOME}/.local/bin:${PATH}"
+          echo "PATH=${HOME}/.local/bin:${PATH}" >> "${GITHUB_ENV}"
 
       - name: Check for outdated hooks (and fail if any)
         run: |-

@@ -18,15 +18,17 @@ jobs:
 
       - name: Install dependencies
         run: |-
+          set -e
           pip install \
             --disable-pip-version-check \
             --user \
             --no-warn-script-location \
             docker-compose
-          echo "::set-env name=PATH::${HOME}/.local/bin:${PATH}"
+          echo "PATH=${HOME}/.local/bin:${PATH}" >> "${GITHUB_ENV}"
 
       - name: Configure Docker environment
         run: |-
+          set -e
           docker network create --internal ssl-reverse-proxy
           tee .env <<-EOF
             JAWANNDENN_POSTGRES_NAME=jawanndenn111
