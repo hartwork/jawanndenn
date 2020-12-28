@@ -24,7 +24,7 @@ click==7.1.2
 decorator==4.4.2
 Faker==5.0.2
 ipython-genutils==0.2.0
-jedi==0.17.2
+jedi==0.18.0
 packaging==20.8
 parso==0.7.1
 pexpect==4.8.0
