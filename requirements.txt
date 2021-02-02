@@ -33,7 +33,7 @@ prompt-toolkit==3.0.14
 ptyprocess==0.7.0
 Pygments==2.7.4
 pyparsing==2.4.7
-pytz==2020.5
+pytz==2021.1
 redis==3.5.3
 six==1.15.0
 sqlparse==0.4.1
