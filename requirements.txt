@@ -29,7 +29,7 @@ packaging==20.9
 parso==0.8.1
 pexpect==4.8.0
 pickleshare==0.7.5
-prompt-toolkit==3.0.15
+prompt-toolkit==3.0.16
 ptyprocess==0.7.0
 Pygments==2.7.4
 pyparsing==2.4.7
