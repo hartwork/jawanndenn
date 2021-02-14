@@ -1,2 +1,2 @@
-# Fox syntax see https://github.com/krallin/cronexpr#implementation
+# Fox syntax see https://github.com/aptible/supercronic/tree/master/cronexpr#implementation
 @hourly  python3 -m django prune_expired_polls
