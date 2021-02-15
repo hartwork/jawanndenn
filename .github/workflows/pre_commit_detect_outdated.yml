@@ -18,7 +18,6 @@ jobs:
 
       - name: Install pre-commit
         run: |-
-          set -e
           pip install \
             --disable-pip-version-check \
             --no-warn-script-location \
@@ -28,6 +27,5 @@ jobs:
 
       - name: Check for outdated hooks (and fail if any)
         run: |-
-          set -e
           pre-commit autoupdate
           git diff --exit-code -- .pre-commit-config.yaml

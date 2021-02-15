@@ -18,7 +18,6 @@ jobs:
 
       - name: Install dependencies
         run: |-
-          set -e
           pip install \
             --disable-pip-version-check \
             --user \
@@ -28,7 +27,6 @@ jobs:
 
       - name: Configure Docker environment
         run: |-
-          set -e
           docker network create --internal ssl-reverse-proxy
           tee .env <<-EOF
             JAWANNDENN_POSTGRES_NAME=jawanndenn111
