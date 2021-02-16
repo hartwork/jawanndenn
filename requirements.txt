@@ -13,7 +13,7 @@ parameterized==0.8.1
 python-dateutil==2.8.1
 python-rapidjson==1.0
 psycopg2-binary==2.8.6
-sentry-sdk==0.20.1
+sentry-sdk==0.20.2
 wait-for-it==2.2.0
 
 # Indirect dependencies
