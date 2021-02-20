@@ -180,6 +180,7 @@ Goals
    -  (`Drupal Date picker formatter`_)
    -  (`Foodle`_ (discontinued; `on GitHub`_, ex. `DFN scheduler`_, ex. `DFN Terminplaner+`_))
    -  `Framadata`_ (`Sources`_, ex. `OpenSondage`_, ex. `STUdS`_)
+   -  `Nextcloud Polls`_
    -  `Noodle`_
    -  `Nuages`_
    -  `Pleft`_
@@ -258,6 +259,7 @@ an XSS vulnerability, responsibly.
 .. _Nuages: https://nuages.domainepublic.net/
 .. _RDVz: https://sourceforge.net/projects/rdvz/
 .. _Drupal Date picker formatter: http://alternativeto.net/software/date-picker-formatter-dudel-for-drupal/?license=opensource
+.. _Nextcloud Polls: https://github.com/nextcloud/polls
 .. _Noodle: https://github.com/kmerz/noodle
 .. _Rallly: https://github.com/lukevella/Rallly
 .. _list of upcoming features: https://github.com/hartwork/jawanndenn/issues/created_by/hartwork
