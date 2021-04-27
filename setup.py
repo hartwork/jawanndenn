@@ -52,6 +52,8 @@ if __name__ == '__main__':
             'djangorestframework>=3.11.0',
             'gunicorn>=20.0.4',
             'gunicorn-color>=0.1.0',
+            'python-dateutil>=2.8.1',
+            'python-rapidjson>=1.0',
         ],
         extras_require=_extras_require,
         tests_require=_tests_require,
