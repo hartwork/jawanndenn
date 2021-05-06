@@ -36,7 +36,7 @@ Pygments==2.9.0
 pyparsing==2.4.7
 pytz==2021.1
 redis==3.5.3
-six==1.15.0
+six==1.16.0
 sqlparse==0.4.1
 termcolor==1.1.0
 text-unidecode==1.3
