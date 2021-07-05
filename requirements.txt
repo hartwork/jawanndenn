@@ -26,7 +26,7 @@ Faker==8.9.1
 ipython-genutils==0.2.0
 jedi==0.18.0
 matplotlib-inline==0.1.2
-packaging==20.9
+packaging==21.0
 parso==0.8.2
 pexpect==4.8.0
 pickleshare==0.7.5
