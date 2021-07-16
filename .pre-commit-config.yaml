@@ -2,7 +2,7 @@ exclude: '^jawanndenn/static/3rdparty/'
 
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.18.3
+    rev: v2.21.2
     hooks:
       - id: pyupgrade
         args: ['--py38-plus']
@@ -23,7 +23,7 @@ repos:
         exclude: '^jawanndenn/migrations/'
 
   - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.8.0
+    rev: v5.9.2
     hooks:
       - id: isort
 
