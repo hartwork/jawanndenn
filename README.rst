@@ -49,6 +49,22 @@ license`_ version 3 or later.
 Please `report bugs`_ and let me know if you `like`_ it.
 
 
+Poll Setup Format
+=================
+
+The textarea titled "Setup (JSON)" uses
+a simple `JSON`_-based format that knows the following keys:
+
+- ``equal_width`` — a bool to control whether all options are pumped up
+  to the same width (``true`` or ``false``) to counter potential voter bias
+- ``lifetime`` — duration after which this poll will be deleted;
+  can be ``"week"`` or ``"month"``; an enum-like string
+- ``options`` — a list of strings, one for each option;
+  supports `Markdown`_-like syntax for: bold, italic, inline code
+- ``title`` — the title or headline of the poll to run;
+  supports `Markdown`_-like syntax for: bold, italic, inline code
+
+
 Installation
 ============
 
@@ -239,6 +255,8 @@ an XSS vulnerability, responsibly.
 .. _GNU GPL license: https://www.gnu.org/licenses/gpl.html
 .. _report bugs: https://github.com/hartwork/jawanndenn/issues
 .. _like: mailto:sebastian@pipping.org
+.. _JSON: https://www.json.org/
+.. _Markdown: https://commonmark.org/help/
 .. _the related documentation of Django: https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/
 .. _file a support ticket: https://github.com/hartwork/jawanndenn/issues/new
 .. _drop me a mail: mailto:sebastian@pipping.org
