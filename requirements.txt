@@ -33,7 +33,7 @@ pickleshare==0.7.5
 prompt-toolkit==3.0.22
 ptyprocess==0.7.0
 Pygments==2.10.0
-pyparsing==3.0.4
+pyparsing==3.0.5
 pytz==2021.3
 redis==3.5.3
 six==1.16.0
