@@ -1,6 +1,8 @@
-FROM python:3.8-alpine
+FROM python:3.10-alpine
 
-RUN apk update && apk add \
+RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
+        && \
+    apk add --update \
         bash \
         diffutils \
         g++ \
@@ -8,7 +10,8 @@ RUN apk update && apk add \
         musl-dev \
         postgresql-client \
         postgresql-dev \
-        shadow
+        shadow \
+        supercronic@edge-community
 
 RUN mkdir -p /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
@@ -30,11 +33,7 @@ RUN cd /tmp/app \
     bash -c "diff -u0 <(pip freeze | sort -f) <(sed -e '/^#/d' -e '/^$/d' requirements.txt | sort -f)"
 
 USER root
-RUN apk update && apk upgrade
-# Enable testing repository for nothing but package "supercronic".
-# It's done down here so that we get as little as possible from testing.
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
-RUN apk update && apk add supercronic
+RUN apk upgrade --update
 USER jawanndenn
 
 COPY --chown=jawanndenn:jawanndenn jawanndenn/          /tmp/app/jawanndenn/
