@@ -36,7 +36,7 @@ ptyprocess==0.7.0
 Pygments==2.10.0
 pyparsing==3.0.6
 pytz==2021.3
-redis==4.0.0
+redis==4.0.1
 six==1.16.0
 sqlparse==0.4.2
 termcolor==1.1.0
