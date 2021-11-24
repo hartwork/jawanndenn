@@ -8,7 +8,7 @@ factory-boy==3.2.1
 gunicorn==20.1.0
 gunicorn-color==0.1.0
 ipython==7.29.0
-msgpack==1.0.2
+msgpack==1.0.3
 parameterized==0.8.1
 python-dateutil==2.8.2
 python-rapidjson==1.5
