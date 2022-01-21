@@ -39,6 +39,9 @@ _ALLOWED_HOSTS_DEFAULT = ','.join([
 ALLOWED_HOSTS = (
     os.environ.get('JAWANNDENN_ALLOWED_HOSTS') or _ALLOWED_HOSTS_DEFAULT
 ).split(',')
+CSRF_TRUSTED_ORIGINS = {f'{scheme}://{host}'
+                        for scheme in ('http', 'https')
+                        for host in ALLOWED_HOSTS}
 
 SECURE_REFERRER_POLICY = 'origin'
 
