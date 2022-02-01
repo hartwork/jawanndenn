@@ -1,5 +1,5 @@
 # Direct dependencies
-Django==4.0.1
+Django==4.0.2
 django-extensions==3.1.5
 django-ratelimit==3.0.1
 django-redis==5.2.0
