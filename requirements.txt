@@ -26,7 +26,7 @@ certifi==2021.10.8
 click==8.0.4
 decorator==5.1.1
 Deprecated==1.2.13
-executing==0.8.2
+executing==0.8.3
 Faker==13.2.0
 ipython-genutils==0.2.0
 jedi==0.18.1
