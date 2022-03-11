@@ -2,13 +2,13 @@ exclude: '^jawanndenn/static/3rdparty/'
 
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.29.1
+    rev: v2.31.0
     hooks:
       - id: pyupgrade
         args: ['--py38-plus']
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
       - id: check-json
       - id: check-yaml
@@ -23,7 +23,7 @@ repos:
         exclude: '^jawanndenn/migrations/'
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.9.3
+    rev: 5.10.1
     hooks:
       - id: isort
 
