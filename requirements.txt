@@ -42,7 +42,7 @@ ptyprocess==0.7.0
 pure-eval==0.2.2
 Pygments==2.11.2
 pyparsing==3.0.7
-pytz==2021.3
+pytz==2022.1
 redis==4.1.4
 six==1.16.0
 sqlparse==0.4.2
