@@ -28,7 +28,7 @@ click==8.0.4
 decorator==5.1.1
 Deprecated==1.2.13
 executing==0.8.3
-Faker==13.3.2
+Faker==13.3.3
 ipython-genutils==0.2.0
 jedi==0.18.1
 matplotlib-inline==0.1.3
