@@ -103,6 +103,10 @@ There is also an instance of Redis used for cross-process rate limiting,
 and a "cron" housekeeping container that will go delete polls that have exceeded their
 configured lifetime, every 60 minutes.
 
+(If you need a low-maintenance SSL reverse proxy in front of jawanndenn,
+`docker-ssl-reverse-proxy <https://github.com/hartwork/docker-ssl-reverse-proxy>`_
+could be of interest.)
+
 There is a few more environment variables that you could want to adjust in your environment.
 Altogether, there are these variables:
 
