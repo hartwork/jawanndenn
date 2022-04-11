@@ -97,8 +97,11 @@ Make sure to **adjust these values** after copy and paste!
 
 You can then build and run a docker image using ``docker-compose up --build``.
 
-PostgreSQL data is saved to ``~/.jawanndenn-docker-pgdata/`` on the host system.
 The app is served on ``localhost:54080``.
+PostgreSQL data is saved to ``~/.jawanndenn-docker-pgdata/`` on the host system.
+There is also an instance of Redis used for cross-process rate limiting,
+and a "cron" housekeeping container that will go delete polls that have exceeded their
+configured lifetime, every 60 minutes.
 
 There is a few more environment variables that you could want to adjust in your environment.
 Altogether, there are these variables:
