@@ -42,7 +42,7 @@ prompt-toolkit==3.0.29
 ptyprocess==0.7.0
 pure-eval==0.2.2
 Pygments==2.11.2
-pyparsing==3.0.7
+pyparsing==3.0.8
 pytz==2022.1
 redis==4.2.2
 six==1.16.0
