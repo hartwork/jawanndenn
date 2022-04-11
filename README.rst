@@ -93,7 +93,7 @@ Create a simple file ``.env`` like this one:
     JAWANNDENN_POSTGRES_PASSWORD=dEb2PIcinemA8poH
     JAWANNDENN_SECRET_KEY=606ea88f183a27919d5c27ec7f948906d23fdd7821684eb59e8bcf7377e3853b
 
-Make sure to use your own values!
+Make sure to **adjust these values** after copy and paste!
 
 You can then build and run a docker image using ``docker-compose up --build``.
 
