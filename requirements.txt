@@ -37,7 +37,7 @@ packaging==21.3
 parso==0.8.3
 pexpect==4.8.0
 pickleshare==0.7.5
-platformdirs==2.5.1
+platformdirs==2.5.2
 prompt-toolkit==3.0.29
 ptyprocess==0.7.0
 pure-eval==0.2.2
