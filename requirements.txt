@@ -55,4 +55,4 @@ traitlets==5.1.1
 typing_extensions==4.2.0
 urllib3==1.26.9
 wcwidth==0.2.5
-wrapt==1.14.0
+wrapt==1.14.1
