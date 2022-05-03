@@ -11,7 +11,11 @@ class SetRemoteAddrToXForwardedForMiddlewareTest(TestCase):
     @parameterized.expand([
         (None, '127.0.0.1'),  # inserted by Django
         ('2.2.2.2', '2.2.2.2'),
-        ('1.1.1.1, 2.2.2.2', '2.2.2.2'),
+        ('  2.2.2.2  ', '2.2.2.2'),
+        ('1.1.1.1,2.2.2.2', '1.1.1.1'),
+        ('1.1.1.1, 2.2.2.2', '1.1.1.1'),
+        ('1.1.1.1 ,2.2.2.2', '1.1.1.1'),
+        ('1.1.1.1 , 2.2.2.2', '1.1.1.1'),
     ])
     def test(self, http_x_forwarded_for, expected_remote_addr):
         wrapped_get_response = set_remote_addr_to_x_forwarded_for(

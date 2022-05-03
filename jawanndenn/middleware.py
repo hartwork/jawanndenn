@@ -19,10 +19,14 @@ def _extract_ip_from_x_forwarded_for_header(request):
     except KeyError:
         raise _XForwardedForHeaderAbsentException
 
-    if ', ' in value:
-        return value.split(', ')[-1]
-
-    return value
+    # NOTE: This assumes that the outermost trusted
+    #       reverse proxy is resetting header X-Forwarded-For
+    #       rather than appending to an attacker controlled
+    #       value from the client request headers.  Else
+    #       we would need to use the <n>-rightmost value
+    #       instead, where <n> is the number of trusted
+    #       reverse proxies in front of the application.
+    return value.split(',')[0].strip()
 
 
 def set_remote_addr_to_x_forwarded_for(get_response):
