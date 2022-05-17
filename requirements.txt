@@ -17,7 +17,7 @@ sentry-sdk==1.5.12
 wait-for-it==2.2.1
 
 # Indirect dependencies
-asgiref==3.5.1
+asgiref==3.5.2
 asttokens==2.0.5
 async-timeout==4.0.2
 backcall==0.2.0
