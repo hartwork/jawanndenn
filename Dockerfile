@@ -27,11 +27,11 @@ RUN cd /tmp/app \
         && \
     hash pip3 \
         && \
-    pip3 install --user -r requirements.txt \
+    pip3 install --user --require-hashes -r requirements.txt \
         && \
     pip3 check \
         && \
-    diff -u0 <(pip freeze | sort -f) <(sed -e '/^#/d' -e '/^$/d' requirements.txt | sort -f)
+    diff -u0 <(pip freeze | sort -f) <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' requirements.txt | sort -f)
 
 USER root
 RUN apk upgrade --update
