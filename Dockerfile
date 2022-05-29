@@ -13,6 +13,7 @@ RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' 
         shadow \
         supercronic@edge-community
 
+SHELL ["/bin/bash", "-c"]
 RUN mkdir -p /var/mail  # to avoid warning "Creating mailbox file: No such file or directory"
 RUN useradd --create-home --uid 1001 --non-unique jawanndenn
 USER jawanndenn
@@ -30,7 +31,7 @@ RUN cd /tmp/app \
         && \
     pip3 check \
         && \
-    bash -c "diff -u0 <(pip freeze | sort -f) <(sed -e '/^#/d' -e '/^$/d' requirements.txt | sort -f)"
+    diff -u0 <(pip freeze | sort -f) <(sed -e '/^#/d' -e '/^$/d' requirements.txt | sort -f)
 
 USER root
 RUN apk upgrade --update
