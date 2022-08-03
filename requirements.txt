@@ -1,7 +1,7 @@
 # Direct dependencies
-Django==4.0.6 \
-    --hash=sha256:a67a793ff6827fd373555537dca0da293a63a316fe34cb7f367f898ccca3c3ae \
-    --hash=sha256:ca54ebedfcbc60d191391efbf02ba68fb52165b8bf6ccd6fe71f098cac1fe59e
+Django==4.1 \
+    --hash=sha256:031ccb717782f6af83a0063a1957686e87cb4581ea61b47b3e9addf60687989a \
+    --hash=sha256:032f8a6fc7cf05ccd1214e4a2e21dfcd6a23b9d575c6573cacc8c67828dbe642
 django-extensions==3.2.0 \
     --hash=sha256:4c234a7236e9e41c17d9036f6dae7a3a9b212527105b8a0d24b2459b267825f0 \
     --hash=sha256:7dc7cd1da50d83b76447a58f5d7e5c8e6cd83f21e9b7e5f97e6b644f4d4e21a6
