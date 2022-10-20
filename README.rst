@@ -314,6 +314,7 @@ Goals
    -  `Pleft`_
    -  `Rallly`_
    -  `RDVz`_
+   -  `sowhenthen`_
 
 -  Keep things simple, usable, maintainable
 -  Support invocation from the command line, e.g. for spontaneous polls in a LAN
@@ -388,6 +389,7 @@ an XSS vulnerability, responsibly.
 .. _Dudle: https://dudle.inf.tu-dresden.de/
 .. _Nuages: https://nuages.domainepublic.net/
 .. _RDVz: https://sourceforge.net/projects/rdvz/
+.. _sowhenthen: https://github.com/kiyutink/sowhenthen
 .. _Drupal Date picker formatter: http://alternativeto.net/software/date-picker-formatter-dudel-for-drupal/?license=opensource
 .. _Nextcloud Polls: https://github.com/nextcloud/polls
 .. _Noodle: https://github.com/kmerz/noodle
