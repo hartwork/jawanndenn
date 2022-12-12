@@ -78,9 +78,9 @@ def _decorate_view_triple(decorator, view):
     return view
 
 
-_limit_read_access = ratelimit(key='user_or_ip', rate='180/m', block=True)
+_limit_read_access = ratelimit(key='user_or_ip', rate='180/m')
 
-_limit_write_access = ratelimit(key='user_or_ip', rate='30/m', block=True)
+_limit_write_access = ratelimit(key='user_or_ip', rate='30/m')
 
 _app_urlpatterns = [
     path('', _limit_read_access(index_get_view), name='frontpage'),
