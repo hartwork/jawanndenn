@@ -10,8 +10,8 @@ from django.contrib.staticfiles.views import serve
 from django.http import HttpResponse
 from django.urls import include, path, re_path
 from django.views.defaults import permission_denied
-from ratelimit.decorators import ratelimit
-from ratelimit.exceptions import Ratelimited
+from django_ratelimit.decorators import ratelimit
+from django_ratelimit.exceptions import Ratelimited
 
 from .views import (index_get_view, poll_data_get_view, poll_get_view,
                     poll_post_view, vote_post_view)
