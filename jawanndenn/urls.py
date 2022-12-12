@@ -10,8 +10,8 @@ from django.contrib.staticfiles.views import serve
 from django.http import HttpResponse
 from django.urls import include, path, re_path
 from django.views.defaults import permission_denied
-from ratelimit.decorators import ratelimit
-from ratelimit.exceptions import Ratelimited
+from django_ratelimit.decorators import ratelimit
+from django_ratelimit.exceptions import Ratelimited
 
 from .views import (index_get_view, poll_data_get_view, poll_get_view,
                     poll_post_view, vote_post_view)
@@ -78,9 +78,9 @@ def _decorate_view_triple(decorator, view):
     return view
 
 
-_limit_read_access = ratelimit(key='user_or_ip', rate='180/m', block=True)
+_limit_read_access = ratelimit(key='user_or_ip', rate='180/m')
 
-_limit_write_access = ratelimit(key='user_or_ip', rate='30/m', block=True)
+_limit_write_access = ratelimit(key='user_or_ip', rate='30/m')
 
 _app_urlpatterns = [
     path('', _limit_read_access(index_get_view), name='frontpage'),
