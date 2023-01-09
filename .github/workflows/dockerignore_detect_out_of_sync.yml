@@ -9,7 +9,7 @@ jobs:
     name: Detect .dockerignore out-of-sync with git ls-files
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.3.0
 
       - name: Check for out-of-sync .dockerignore
         run: |-
