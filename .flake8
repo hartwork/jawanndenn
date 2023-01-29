@@ -1,0 +1,9 @@
+[flake8]
+# E126 continuation line over-indented for hanging indent
+# W503 line break before binary operator
+# W504 line break after binary operator
+ignore =
+    E126
+    W503
+    W504
+max-line-length = 99

@@ -21,7 +21,6 @@ from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -36,18 +35,16 @@ _ALLOWED_HOSTS_DEFAULT = ','.join([
     '0.0.0.0',
     'localhost',
 ])
-ALLOWED_HOSTS = (
-    os.environ.get('JAWANNDENN_ALLOWED_HOSTS') or _ALLOWED_HOSTS_DEFAULT
-).split(',')
-CSRF_TRUSTED_ORIGINS = {f'{scheme}://{host}'
-                        for scheme in ('http', 'https')
-                        for host in ALLOWED_HOSTS}
+ALLOWED_HOSTS = (os.environ.get('JAWANNDENN_ALLOWED_HOSTS') or _ALLOWED_HOSTS_DEFAULT).split(',')
+CSRF_TRUSTED_ORIGINS = {
+    f'{scheme}://{host}'
+    for scheme in ('http', 'https') for host in ALLOWED_HOSTS
+}
 
 SECURE_REFERRER_POLICY = 'origin'
 
 _USE_POSTGRES = 'JAWANNDENN_SQLITE_FILE' not in os.environ
 _USE_REDIS_CACHE = 'JAWANNDENN_REDIS_HOST' in os.environ
-
 
 # Application definition
 
@@ -64,7 +61,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'jawanndenn.middleware.set_remote_addr_to_x_forwarded_for',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -96,7 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'jawanndenn.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -119,7 +114,6 @@ else:
         }
     }
 
-
 # Logging
 # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGGING
 
@@ -127,7 +121,6 @@ LOGGING = copy.copy(DEFAULT_LOGGING)
 LOGGING['handlers']['console']['filters'].remove('require_debug_true')
 if not DEBUG:
     LOGGING['handlers']['console']['level'] = 'ERROR'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -147,7 +140,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -161,7 +153,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Settings specific to jawanndenn
 
 JAWANNDENN_URL_PREFIX = os.environ.get('JAWANNDENN_URL_PREFIX', '').strip('/')
@@ -169,11 +160,9 @@ JAWANNDENN_URL_PREFIX = os.environ.get('JAWANNDENN_URL_PREFIX', '').strip('/')
 if JAWANNDENN_URL_PREFIX != '':
     JAWANNDENN_URL_PREFIX = '/' + JAWANNDENN_URL_PREFIX
 
-JAWANNDENN_MAX_POLLS = int(os.environ.get(
-    'JAWANNDENN_MAX_POLLS', str(DEFAULT_MAX_POLLS)))
-JAWANNDENN_MAX_VOTES_PER_POLL = int(os.environ.get(
-    'JAWANNDENN_MAX_VOTES_PER_POLL', str(DEFAULT_MAX_VOTES_PER_POLL)))
-
+JAWANNDENN_MAX_POLLS = int(os.environ.get('JAWANNDENN_MAX_POLLS', str(DEFAULT_MAX_POLLS)))
+JAWANNDENN_MAX_VOTES_PER_POLL = int(
+    os.environ.get('JAWANNDENN_MAX_VOTES_PER_POLL', str(DEFAULT_MAX_VOTES_PER_POLL)))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -183,7 +172,6 @@ STATIC_URL = JAWANNDENN_URL_PREFIX + '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'jawanndenn', 'static'),
 ]
-
 
 # Rate limiting
 
@@ -201,7 +189,6 @@ if _USE_REDIS_CACHE:
             'SERIALIZER': 'django_redis.serializers.msgpack.MSGPackSerializer',
         },
     }
-
 
 # Sentry integration
 

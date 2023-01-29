@@ -13,10 +13,10 @@ from ..prune_expired_polls import Command
 
 
 class PruneExpiredPollsTest(TestCase):
+
     def test_deletes_expired_polls_and_those_only(self):
         expired_poll = PollFactory(expires_at=now())
-        not_yet_expired_poll = PollFactory(
-            expires_at=now() + timedelta(minutes=1))
+        not_yet_expired_poll = PollFactory(expires_at=now() + timedelta(minutes=1))
         never_expiring_poll = PollFactory(expires_at=None)
 
         stdout = StringIO()

@@ -13,8 +13,8 @@ from django.views.defaults import permission_denied
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.exceptions import Ratelimited
 
-from .views import (index_get_view, poll_data_get_view, poll_get_view,
-                    poll_post_view, vote_post_view)
+from .views import (index_get_view, poll_data_get_view, poll_get_view, poll_post_view,
+                    vote_post_view)
 
 
 class _HttpResponseTooManyRequests(HttpResponse):
@@ -29,8 +29,7 @@ def _serve_with_headers_fixed(request, path, insecure=False, **kwargs):
     response = serve(request, path, insecure=insecure, **kwargs)
 
     # Allow loading of github-btn.html in an <iframe>
-    if (path.startswith('3rdparty/github-buttons-')
-            and path.endswith('/docs/github-btn.html')):
+    if (path.startswith('3rdparty/github-buttons-') and path.endswith('/docs/github-btn.html')):
         response['X-Frame-Options'] = 'sameorigin'
 
     return response
@@ -49,7 +48,8 @@ def _staticfiles_urlpatterns(prefix=None, name='static'):
         prefix = settings.STATIC_URL
     return [
         re_path(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')),
-                _serve_with_headers_fixed, kwargs={
+                _serve_with_headers_fixed,
+                kwargs={
                     'insecure': not settings.DEBUG,
                     'show_indexes': settings.DEBUG,
                 },
@@ -85,28 +85,25 @@ _limit_write_access = ratelimit(key='user_or_ip', rate='30/m')
 _app_urlpatterns = [
     path('', _limit_read_access(index_get_view), name='frontpage'),
     path('create', _limit_write_access(poll_post_view), name='poll-creation'),
-    path('data/<poll_id>',
-         _limit_read_access(poll_data_get_view), name='poll-data'),
-    path('poll/<poll_id>',
-         _limit_read_access(poll_get_view), name='poll-detail'),
+    path('data/<poll_id>', _limit_read_access(poll_data_get_view), name='poll-data'),
+    path('poll/<poll_id>', _limit_read_access(poll_get_view), name='poll-detail'),
     path('vote/<poll_id>', _limit_write_access(vote_post_view), name='vote'),
-
-    path('admin/', _decorate_view_triple(_limit_write_access,
-                                         admin.site.urls)),
+    path('admin/', _decorate_view_triple(_limit_write_access, admin.site.urls)),
 ]
 
 if settings.JAWANNDENN_URL_PREFIX:
     from django.views.generic.base import RedirectView
     urlpatterns = [
-        path('', _limit_read_access(
-            RedirectView.as_view(url=settings.JAWANNDENN_URL_PREFIX + '/'))),
-        path(settings.JAWANNDENN_URL_PREFIX.strip('/') + '/',
-             include(_app_urlpatterns)),
+        path('',
+             _limit_read_access(RedirectView.as_view(url=settings.JAWANNDENN_URL_PREFIX + '/'))),
+        path(settings.JAWANNDENN_URL_PREFIX.strip('/') + '/', include(_app_urlpatterns)),
     ]
 else:
     urlpatterns = _app_urlpatterns
 
-urlpatterns += [_decorate_view_of_url_pattern(_limit_read_access, url_pattern)
-                for url_pattern in _staticfiles_urlpatterns()]
+urlpatterns += [
+    _decorate_view_of_url_pattern(_limit_read_access, url_pattern)
+    for url_pattern in _staticfiles_urlpatterns()
+]
 
 handler403 = _permission_denied_or_too_many_requests

@@ -57,42 +57,59 @@ def _process_django_secret_key_file(filename):
 
 def _inner_main():
     parser = argparse.ArgumentParser(prog='jawanndenn')
-    parser.add_argument('--debug', action='store_true', default=False,
+    parser.add_argument('--debug',
+                        action='store_true',
+                        default=False,
                         help='Enable debug mode (default: disabled)')
-    parser.add_argument('--host', default='127.0.0.1', metavar='HOST',
+    parser.add_argument('--host',
+                        default='127.0.0.1',
+                        metavar='HOST',
                         help='Hostname or IP address to listen at'
-                             ' (default: %(default)s)')
-    parser.add_argument('--port', default=8080, type=int, metavar='PORT',
+                        ' (default: %(default)s)')
+    parser.add_argument('--port',
+                        default=8080,
+                        type=int,
+                        metavar='PORT',
                         help='Port to listen at (default: %(default)s)')
-    parser.add_argument('--url-prefix', default='', metavar='PATH',
+    parser.add_argument('--url-prefix',
+                        default='',
+                        metavar='PATH',
                         help='Path to prepend to URLs'
-                             ' (default: "%(default)s")')
-    parser.add_argument('--database-sqlite3', default='~/jawanndenn.sqlite3',
+                        ' (default: "%(default)s")')
+    parser.add_argument('--database-sqlite3',
+                        default='~/jawanndenn.sqlite3',
                         metavar='FILE',
                         help='File to write the database to'
-                             ' (default: %(default)s)')
+                        ' (default: %(default)s)')
     parser.add_argument('--django-secret-key-file',
-                        default='~/jawanndenn.secret_key', metavar='FILE',
+                        default='~/jawanndenn.secret_key',
+                        metavar='FILE',
                         help='File to use for Django secret key data'
-                             ' (default: %(default)s)')
+                        ' (default: %(default)s)')
 
     limits = parser.add_argument_group('limit configuration')
-    limits.add_argument('--max-polls', type=int, metavar='COUNT',
+    limits.add_argument('--max-polls',
+                        type=int,
+                        metavar='COUNT',
                         default=DEFAULT_MAX_POLLS,
                         help='Maximum number of polls total'
-                             ' (default: %(default)s)')
-    limits.add_argument('--max-votes-per-poll', type=int, metavar='COUNT',
+                        ' (default: %(default)s)')
+    limits.add_argument('--max-votes-per-poll',
+                        type=int,
+                        metavar='COUNT',
                         default=DEFAULT_MAX_VOTES_PER_POLL,
                         help='Maximum number of votes per poll'
-                             ' (default: %(default)s)')
+                        ' (default: %(default)s)')
 
     export_args = parser.add_argument_group('data import/export arguments')
-    export_args.add_argument('--dumpdata', action='store_true',
+    export_args.add_argument('--dumpdata',
+                             action='store_true',
                              help='Dump a JSON export of the database to '
-                                  'standard output, then quit.')
-    export_args.add_argument('--loaddata', metavar='FILE.json',
+                             'standard output, then quit.')
+    export_args.add_argument('--loaddata',
+                             metavar='FILE.json',
                              help='Load a JSON export of the database from '
-                                  'FILE.json, then quit.')
+                             'FILE.json, then quit.')
 
     options = parser.parse_args()
 
@@ -101,21 +118,17 @@ def _inner_main():
     if not options.dumpdata and not options.loaddata:
         _require_hash_randomization()
 
-    secret_key = _process_django_secret_key_file(
-        os.path.expanduser(options.django_secret_key_file))
+    secret_key = _process_django_secret_key_file(os.path.expanduser(
+        options.django_secret_key_file))
 
     # NOTE: These are read by the the Django settings module
-    os.environ['JAWANNDENN_ALLOWED_HOSTS'] = ','.join([options.host,
-                                                       '127.0.0.1',
-                                                       '0.0.0.0',
-                                                       'localhost'])
+    os.environ['JAWANNDENN_ALLOWED_HOSTS'] = ','.join(
+        [options.host, '127.0.0.1', '0.0.0.0', 'localhost'])
     os.environ['JAWANNDENN_DEBUG'] = str(options.debug)
     os.environ['JAWANNDENN_MAX_POLLS'] = str(options.max_polls)
-    os.environ['JAWANNDENN_MAX_VOTES_PER_POLL'] = str(options
-                                                      .max_votes_per_poll)
+    os.environ['JAWANNDENN_MAX_VOTES_PER_POLL'] = str(options.max_votes_per_poll)
     os.environ['JAWANNDENN_SECRET_KEY'] = secret_key
-    os.environ['JAWANNDENN_SQLITE_FILE'] = os.path.expanduser(
-        options.database_sqlite3)
+    os.environ['JAWANNDENN_SQLITE_FILE'] = os.path.expanduser(options.database_sqlite3)
     os.environ['JAWANNDENN_URL_PREFIX'] = options.url_prefix
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jawanndenn.settings')
@@ -132,18 +145,18 @@ def _inner_main():
     elif options.loaddata:
         print('Importing JSON dump'
               ' -- this may take a few seconds...', file=sys.stderr)
-        execute_from_command_line(['./manage.py', 'loaddata',
-                                   os.path.abspath(options.loaddata)])
+        execute_from_command_line(['./manage.py', 'loaddata', os.path.abspath(options.loaddata)])
     else:
-        sys.exit(subprocess.call([
-            'gunicorn',
-            '--name=jawanndenn',
-            f'--bind={options.host}:{options.port}',
-            '--workers=1',  # due to use of sqlite3 storage
-            '--access-logfile=-',
-            '--logger-class=gunicorn_color.Logger',
-            'jawanndenn.wsgi',
-        ]))
+        sys.exit(
+            subprocess.call([
+                'gunicorn',
+                '--name=jawanndenn',
+                f'--bind={options.host}:{options.port}',
+                '--workers=1',  # due to use of sqlite3 storage
+                '--access-logfile=-',
+                '--logger-class=gunicorn_color.Logger',
+                'jawanndenn.wsgi',
+            ]))
 
 
 def main():

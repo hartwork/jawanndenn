@@ -41,9 +41,7 @@ def set_remote_addr_to_x_forwarded_for(get_response):
     @wraps(get_response)
     def process_request(request):
         try:
-            request.META['REMOTE_ADDR'] = (
-                _extract_ip_from_x_forwarded_for_header(request)
-            )
+            request.META['REMOTE_ADDR'] = (_extract_ip_from_x_forwarded_for_header(request))
         except _XForwardedForHeaderAbsentException:
             pass
 
