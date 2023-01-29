@@ -4,8 +4,7 @@
 from dateutil.relativedelta import relativedelta
 from django.db import transaction
 from django.utils import timezone
-from rest_framework.fields import (BooleanField, CharField, ChoiceField,
-                                   ListField)
+from rest_framework.fields import BooleanField, CharField, ChoiceField, ListField
 from rest_framework.serializers import Serializer
 
 from jawanndenn.markup import safe_html

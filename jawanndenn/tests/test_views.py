@@ -13,8 +13,7 @@ from django.utils.timezone import now
 from parameterized import parameterized
 
 from jawanndenn.models import Ballot, Poll
-from jawanndenn.tests.factories import (BallotFactory, PollFactory,
-                                        PollOptionFactory, VoteFactory)
+from jawanndenn.tests.factories import BallotFactory, PollFactory, PollOptionFactory, VoteFactory
 from jawanndenn.tests.helpers import RELEASE_SAVEPOINT, SAVEPOINT, SELECT
 
 

@@ -13,8 +13,8 @@ from django.views.defaults import permission_denied
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.exceptions import Ratelimited
 
-from .views import (index_get_view, poll_data_get_view, poll_get_view,
-                    poll_post_view, vote_post_view)
+from .views import (index_get_view, poll_data_get_view, poll_get_view, poll_post_view,
+                    vote_post_view)
 
 
 class _HttpResponseTooManyRequests(HttpResponse):

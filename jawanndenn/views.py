@@ -6,8 +6,7 @@ from functools import wraps
 import rapidjson as json  # lgtm [py/import-and-import-from]
 from django.conf import settings
 from django.db import transaction
-from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
-                         JsonResponse)
+from django.http import HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.views.decorators.http import require_GET, require_POST
