@@ -83,12 +83,26 @@ def poll_data_get_view(request, poll_id):
             'options': list(poll.options.order_by('position')
                             .values_list('name', flat=True)),
         }
-        votes = [
-            [ballot.voter_name, [vote.yes for vote
-                                 in ballot.votes.order_by('option__position')]]
-            for ballot
-            in poll.ballots.order_by('created', 'id')
-        ]
+
+        votes = []
+        ballot = None
+        ballot_votes = []
+
+        for vote in (Vote.objects
+                     .filter(ballot__poll=poll)
+                     .select_related('ballot')
+                     .order_by('ballot__created',
+                               'ballot__id',
+                               'option__position')):
+            if vote.ballot != ballot:
+                if ballot is not None:
+                    votes.append([ballot.voter_name, ballot_votes])
+                ballot = vote.ballot
+                ballot_votes = []
+            ballot_votes.append(vote.yes)
+
+        if ballot is not None:
+            votes.append([ballot.voter_name, ballot_votes])
 
     data = {
         'config': poll_config,

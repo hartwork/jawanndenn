@@ -15,6 +15,7 @@ from parameterized import parameterized
 from jawanndenn.models import Ballot, Poll
 from jawanndenn.tests.factories import (BallotFactory, PollFactory,
                                         PollOptionFactory, VoteFactory)
+from jawanndenn.tests.helpers import RELEASE_SAVEPOINT, SAVEPOINT, SELECT
 
 
 class AdminLoginPageTest(TestCase):
@@ -103,28 +104,37 @@ class PollDataGetViewTest(TestCase):
     def setUpTestData(cls):
         super().setUpTestData()
         cls.poll = PollFactory(equal_width=True)
-        cls.ballot = BallotFactory(poll=cls.poll)
-        cls.votes = [
-            VoteFactory(ballot=cls.ballot, option__poll=cls.poll,
-                        yes=(position == 0))
-            for position
-            in range(2)
-        ]
+        cls.poll_options = [PollOptionFactory(poll=cls.poll) for _ in range(3)]
+        cls.votes_of_ballot = {}
+
+        for user_index in range(2):
+            ballot = BallotFactory(poll=cls.poll)
+            for option_index, option in enumerate(cls.poll_options):
+                vote = VoteFactory(ballot=ballot, option=option,
+                                   yes=(option_index == user_index))
+                cls.votes_of_ballot.setdefault(ballot, []).append(vote)
 
     def test_poll_exists(self):
         url = reverse('poll-data', args=[self.poll.slug])
         expected_data = {
             'config': {
                 'equal_width': self.poll.equal_width,
-                'options': [v.option.name for v in self.votes],
+                'options': [option.name for option in self.poll_options],
                 'title': self.poll.title,
             },
             'votes': [
-                [self.ballot.voter_name, [v.yes for v in self.votes]],
+                [ballot.voter_name, [v.yes for v in votes]]
+                for ballot, votes
+                in self.votes_of_ballot.items()
             ],
         }
 
-        response = self.client.get(url)
+        with self.assertNumQueries(SAVEPOINT
+                                   + SELECT("poll")
+                                   + SELECT("poll option names")
+                                   + SELECT("votes + ballots")
+                                   + RELEASE_SAVEPOINT):
+            response = self.client.get(url)
 
         actual_data = json.loads(response.content)
         self.assertEqual(actual_data, expected_data)
