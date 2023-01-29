@@ -8,6 +8,7 @@ from jawanndenn.middleware import set_remote_addr_to_x_forwarded_for
 
 
 class SetRemoteAddrToXForwardedForMiddlewareTest(TestCase):
+
     @parameterized.expand([
         (None, '127.0.0.1'),  # inserted by Django
         ('2.2.2.2', '2.2.2.2'),

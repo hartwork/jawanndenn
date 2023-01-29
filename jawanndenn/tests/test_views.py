@@ -18,6 +18,7 @@ from jawanndenn.tests.helpers import RELEASE_SAVEPOINT, SAVEPOINT, SELECT
 
 
 class AdminLoginPageTest(TestCase):
+
     def test(self):
         url = reverse('admin:index')
         response = self.client.get(url, follow=True)
@@ -25,6 +26,7 @@ class AdminLoginPageTest(TestCase):
 
 
 class IndexGetViewTest(TestCase):
+
     def test(self):
         url = reverse('frontpage')
 
@@ -45,15 +47,13 @@ class PollPostViewTest(TestCase):
         response = self.client.post(self.url, data)
 
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
-        self.assertFalse(Poll.objects.filter(created__gte=before_creation)
-                         .exists())
+        self.assertFalse(Poll.objects.filter(created__gte=before_creation).exists())
 
     @parameterized.expand([
         ('month', datetime.date(2020, 9, 16)),
         ('week', datetime.date(2020, 8, 23)),
     ])
-    def test_lifetime_sets_expires_at_properly(self, lifetime,
-                                               expected_expiry_date):
+    def test_lifetime_sets_expires_at_properly(self, lifetime, expected_expiry_date):
         created_at = now().replace(2020, 8, 16)
         data = {
             'config': json.dumps({
@@ -88,9 +88,7 @@ class PollPostViewTest(TestCase):
 
         poll = Poll.objects.get(created__gte=before_creation)
         self.assertEqual(poll.equal_width, poll_equal_width)
-        self.assertEqual(list(poll.options
-                              .order_by('position')
-                              .values_list('name', flat=True)),
+        self.assertEqual(list(poll.options.order_by('position').values_list('name', flat=True)),
                          poll_option_names)
         self.assertEqual(poll.title, poll_title)
 
@@ -99,6 +97,7 @@ class PollPostViewTest(TestCase):
 
 
 class PollDataGetViewTest(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -109,8 +108,7 @@ class PollDataGetViewTest(TestCase):
         for user_index in range(2):
             ballot = BallotFactory(poll=cls.poll)
             for option_index, option in enumerate(cls.poll_options):
-                vote = VoteFactory(ballot=ballot, option=option,
-                                   yes=(option_index == user_index))
+                vote = VoteFactory(ballot=ballot, option=option, yes=(option_index == user_index))
                 cls.votes_of_ballot.setdefault(ballot, []).append(vote)
 
     def test_poll_exists(self):
@@ -121,18 +119,12 @@ class PollDataGetViewTest(TestCase):
                 'options': [option.name for option in self.poll_options],
                 'title': self.poll.title,
             },
-            'votes': [
-                [ballot.voter_name, [v.yes for v in votes]]
-                for ballot, votes
-                in self.votes_of_ballot.items()
-            ],
+            'votes': [[ballot.voter_name, [v.yes for v in votes]]
+                      for ballot, votes in self.votes_of_ballot.items()],
         }
 
-        with self.assertNumQueries(SAVEPOINT
-                                   + SELECT("poll")
-                                   + SELECT("poll option names")
-                                   + SELECT("votes + ballots")
-                                   + RELEASE_SAVEPOINT):
+        with self.assertNumQueries(SAVEPOINT + SELECT("poll") + SELECT("poll option names")
+                                   + SELECT("votes + ballots") + RELEASE_SAVEPOINT):
             response = self.client.get(url)
 
         actual_data = json.loads(response.content)
@@ -148,6 +140,7 @@ class PollDataGetViewTest(TestCase):
 
 
 class PollGetViewTest(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -169,6 +162,7 @@ class PollGetViewTest(TestCase):
 
 
 class VotePostViewTest(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -188,9 +182,9 @@ class VotePostViewTest(TestCase):
         response = self.client.post(url, data)
 
         ballot = Ballot.objects.get(poll=self.poll)
-        self.assertEqual(list(ballot.votes
-                              .order_by('option__position')
-                              .values_list('yes', flat=True)), [True, False])
+        self.assertEqual(
+            list(ballot.votes.order_by('option__position').values_list('yes', flat=True)),
+            [True, False])
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertEqual(response.url, self.poll.get_absolute_url())
@@ -205,13 +199,13 @@ class VotePostViewTest(TestCase):
 
 
 class ServeUsingFindersTest(TestCase):
+
     @parameterized.expand([
         # Our app, some arbitrary asset
         ('jawanndenn', 'js/html.js', 'DENY'),
 
         # Our app, asset used in <iframe>
-        ('jawanndenn', '3rdparty/github-buttons-4.0.1/docs/github-btn.html',
-         'sameorigin'),
+        ('jawanndenn', '3rdparty/github-buttons-4.0.1/docs/github-btn.html', 'sameorigin'),
 
         # Arbitrary asset of arbitary other app
         ('django.contrib.admin', 'admin/css/responsive.css', 'DENY'),

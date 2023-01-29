@@ -8,6 +8,7 @@ from jawanndenn.models import Ballot, Poll, PollOption, Vote
 
 
 class PollFactory(DjangoModelFactory):
+
     class Meta:
         model = Poll
 
@@ -15,6 +16,7 @@ class PollFactory(DjangoModelFactory):
 
 
 class PollOptionFactory(DjangoModelFactory):
+
     class Meta:
         model = PollOption
 
@@ -24,6 +26,7 @@ class PollOptionFactory(DjangoModelFactory):
 
 
 class BallotFactory(DjangoModelFactory):
+
     class Meta:
         model = Ballot
 
@@ -32,6 +35,7 @@ class BallotFactory(DjangoModelFactory):
 
 
 class VoteFactory(DjangoModelFactory):
+
     class Meta:
         model = Vote
 

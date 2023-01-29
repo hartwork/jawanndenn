@@ -9,11 +9,7 @@ _REPLACEMENTS_IN_ORDER = (
     ('`', '<tt>', '</tt>'),
 )
 
-_CLOSING_OF = {
-        prefix: closing
-        for prefix, _, closing
-        in _REPLACEMENTS_IN_ORDER
-}
+_CLOSING_OF = {prefix: closing for prefix, _, closing in _REPLACEMENTS_IN_ORDER}
 
 
 def safe_html(text):

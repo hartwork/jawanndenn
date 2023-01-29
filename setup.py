@@ -35,15 +35,12 @@ if __name__ == '__main__':
     setup(
         name=APP_NAME,
         version=VERSION_STR,
-
         license='AGPLv3+',
         description='Libre alternative to Doodle',
         long_description=_read('README.rst'),
-
         author='Sebastian Pipping',
         author_email='sebastian@pipping.org',
         url='https://github.com/hartwork/jawanndenn',
-
         python_requires='>=3.6',
         install_requires=[
             'django>=2.2.7',
@@ -57,18 +54,15 @@ if __name__ == '__main__':
         ],
         extras_require=_extras_require,
         tests_require=_tests_require,
-
         packages=find_packages(),
         package_data={
             APP_NAME: list(_collect_package_data(APP_NAME)),
         },
-
         entry_points={
             'console_scripts': [
                 f'{APP_NAME} = {APP_NAME}.__main__:main',
             ],
         },
-
         classifiers=[
             'Development Status :: 4 - Beta',
             'Framework :: Django',
@@ -84,5 +78,4 @@ if __name__ == '__main__':
             'Programming Language :: Python :: 3 :: Only',
             'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
             'Topic :: Office/Business :: Scheduling',
-        ]
-    )
+        ])

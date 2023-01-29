@@ -15,13 +15,13 @@ def _get_random_sha256():
 
 
 class PollQuerySet(models.QuerySet):
+
     def expired(self):
         return self.filter(expires_at__lt=now())
 
 
 class Poll(TimeStampedModel):
-    slug = models.CharField(max_length=64, default=_get_random_sha256,
-                            unique=True)
+    slug = models.CharField(max_length=64, default=_get_random_sha256, unique=True)
     title = models.CharField(max_length=255)
     equal_width = models.BooleanField(default=False)
     expires_at = models.DateTimeField(null=True)
@@ -33,8 +33,7 @@ class Poll(TimeStampedModel):
 
 
 class PollOption(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE,
-                             related_name='options')
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='options')
     position = models.PositiveSmallIntegerField()  # starting at 0
     name = models.CharField(max_length=255)
 
@@ -43,14 +42,12 @@ class PollOption(models.Model):
 
 
 class Ballot(TimeStampedModel):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE,
-                             related_name='ballots')
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='ballots')
     voter_name = models.CharField(max_length=255)
 
 
 class Vote(models.Model):
-    ballot = models.ForeignKey(Ballot, related_name='votes',
-                               on_delete=models.CASCADE)
+    ballot = models.ForeignKey(Ballot, related_name='votes', on_delete=models.CASCADE)
     option = models.ForeignKey(PollOption, on_delete=models.CASCADE)
     yes = models.BooleanField()
 
