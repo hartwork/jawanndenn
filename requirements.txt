@@ -255,9 +255,9 @@ Deprecated==1.2.13 \
 executing==1.2.0 \
     --hash=sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc \
     --hash=sha256:19da64c18d2d851112f09c287f8d3dbbdf725ab0e569077efb6cdcbd3497c107
-Faker==17.4.0 \
-    --hash=sha256:7b225dd6bc33405188f33f77c990bd08057f5c512042f7e0966e026c633ec646 \
-    --hash=sha256:fdd9cc16cd7e0d8dfcd2bb19d80c1bca5ce52d79690f93bfbb13916d7ed1cb2e
+Faker==17.5.0 \
+    --hash=sha256:d43b2c5af9157f2ef04b09b2d01d3092607f094b2328e5f6a2ee1d7ba760db64 \
+    --hash=sha256:facf66ed0faa2088da2ec90f770d3df01af7fd15dc4924eca6da4cd45ed09eb2
 ipython-genutils==0.2.0 \
     --hash=sha256:72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8 \
     --hash=sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8
