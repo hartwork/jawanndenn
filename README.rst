@@ -1,3 +1,6 @@
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
 .. image:: https://github.com/hartwork/jawanndenn/workflows/Build%20and%20test%20using%20Docker/badge.svg
     :target: https://github.com/hartwork/jawanndenn/actions
 
