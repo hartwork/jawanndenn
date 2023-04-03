@@ -9,7 +9,7 @@ networks:
 
 services:
   postgres:
-    image: postgres:11.6  # due to postgresql-client version 11.6 in Alpine 3.10
+    image: postgres:15.2  # due to postgresql-client version 15.2 in Alpine 3.17
     volumes:
       - ~/.jawanndenn-docker-pgdata/:/var/lib/postgresql/data
     environment:
