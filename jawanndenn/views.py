@@ -14,6 +14,7 @@ from django.views.defaults import bad_request
 from rapidjson import JSONDecodeError
 from rest_framework.exceptions import ValidationError
 
+from jawanndenn import DEFAULT_MAX_POLLS
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
@@ -63,10 +64,10 @@ def poll_post_view(request):
     serializer.is_valid(raise_exception=True)
 
     with transaction.atomic():
-        if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:
-            return HttpResponseBadRequest(
-                f'Maximum number of {settings.JAWANNDENN_MAX_POLLS} polls '
-                'reached, please contact the administrator.')
+        max_polls = getattr(settings, 'JAWANNDENN_MAX_POLLS', DEFAULT_MAX_POLLS)
+        if Poll.objects.count() >= max_polls:
+            return HttpResponseBadRequest(f'Maximum number of {max_polls} polls '
+                                          'reached, please contact the administrator.')
 
         poll = serializer.save()
 
