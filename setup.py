@@ -45,7 +45,7 @@ if __name__ == '__main__':
         install_requires=[
             'django>=2.2.7',
             'django-extensions>=2.2.5',
-            'django-ratelimit>=2.0.0',
+            'django-ratelimit>=4.0.0',
             'djangorestframework>=3.11.0',
             'gunicorn>=20.0.4',
             'gunicorn-color>=0.1.0',
