@@ -14,6 +14,7 @@ from django.views.defaults import bad_request
 from rapidjson import JSONDecodeError
 from rest_framework.exceptions import ValidationError
 
+from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
@@ -63,10 +64,10 @@ def poll_post_view(request):
     serializer.is_valid(raise_exception=True)
 
     with transaction.atomic():
-        if Poll.objects.count() >= settings.JAWANNDENN_MAX_POLLS:
-            return HttpResponseBadRequest(
-                f'Maximum number of {settings.JAWANNDENN_MAX_POLLS} polls '
-                'reached, please contact the administrator.')
+        max_polls = getattr(settings, 'JAWANNDENN_MAX_POLLS', DEFAULT_MAX_POLLS)
+        if Poll.objects.count() >= max_polls:
+            return HttpResponseBadRequest(f'Maximum number of {max_polls} polls '
+                                          'reached, please contact the administrator.')
 
         poll = serializer.save()
 
@@ -122,11 +123,12 @@ def vote_post_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
 
-        if poll.ballots.count() >= settings.JAWANNDENN_MAX_VOTES_PER_POLL:
-            return HttpResponseBadRequest(
-                f'Maximum number of {settings.JAWANNDENN_MAX_VOTES_PER_POLL} '
-                'votes reached for this poll'
-                ', please contact the administrator.')
+        max_votes_per_poll = getattr(settings, 'JAWANNDENN_MAX_VOTES_PER_POLL',
+                                     DEFAULT_MAX_VOTES_PER_POLL)
+        if poll.ballots.count() >= max_votes_per_poll:
+            return HttpResponseBadRequest(f'Maximum number of {max_votes_per_poll} '
+                                          'votes reached for this poll'
+                                          ', please contact the administrator.')
 
         voter_name = safe_html(request.POST.get('voterName'))
         votes = [
