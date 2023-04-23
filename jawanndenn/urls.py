@@ -91,12 +91,12 @@ _app_urlpatterns = [
     path('admin/', _decorate_view_triple(_limit_write_access, admin.site.urls)),
 ]
 
-if settings.JAWANNDENN_URL_PREFIX:
+_url_prefix = getattr(settings, 'JAWANNDENN_URL_PREFIX', None)
+if _url_prefix:
     from django.views.generic.base import RedirectView
     urlpatterns = [
-        path('',
-             _limit_read_access(RedirectView.as_view(url=settings.JAWANNDENN_URL_PREFIX + '/'))),
-        path(settings.JAWANNDENN_URL_PREFIX.strip('/') + '/', include(_app_urlpatterns)),
+        path('', _limit_read_access(RedirectView.as_view(url=_url_prefix + '/'))),
+        path(_url_prefix.strip('/') + '/', include(_app_urlpatterns)),
     ]
 else:
     urlpatterns = _app_urlpatterns
