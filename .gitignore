@@ -1,5 +1,5 @@
 /.idea/
-/build
-/dist
-/jawanndenn.egg-info
+/build/
+/dist/
+/jawanndenn.egg-info/
 *.pyc
