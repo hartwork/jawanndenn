@@ -219,9 +219,9 @@ psycopg2-binary==2.9.6 \
 sentry-sdk==1.21.0 \
     --hash=sha256:36a1ca082a3065a8a05aafa4b1e3d74e9459d41fbb0bea8a5364caca68626341 \
     --hash=sha256:82faf9e2c9eb77401a7a187094b126ca25c2a3a478de6704612f48b3346f7a84
-wait-for-it==2.2.1 \
-    --hash=sha256:7d834802df52c4acc244123373a4b6eb669f2609ec8887ef7ef4ea8022053eca \
-    --hash=sha256:c835188b5aa9f63ec2e73473bd880db111f207e25998b4a3946c7b4660f48eba
+wait-for-it==2.2.2 \
+    --hash=sha256:807d759b4143dbf07f65782734ce7837d6cd4c2f36c154484731f855170920e6 \
+    --hash=sha256:ed6ce9bfad11dbfc29ecbef9daac2b9f45d583e5fcd559e1a6106002df0247c1
 
 # Indirect dependencies
 asgiref==3.6.0 \
