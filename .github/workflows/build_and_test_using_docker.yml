@@ -22,6 +22,7 @@ jobs:
             --disable-pip-version-check \
             --user \
             --no-warn-script-location \
+            'urllib3<2' \
             docker-compose
           echo "PATH=${HOME}/.local/bin:${PATH}" >> "${GITHUB_ENV}"
 
