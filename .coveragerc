@@ -1,0 +1,8 @@
+[run]
+branch = True
+# Warning "already-imported" is silenced for https://github.com/nedbat/coveragepy/issues/905
+disable_warnings = already-imported
+source = ./
+omit =
+    ./asgi.py
+    ./wsgi.py

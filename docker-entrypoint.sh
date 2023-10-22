@@ -13,10 +13,6 @@ ip addr
 
 cd ~/.local/lib/python*/site-packages/jawanndenn
 
-manage_py() {
-    python3 -m django "$@"
-}
-
 wait_for_it_args=(
     --service "${JAWANNDENN_REDIS_HOST}:${JAWANNDENN_REDIS_PORT}"
     --service "${JAWANNDENN_POSTGRES_HOST}:${JAWANNDENN_POSTGRES_PORT}"
@@ -27,7 +23,8 @@ wait-for-it "${wait_for_it_args[@]}"
 if [[ $# -gt 0 ]]; then
     case "$1" in
     test)
-        manage_py "$@"
+        coverage run -m django test "${@:2}"
+        coverage report
         exit 0
         ;;
     *)
@@ -36,7 +33,7 @@ if [[ $# -gt 0 ]]; then
     esac
 fi
 
-manage_py migrate
+python3 -m django migrate
 
 gunicorn_args=(
     --name=jawanndenn

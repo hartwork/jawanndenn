@@ -14,6 +14,7 @@ cat <<EOF
 *
 
 # Unignore files based on "git ls-files"
+!.coveragerc
 EOF
 
 git ls-files \

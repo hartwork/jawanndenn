@@ -9,6 +9,7 @@
 *
 
 # Unignore files based on "git ls-files"
+!.coveragerc
 !crontab
 !Dockerfile
 !jawanndenn/management/commands/tests/*.py
