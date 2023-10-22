@@ -37,11 +37,13 @@ USER root
 RUN apk upgrade --update
 USER jawanndenn
 
-COPY --chown=jawanndenn:jawanndenn jawanndenn/          /tmp/app/jawanndenn/
-COPY --chown=jawanndenn:jawanndenn setup.py README.rst  /tmp/app/
+COPY --chown=jawanndenn:jawanndenn jawanndenn/                      /tmp/app/jawanndenn/
+COPY --chown=jawanndenn:jawanndenn .coveragerc setup.py README.rst  /tmp/app/
 RUN cd /tmp/app \
         && \
     pip3 install --user . \
+        && \
+    cp -v .coveragerc ~/.local/lib/python*/site-packages/jawanndenn/ \
         && \
     rm -rf /tmp/app
 
