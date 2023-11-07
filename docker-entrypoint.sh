@@ -38,7 +38,7 @@ python3 -m django migrate
 gunicorn_args=(
     --name=jawanndenn
     --bind=0.0.0.0:54080
-    --workers="$(nproc --ignore=1)"
+    --workers="$(( $(nproc --ignore=1) + 1 ))"  # i.e. always >=2
     --timeout 5
     --access-logfile=-
     --access-logformat '%({x-forwarded-for}i)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
