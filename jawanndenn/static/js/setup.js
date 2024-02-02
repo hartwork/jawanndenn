@@ -48,7 +48,7 @@ var getExampleVotesCached = function(options) {
 var exampleConfigJson = JSON.stringify( {
         lifetime: "month",
         equal_width: false,
-        title: 'Which fruit do *you* like?',
+        title: 'Which fruit do _**you**_ like?',
         options: exampleOptions
         }, null, '  ' );
 
