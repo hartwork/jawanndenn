@@ -415,9 +415,9 @@ Deprecated==1.2.14 \
 executing==2.0.1 \
     --hash=sha256:35afe2ce3affba8ee97f2d69927fa823b08b472b7b994e36a52a964b93d16147 \
     --hash=sha256:eac49ca94516ccc753f9fb5ce82603156e590b27525a8bc32cce8ae302eb61bc
-Faker==22.7.0 \
-    --hash=sha256:d12edbac08a82a75ecd588f299f44f12e33f000c15fe414abc417f0836cb51ae \
-    --hash=sha256:f797529ebeb9bd9e1851106b99e156c9bebe67d2730c8393a1705ed1c864f1bf
+Faker==23.1.0 \
+    --hash=sha256:60e89e5c0b584e285a7db05eceba35011a241954afdab2853cb246c8a56700a2 \
+    --hash=sha256:b7f76bb1b2ac4cdc54442d955e36e477c387000f31ce46887fb9722a041be60b
 frozenlist==1.4.1 \
     --hash=sha256:04ced3e6a46b4cfffe20f9ae482818e34eba9b5fb0ce4056e4cc9b6e212d09b7 \
     --hash=sha256:0633c8d5337cb5c77acbccc6357ac49a1770b8c487e5b3505c57b949b4b82e98 \
