@@ -1,8 +1,11 @@
 name: Detect .dockerignore out-of-sync with git ls-files
 
 on:
-- pull_request
-- push
+  pull_request:
+  push:
+  schedule:
+    - cron: '0 16 * * 5'  # Every Friday 4pm
+  workflow_dispatch:
 
 jobs:
   dockerignore_detect_out_of_sync:
