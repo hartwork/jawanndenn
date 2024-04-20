@@ -1,20 +1,19 @@
 # Copyright (C) 2019 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-import re
 from http import HTTPStatus
 
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.staticfiles.views import serve
 from django.http import HttpResponse
-from django.urls import include, path, re_path
+from django.urls import include, path
 from django.views.defaults import permission_denied
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.exceptions import Ratelimited
 
 from .views.polls import (index_get_view, poll_data_get_view, poll_get_view, poll_post_view,
                           vote_post_view)
+from .views.static_files import staticfiles_urlpatterns
 
 
 class _HttpResponseTooManyRequests(HttpResponse):
@@ -23,38 +22,6 @@ class _HttpResponseTooManyRequests(HttpResponse):
     def __init__(self):
         super().__init__(f'<h1>{self.status_code} Too Many Requests</h1>',
                          content_type='text/html')
-
-
-def _serve_with_headers_fixed(request, path, insecure=False, **kwargs):
-    response = serve(request, path, insecure=insecure, **kwargs)
-
-    # Allow loading of github-btn.html in an <iframe>
-    if (path.startswith('3rdparty/github-buttons-') and path.endswith('/docs/github-btn.html')):
-        response['X-Frame-Options'] = 'sameorigin'
-
-    return response
-
-
-def _staticfiles_urlpatterns(prefix=None, name='static'):
-    '''
-    Fork of django.contrib.staticfiles.urls.staticfiles_urlpatterns
-    that supports DEBUG=False, directory listings, and registering
-    a name for the view.
-
-    Also, it uses view _serve_with_headers_fixed above rather than stock
-    django.contrib.staticfiles.views.serve to serve files.
-    '''
-    if prefix is None:
-        prefix = settings.STATIC_URL
-    return [
-        re_path(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')),
-                _serve_with_headers_fixed,
-                kwargs={
-                    'insecure': not settings.DEBUG,
-                    'show_indexes': settings.DEBUG,
-                },
-                name=name),
-    ]
 
 
 def _permission_denied_or_too_many_requests(request, exception=None):
@@ -103,7 +70,7 @@ else:
 
 urlpatterns += [
     _decorate_view_of_url_pattern(_limit_read_access, url_pattern)
-    for url_pattern in _staticfiles_urlpatterns()
+    for url_pattern in staticfiles_urlpatterns()
 ]
 
 handler403 = _permission_denied_or_too_many_requests
