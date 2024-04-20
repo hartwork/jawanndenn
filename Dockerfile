@@ -31,7 +31,9 @@ RUN cd /tmp/app \
         && \
     pip3 check \
         && \
-    diff -u0 <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' requirements.txt | sort -f) <(pip3 freeze | sed -e '/^setuptools==/d' -e '/^wheel==/d' | sort -f)
+    diff -u0 \
+            <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' requirements.txt | sort -f) \
+            <(pip3 freeze | sed -e '/^setuptools==/d' -e '/^wheel==/d' | sort -f)
 
 USER root
 RUN apk upgrade --update
