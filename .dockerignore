@@ -37,6 +37,8 @@
 !jawanndenn/static/html/*.htm
 !jawanndenn/static/js/*.js
 !jawanndenn/tests/*.py
+!jawanndenn/views/tests/*.py
+!jawanndenn/views/*.py
 !jawanndenn/*.py
 !*.png
 !*.py
