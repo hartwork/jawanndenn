@@ -20,7 +20,7 @@ USER jawanndenn
 ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 
 
-COPY --chown=jawanndenn:jawanndenn requirements.txt  /tmp/app/
+COPY --chown=jawanndenn:jawanndenn requirements*.txt  /tmp/app/
 RUN cd /tmp/app \
         && \
     pip3 install --user --ignore-installed --disable-pip-version-check pip setuptools wheel \
@@ -32,7 +32,7 @@ RUN cd /tmp/app \
     pip3 check \
         && \
     diff -u0 \
-            <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' requirements.txt | sort -f) \
+            <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' requirements-*.txt | sort -f) \
             <(pip3 freeze | sed -e '/^setuptools==/d' -e '/^wheel==/d' | sort -f)
 
 USER root
