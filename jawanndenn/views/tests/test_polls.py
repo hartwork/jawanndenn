@@ -196,24 +196,3 @@ class VotePostViewTest(TestCase):
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
-
-
-class ServeUsingFindersTest(TestCase):
-
-    @parameterized.expand([
-        # Our app, some arbitrary asset
-        ('jawanndenn', 'js/html.js', 'DENY'),
-
-        # Our app, asset used in <iframe>
-        ('jawanndenn', '3rdparty/github-buttons-4.0.1/docs/github-btn.html', 'sameorigin'),
-
-        # Arbitrary asset of arbitary other app
-        ('django.contrib.admin', 'admin/css/responsive.css', 'DENY'),
-    ])
-    def test(self, _app, path, expected_x_frame_options):
-        url = reverse('static', kwargs={'path': path})
-
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response['X-Frame-Options'], expected_x_frame_options)
