@@ -306,6 +306,7 @@ Goals
 -  More simplistic, sexy and/or fun than `libre alternatives`_, in alphabetic order:
 
    -  `Bitpoll`_ (ex. `Dudel`_)
+   -  `Crab Fit`_
    -  `Croodle`_
    -  `Dudle`_
    -  (`Drupal Date picker formatter`_)
@@ -378,6 +379,7 @@ an XSS vulnerability, responsibly.
 .. _drop me a mail: mailto:sebastian@pipping.org
 .. _libre alternatives: http://alternativeto.net/software/doodle/?license=opensource
 .. _Bitpoll: https://github.com/fsinfuhh/Bitpoll
+.. _Crab Fit: https://github.com/GRA0007/crab.fit
 .. _Croodle: https://github.com/jelhan/croodle
 .. _Dudel: https://github.com/opatut/dudel
 .. _Pleft: https://github.com/sander/pleft
