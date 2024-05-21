@@ -27,6 +27,7 @@ jobs:
             --no-warn-script-location \
             'docker<7' \
             'PyYAML==5.3.1' \
+            'requests<2.32.0' \
             'urllib3<2' \
             docker-compose
           echo "PATH=${HOME}/.local/bin:${PATH}" >> "${GITHUB_ENV}"
