@@ -35,6 +35,10 @@ Licensed under GNU GPL v3 or later
                     if (data.config.equal_width) {
                         equalizeWidth( poll );
                     }
+                    // NOTE: Browser auto-fill does not seem to fire any JS events,
+                    //       so we start checking for changes ourselves, periodically;
+                    //       200ms is a compromise in delay and CPU load.
+                    setInterval(syncSaveButton, 200);
                 }, 'json')
                 .fail(function() {
                     var html = 'Error: Poll data could not be loaded.';
