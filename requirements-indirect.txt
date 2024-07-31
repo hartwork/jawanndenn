@@ -1,3 +1,6 @@
+aiohappyeyeballs==2.3.4 \
+    --hash=sha256:40a16ceffcf1fc9e142fd488123b2e218abc4188cf12ac20c67200e1579baa42 \
+    --hash=sha256:7e1ae8399c320a8adec76f6c919ed5ceae6edd4c3672f4d9eae2b27e37c80ff6
 aiohttp==3.10.0 \
     --hash=sha256:03799a95402a7ed62671c4465e1eae51d749d5439dbc49edb6eee52ea165c50b \
     --hash=sha256:0433795c4a8bafc03deb3e662192250ba5db347c41231b0273380d2f53c9ea0b \
