@@ -28,7 +28,7 @@ def _except_poll_does_not_exist(wrappee):
         try:
             return wrappee(*args, **kwargs)
         except Poll.DoesNotExist:
-            return HttpResponseNotFound('No such poll')
+            return HttpResponseNotFound("No such poll")
 
     return wrapper
 
@@ -48,26 +48,28 @@ def _except_validation_error(wrappee):
 
 @require_GET
 def index_get_view(request):
-    return TemplateResponse(request, template='html/setup.htm')
+    return TemplateResponse(request, template="html/setup.htm")
 
 
 @require_POST
 @_except_validation_error
 def poll_post_view(request):
-    config_json = request.POST.get('config', '{}')
+    config_json = request.POST.get("config", "{}")
     try:
         config = json.loads(config_json)
     except JSONDecodeError:
-        raise ValidationError('Poll configuration is not well-formed JSON.')
+        raise ValidationError("Poll configuration is not well-formed JSON.")
 
     serializer = PollConfigSerializer(data=config)
     serializer.is_valid(raise_exception=True)
 
     with transaction.atomic():
-        max_polls = getattr(settings, 'JAWANNDENN_MAX_POLLS', DEFAULT_MAX_POLLS)
+        max_polls = getattr(settings, "JAWANNDENN_MAX_POLLS", DEFAULT_MAX_POLLS)
         if Poll.objects.count() >= max_polls:
-            return HttpResponseBadRequest(f'Maximum number of {max_polls} polls '
-                                          'reached, please contact the administrator.')
+            return HttpResponseBadRequest(
+                f"Maximum number of {max_polls} polls "
+                "reached, please contact the administrator."
+            )
 
         poll = serializer.save()
 
@@ -80,17 +82,20 @@ def poll_data_get_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
         poll_config = {
-            'equal_width': poll.equal_width,
-            'title': poll.title,
-            'options': list(poll.options.order_by('position').values_list('name', flat=True)),
+            "equal_width": poll.equal_width,
+            "title": poll.title,
+            "options": list(poll.options.order_by("position").values_list("name", flat=True)),
         }
 
         votes = []
         ballot = None
         ballot_votes = []
 
-        for vote in (Vote.objects.filter(ballot__poll=poll).select_related('ballot').order_by(
-                'ballot__created', 'ballot__id', 'option__position')):
+        for vote in (
+            Vote.objects.filter(ballot__poll=poll)
+            .select_related("ballot")
+            .order_by("ballot__created", "ballot__id", "option__position")
+        ):
             if vote.ballot != ballot:
                 if ballot is not None:
                     votes.append([ballot.voter_name, ballot_votes])
@@ -102,8 +107,8 @@ def poll_data_get_view(request, poll_id):
             votes.append([ballot.voter_name, ballot_votes])
 
     data = {
-        'config': poll_config,
-        'votes': votes,
+        "config": poll_config,
+        "votes": votes,
     }
 
     return JsonResponse(data)
@@ -114,7 +119,7 @@ def poll_data_get_view(request, poll_id):
 def poll_get_view(request, poll_id):
     Poll.objects.get(slug=poll_id)
 
-    return TemplateResponse(request, template='html/poll.htm')
+    return TemplateResponse(request, template="html/poll.htm")
 
 
 @require_POST
@@ -123,20 +128,23 @@ def vote_post_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
 
-        max_votes_per_poll = getattr(settings, 'JAWANNDENN_MAX_VOTES_PER_POLL',
-                                     DEFAULT_MAX_VOTES_PER_POLL)
+        max_votes_per_poll = getattr(
+            settings, "JAWANNDENN_MAX_VOTES_PER_POLL", DEFAULT_MAX_VOTES_PER_POLL
+        )
         if poll.ballots.count() >= max_votes_per_poll:
-            return HttpResponseBadRequest(f'Maximum number of {max_votes_per_poll} '
-                                          'votes reached for this poll'
-                                          ', please contact the administrator.')
+            return HttpResponseBadRequest(
+                f"Maximum number of {max_votes_per_poll} "
+                "votes reached for this poll"
+                ", please contact the administrator."
+            )
 
-        voter_name = safe_html(request.POST.get('voterName'))
+        voter_name = safe_html(request.POST.get("voterName"))
         votes = [
-            request.POST.get(f'option{i}', 'off') == 'on' for i in range(poll.options.count())
+            request.POST.get(f"option{i}", "off") == "on" for i in range(poll.options.count())
         ]
 
         ballot = Ballot.objects.create(poll=poll, voter_name=voter_name)
-        for option, vote in zip(poll.options.order_by('position'), votes):
+        for option, vote in zip(poll.options.order_by("position"), votes):
             Vote.objects.create(ballot=ballot, option=option, yes=vote)
 
     return redirect(poll)

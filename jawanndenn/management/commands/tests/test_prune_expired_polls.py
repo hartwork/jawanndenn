@@ -13,7 +13,6 @@ from ..prune_expired_polls import Command
 
 
 class PruneExpiredPollsTest(TestCase):
-
     def test_deletes_expired_polls_and_those_only(self):
         expired_poll = PollFactory(expires_at=now())
         not_yet_expired_poll = PollFactory(expires_at=now() + timedelta(minutes=1))
@@ -28,4 +27,4 @@ class PruneExpiredPollsTest(TestCase):
         for poll in (not_yet_expired_poll, never_expiring_poll):
             poll.refresh_from_db()  # would raise DoesNotExist if deleted
 
-        self.assertIn('1 poll(s) deleted', stdout.getvalue())
+        self.assertIn("1 poll(s) deleted", stdout.getvalue())

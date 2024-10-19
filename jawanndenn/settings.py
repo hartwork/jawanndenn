@@ -25,93 +25,93 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['JAWANNDENN_SECRET_KEY']
+SECRET_KEY = os.environ["JAWANNDENN_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('JAWANNDENN_DEBUG', 'False') == 'True'
+DEBUG = os.environ.get("JAWANNDENN_DEBUG", "False") == "True"
 
-_ALLOWED_HOSTS_DEFAULT = ','.join([
-    '127.0.0.1',
-    '0.0.0.0',
-    'localhost',
-])
-ALLOWED_HOSTS = (os.environ.get('JAWANNDENN_ALLOWED_HOSTS') or _ALLOWED_HOSTS_DEFAULT).split(',')
+_ALLOWED_HOSTS_DEFAULT = ",".join(
+    [
+        "127.0.0.1",
+        "0.0.0.0",
+        "localhost",
+    ]
+)
+ALLOWED_HOSTS = (os.environ.get("JAWANNDENN_ALLOWED_HOSTS") or _ALLOWED_HOSTS_DEFAULT).split(",")
 CSRF_TRUSTED_ORIGINS = {
-    f'{scheme}://{host}'
-    for scheme in ('http', 'https')
-    for host in ALLOWED_HOSTS
+    f"{scheme}://{host}" for scheme in ("http", "https") for host in ALLOWED_HOSTS
 }
 
-SECURE_REFERRER_POLICY = 'origin'
+SECURE_REFERRER_POLICY = "origin"
 
-_USE_POSTGRES = 'JAWANNDENN_SQLITE_FILE' not in os.environ
-_USE_REDIS_CACHE = 'JAWANNDENN_REDIS_HOST' in os.environ
+_USE_POSTGRES = "JAWANNDENN_SQLITE_FILE" not in os.environ
+_USE_REDIS_CACHE = "JAWANNDENN_REDIS_HOST" in os.environ
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django_extensions',  # for management command "show_urls"
-    'jawanndenn',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django_extensions",  # for management command "show_urls"
+    "jawanndenn",
 ]
 
 MIDDLEWARE = [
-    'jawanndenn.middleware.set_remote_addr_to_x_forwarded_for',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "jawanndenn.middleware.set_remote_addr_to_x_forwarded_for",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'jawanndenn.urls'
+ROOT_URLCONF = "jawanndenn.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'jawanndenn', 'static'),
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            os.path.join(BASE_DIR, "jawanndenn", "static"),
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'jawanndenn.wsgi.application'
+WSGI_APPLICATION = "jawanndenn.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 if _USE_POSTGRES:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['JAWANNDENN_POSTGRES_NAME'],
-            'USER': os.environ['JAWANNDENN_POSTGRES_USER'],
-            'PASSWORD': os.environ['JAWANNDENN_POSTGRES_PASSWORD'],
-            'HOST': os.environ['JAWANNDENN_POSTGRES_HOST'],
-            'PORT': os.environ['JAWANNDENN_POSTGRES_PORT'],
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["JAWANNDENN_POSTGRES_NAME"],
+            "USER": os.environ["JAWANNDENN_POSTGRES_USER"],
+            "PASSWORD": os.environ["JAWANNDENN_POSTGRES_PASSWORD"],
+            "HOST": os.environ["JAWANNDENN_POSTGRES_HOST"],
+            "PORT": os.environ["JAWANNDENN_POSTGRES_PORT"],
         }
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.environ['JAWANNDENN_SQLITE_FILE'],
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.environ["JAWANNDENN_SQLITE_FILE"],
         }
     }
 
@@ -119,34 +119,34 @@ else:
 # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGGING
 
 LOGGING = copy.copy(DEFAULT_LOGGING)
-LOGGING['handlers']['console']['filters'].remove('require_debug_true')
+LOGGING["handlers"]["console"]["filters"].remove("require_debug_true")
 if not DEBUG:
-    LOGGING['handlers']['console']['level'] = 'ERROR'
+    LOGGING["handlers"]["console"]["level"] = "ERROR"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',  # noqa: E501
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',  # noqa: E501
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa: E501
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',  # noqa: E501
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",  # noqa: E501
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',  # noqa: E501
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",  # noqa: E501
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -156,44 +156,46 @@ USE_TZ = True
 
 # Settings specific to jawanndenn
 
-JAWANNDENN_URL_PREFIX = os.environ.get('JAWANNDENN_URL_PREFIX', '').strip('/')
+JAWANNDENN_URL_PREFIX = os.environ.get("JAWANNDENN_URL_PREFIX", "").strip("/")
 
-if JAWANNDENN_URL_PREFIX != '':
-    JAWANNDENN_URL_PREFIX = '/' + JAWANNDENN_URL_PREFIX
+if JAWANNDENN_URL_PREFIX != "":
+    JAWANNDENN_URL_PREFIX = "/" + JAWANNDENN_URL_PREFIX
 
-JAWANNDENN_MAX_POLLS = int(os.environ.get('JAWANNDENN_MAX_POLLS', str(DEFAULT_MAX_POLLS)))
+JAWANNDENN_MAX_POLLS = int(os.environ.get("JAWANNDENN_MAX_POLLS", str(DEFAULT_MAX_POLLS)))
 JAWANNDENN_MAX_VOTES_PER_POLL = int(
-    os.environ.get('JAWANNDENN_MAX_VOTES_PER_POLL', str(DEFAULT_MAX_VOTES_PER_POLL)))
+    os.environ.get("JAWANNDENN_MAX_VOTES_PER_POLL", str(DEFAULT_MAX_VOTES_PER_POLL))
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = JAWANNDENN_URL_PREFIX + '/static/'
+STATIC_URL = JAWANNDENN_URL_PREFIX + "/static/"
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'jawanndenn', 'static'),
+    os.path.join(BASE_DIR, "jawanndenn", "static"),
 ]
 
 # Rate limiting
 
 if _USE_REDIS_CACHE:
-    RATELIMIT_USE_CACHE = 'ratelimit'
+    RATELIMIT_USE_CACHE = "ratelimit"
 
-    _REDIS_URL = 'redis://{}:{}/1'.format(os.environ['JAWANNDENN_REDIS_HOST'],
-                                          os.environ['JAWANNDENN_REDIS_PORT'])
+    _REDIS_URL = "redis://{}:{}/1".format(
+        os.environ["JAWANNDENN_REDIS_HOST"], os.environ["JAWANNDENN_REDIS_PORT"]
+    )
 
     CACHES = copy.copy(CACHES)
     CACHES[RATELIMIT_USE_CACHE] = {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': _REDIS_URL,
-        'OPTIONS': {
-            'SERIALIZER': 'django_redis.serializers.msgpack.MSGPackSerializer',
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": _REDIS_URL,
+        "OPTIONS": {
+            "SERIALIZER": "django_redis.serializers.msgpack.MSGPackSerializer",
         },
     }
 
 # Sentry integration
 
-_SENTRY_DSN = os.environ.get('JAWANNDENN_SENTRY_DSN')
+_SENTRY_DSN = os.environ.get("JAWANNDENN_SENTRY_DSN")
 
 if _SENTRY_DSN:
     import sentry_sdk
@@ -203,6 +205,7 @@ if _SENTRY_DSN:
 
     if _USE_REDIS_CACHE:
         from sentry_sdk.integrations.redis import RedisIntegration
+
         _sentry_integrations.append(RedisIntegration())
 
     sentry_sdk.init(

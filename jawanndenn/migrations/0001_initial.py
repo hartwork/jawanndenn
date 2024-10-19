@@ -8,103 +8,135 @@ import jawanndenn.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Poll',
+            name="Poll",
             fields=[
-                ('id',
-                 models.AutoField(auto_created=True,
-                                  primary_key=True,
-                                  serialize=False,
-                                  verbose_name='ID')),
-                ('created',
-                 django_extensions.db.fields.CreationDateTimeField(auto_now_add=True,
-                                                                   verbose_name='created')),
-                ('modified',
-                 django_extensions.db.fields.ModificationDateTimeField(auto_now=True,
-                                                                       verbose_name='modified')),
-                ('slug',
-                 models.CharField(default=jawanndenn.models._get_random_sha256,
-                                  max_length=64,
-                                  unique=True)),
-                ('title', models.CharField(max_length=255)),
-                ('equal_width', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.CharField(
+                        default=jawanndenn.models._get_random_sha256, max_length=64, unique=True
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("equal_width", models.BooleanField(default=False)),
             ],
             options={
-                'ordering': ('-modified', '-created'),
-                'get_latest_by': 'modified',
-                'abstract': False,
+                "ordering": ("-modified", "-created"),
+                "get_latest_by": "modified",
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='PollOption',
+            name="PollOption",
             fields=[
-                ('id',
-                 models.AutoField(auto_created=True,
-                                  primary_key=True,
-                                  serialize=False,
-                                  verbose_name='ID')),
-                ('position', models.PositiveSmallIntegerField()),
-                ('name', models.CharField(max_length=255)),
-                ('poll',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                   related_name='options',
-                                   to='jawanndenn.Poll')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("position", models.PositiveSmallIntegerField()),
+                ("name", models.CharField(max_length=255)),
+                (
+                    "poll",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="options",
+                        to="jawanndenn.Poll",
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('poll', 'position')},
+                "unique_together": {("poll", "position")},
             },
         ),
         migrations.CreateModel(
-            name='Ballot',
+            name="Ballot",
             fields=[
-                ('id',
-                 models.AutoField(auto_created=True,
-                                  primary_key=True,
-                                  serialize=False,
-                                  verbose_name='ID')),
-                ('created',
-                 django_extensions.db.fields.CreationDateTimeField(auto_now_add=True,
-                                                                   verbose_name='created')),
-                ('modified',
-                 django_extensions.db.fields.ModificationDateTimeField(auto_now=True,
-                                                                       verbose_name='modified')),
-                ('voter_name', models.CharField(max_length=255)),
-                ('poll',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                   related_name='ballots',
-                                   to='jawanndenn.Poll')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                ("voter_name", models.CharField(max_length=255)),
+                (
+                    "poll",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="ballots",
+                        to="jawanndenn.Poll",
+                    ),
+                ),
             ],
             options={
-                'ordering': ('-modified', '-created'),
-                'get_latest_by': 'modified',
-                'abstract': False,
+                "ordering": ("-modified", "-created"),
+                "get_latest_by": "modified",
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Vote',
+            name="Vote",
             fields=[
-                ('id',
-                 models.AutoField(auto_created=True,
-                                  primary_key=True,
-                                  serialize=False,
-                                  verbose_name='ID')),
-                ('yes', models.BooleanField()),
-                ('ballot',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                   related_name='votes',
-                                   to='jawanndenn.Ballot')),
-                ('option',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                   to='jawanndenn.PollOption')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("yes", models.BooleanField()),
+                (
+                    "ballot",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="votes",
+                        to="jawanndenn.Ballot",
+                    ),
+                ),
+                (
+                    "option",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="jawanndenn.PollOption"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('ballot', 'option')},
+                "unique_together": {("ballot", "option")},
             },
         ),
     ]
