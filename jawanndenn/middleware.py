@@ -15,7 +15,7 @@ def _extract_ip_from_x_forwarded_for_header(request):
     May raise exception _XForwardedForHeaderAbsentException .
     """
     try:
-        value = request.META['HTTP_X_FORWARDED_FOR']
+        value = request.META["HTTP_X_FORWARDED_FOR"]
     except KeyError:
         raise _XForwardedForHeaderAbsentException
 
@@ -26,7 +26,7 @@ def _extract_ip_from_x_forwarded_for_header(request):
     #       we would need to use the <n>-rightmost value
     #       instead, where <n> is the number of trusted
     #       reverse proxies in front of the application.
-    return value.split(',')[0].strip()
+    return value.split(",")[0].strip()
 
 
 def set_remote_addr_to_x_forwarded_for(get_response):
@@ -41,7 +41,7 @@ def set_remote_addr_to_x_forwarded_for(get_response):
     @wraps(get_response)
     def process_request(request):
         try:
-            request.META['REMOTE_ADDR'] = (_extract_ip_from_x_forwarded_for_header(request))
+            request.META["REMOTE_ADDR"] = _extract_ip_from_x_forwarded_for_header(request)
         except _XForwardedForHeaderAbsentException:
             pass
 

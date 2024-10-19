@@ -7,8 +7,8 @@ from ...models import Poll
 
 
 class Command(BaseCommand):
-    help = 'Deletes expired polls'
+    help = "Deletes expired polls"
 
     def handle(self, *args, **options):
         polls_deleted, _ = Poll.objects.expired().delete()
-        self.stdout.write(self.style.SUCCESS(f'{polls_deleted} poll(s) deleted'))
+        self.stdout.write(self.style.SUCCESS(f"{polls_deleted} poll(s) deleted"))

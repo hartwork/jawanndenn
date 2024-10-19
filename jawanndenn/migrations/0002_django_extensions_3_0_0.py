@@ -4,18 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('jawanndenn', '0001_initial'),
+        ("jawanndenn", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='ballot',
-            options={'get_latest_by': 'modified'},
+            name="ballot",
+            options={"get_latest_by": "modified"},
         ),
         migrations.AlterModelOptions(
-            name='poll',
-            options={'get_latest_by': 'modified'},
+            name="poll",
+            options={"get_latest_by": "modified"},
         ),
     ]

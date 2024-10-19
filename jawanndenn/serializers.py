@@ -12,20 +12,20 @@ from jawanndenn.models import Poll, PollOption
 
 
 class _PollLifetime:
-    MONTH = 'month'
-    WEEK = 'week'
+    MONTH = "month"
+    WEEK = "week"
     CHOICES = (MONTH, WEEK)
 
     @classmethod
     def to_relativedelta(cls, lifetime):
-        return relativedelta(**({
-            cls.MONTH: {
-                'months': 1
-            },
-            cls.WEEK: {
-                'days': 7
-            },
-        }[lifetime]))
+        return relativedelta(
+            **(
+                {
+                    cls.MONTH: {"months": 1},
+                    cls.WEEK: {"days": 7},
+                }[lifetime]
+            )
+        )
 
 
 class PollConfigSerializer(Serializer):
@@ -36,17 +36,18 @@ class PollConfigSerializer(Serializer):
 
     def create(self, validated_data):
         poll_expires_at = timezone.now() + _PollLifetime.to_relativedelta(
-            validated_data['lifetime'])
-        poll_equal_width = validated_data['equal_width']
-        poll_title = safe_html(validated_data['title'])
+            validated_data["lifetime"]
+        )
+        poll_equal_width = validated_data["equal_width"]
+        poll_title = safe_html(validated_data["title"])
         poll_option_names = [
-            safe_html(str(option_name)) for option_name in validated_data['options']
+            safe_html(str(option_name)) for option_name in validated_data["options"]
         ]
 
         with transaction.atomic():
-            poll = Poll.objects.create(title=poll_title,
-                                       expires_at=poll_expires_at,
-                                       equal_width=poll_equal_width)
+            poll = Poll.objects.create(
+                title=poll_title, expires_at=poll_expires_at, equal_width=poll_equal_width
+            )
             for i, option_name in enumerate(poll_option_names):
                 PollOption.objects.create(poll=poll, position=i, name=option_name)
 

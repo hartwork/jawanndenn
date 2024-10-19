@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('jawanndenn', '0002_django_extensions_3_0_0'),
+        ("jawanndenn", "0002_django_extensions_3_0_0"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='poll',
-            name='expires_at',
+            model_name="poll",
+            name="expires_at",
             field=models.DateTimeField(null=True),
         ),
     ]

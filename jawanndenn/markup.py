@@ -2,11 +2,11 @@
 # Licensed under GNU Affero GPL v3 or later
 
 _REPLACEMENTS_IN_ORDER = (
-    ('**', '<strong>', '</strong>'),
-    ('*', '<em>', '</em>'),
-    ('__', '<strong>', '</strong>'),
-    ('_', '<em>', '</em>'),
-    ('`', '<tt>', '</tt>'),
+    ("**", "<strong>", "</strong>"),
+    ("*", "<em>", "</em>"),
+    ("__", "<strong>", "</strong>"),
+    ("_", "<em>", "</em>"),
+    ("`", "<tt>", "</tt>"),
 )
 
 _CLOSING_OF = {prefix: closing for prefix, _, closing in _REPLACEMENTS_IN_ORDER}
@@ -14,13 +14,11 @@ _CLOSING_OF = {prefix: closing for prefix, _, closing in _REPLACEMENTS_IN_ORDER}
 
 def safe_html(text):
     if not isinstance(text, str):
-        raise ValueError('Not a string: %s' % text)
+        raise ValueError("Not a string: %s" % text)
 
     # KEEP IN SYNC with javascript client side!
 
-    text = text.replace('&', '&amp;') \
-               .replace('<', '&lt;') \
-               .replace('>', '&gt;')
+    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
     chunks = []
 
@@ -37,7 +35,7 @@ def safe_html(text):
                     chunks.append(opening)
                     opened.append(prefix)
 
-                text = text[len(prefix):]
+                text = text[len(prefix) :]
                 break
         else:
             chunks.append(text[0])
@@ -47,4 +45,4 @@ def safe_html(text):
     for prefix in reversed(opened):
         chunks.append(_CLOSING_OF[prefix])
 
-    return ''.join(chunks)
+    return "".join(chunks)
