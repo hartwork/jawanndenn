@@ -45,5 +45,6 @@
 !*.py
 !*.rst
 !*.sh
+!*.toml
 !*.txt
 !*.yml
