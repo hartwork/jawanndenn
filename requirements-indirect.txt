@@ -251,9 +251,9 @@ idna==3.10 \
 ipython-genutils==0.2.0 \
     --hash=sha256:72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8 \
     --hash=sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8
-jedi==0.19.1 \
-    --hash=sha256:cf0496f3651bc65d7174ac1b7d043eff454892c708a87d1b683e57b569927ffd \
-    --hash=sha256:e983c654fe5c02867aef4cdfce5a2fbb4a50adc0af145f70504238f18ef5e7e0
+jedi==0.19.2 \
+    --hash=sha256:4770dc3de41bde3966b02eb84fbcf557fb33cce26ad23da12c742fb50ecb11f0 \
+    --hash=sha256:a8ef22bde8490f57fe5c7681a3c83cb58874daf72b4784de3cce5b6ef6edb5b9
 matplotlib-inline==0.1.7 \
     --hash=sha256:8423b23ec666be3d16e16b60bdd8ac4e86e840ebd1dd11a30b9f117f2fa0ab90 \
     --hash=sha256:df192d39a4ff8f21b1895d72e6a13f5fcc5099f00fa84384e0ea28c2cc0653ca
