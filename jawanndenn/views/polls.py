@@ -67,8 +67,7 @@ def poll_post_view(request):
         max_polls = getattr(settings, "JAWANNDENN_MAX_POLLS", DEFAULT_MAX_POLLS)
         if Poll.objects.count() >= max_polls:
             return HttpResponseBadRequest(
-                f"Maximum number of {max_polls} polls "
-                "reached, please contact the administrator."
+                f"Maximum number of {max_polls} polls reached, please contact the administrator."
             )
 
         poll = serializer.save()
