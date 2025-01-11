@@ -65,7 +65,7 @@ def _inner_main():
         "--host",
         default="127.0.0.1",
         metavar="HOST",
-        help="Hostname or IP address to listen at" " (default: %(default)s)",
+        help="Hostname or IP address to listen at (default: %(default)s)",
     )
     parser.add_argument(
         "--port",
@@ -78,19 +78,19 @@ def _inner_main():
         "--url-prefix",
         default="",
         metavar="PATH",
-        help="Path to prepend to URLs" ' (default: "%(default)s")',
+        help='Path to prepend to URLs (default: "%(default)s")',
     )
     parser.add_argument(
         "--database-sqlite3",
         default="~/jawanndenn.sqlite3",
         metavar="FILE",
-        help="File to write the database to" " (default: %(default)s)",
+        help="File to write the database to (default: %(default)s)",
     )
     parser.add_argument(
         "--django-secret-key-file",
         default="~/jawanndenn.secret_key",
         metavar="FILE",
-        help="File to use for Django secret key data" " (default: %(default)s)",
+        help="File to use for Django secret key data (default: %(default)s)",
     )
 
     limits = parser.add_argument_group("limit configuration")
@@ -99,26 +99,26 @@ def _inner_main():
         type=int,
         metavar="COUNT",
         default=DEFAULT_MAX_POLLS,
-        help="Maximum number of polls total" " (default: %(default)s)",
+        help="Maximum number of polls total (default: %(default)s)",
     )
     limits.add_argument(
         "--max-votes-per-poll",
         type=int,
         metavar="COUNT",
         default=DEFAULT_MAX_VOTES_PER_POLL,
-        help="Maximum number of votes per poll" " (default: %(default)s)",
+        help="Maximum number of votes per poll (default: %(default)s)",
     )
 
     export_args = parser.add_argument_group("data import/export arguments")
     export_args.add_argument(
         "--dumpdata",
         action="store_true",
-        help="Dump a JSON export of the database to " "standard output, then quit.",
+        help="Dump a JSON export of the database to standard output, then quit.",
     )
     export_args.add_argument(
         "--loaddata",
         metavar="FILE.json",
-        help="Load a JSON export of the database from " "FILE.json, then quit.",
+        help="Load a JSON export of the database from FILE.json, then quit.",
     )
 
     options = parser.parse_args()
@@ -155,7 +155,7 @@ def _inner_main():
     if options.dumpdata:
         execute_from_command_line(["./manage.py", "dumpdata"])
     elif options.loaddata:
-        print("Importing JSON dump" " -- this may take a few seconds...", file=sys.stderr)
+        print("Importing JSON dump -- this may take a few seconds...", file=sys.stderr)
         execute_from_command_line(["./manage.py", "loaddata", os.path.abspath(options.loaddata)])
     else:
         sys.exit(
