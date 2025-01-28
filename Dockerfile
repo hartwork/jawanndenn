@@ -32,8 +32,8 @@ RUN cd /tmp/app \
     pip3 check \
         && \
     diff -u0 \
-            <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' requirements-*.txt | sort -f) \
-            <(pip3 freeze | sed -e '/^setuptools==/d' -e '/^wheel==/d' | sort -f) \
+            <(sed -e '/--hash=/d' -e 's/ \\$//' -e '/^#/d' -e '/^$/d' -e 's,-,_,g' requirements-*.txt | sort -f) \
+            <(pip3 freeze | sed -e '/^setuptools==/d' -e '/^wheel==/d' -e 's,-,_,g' | sort -f) \
         && \
     diff -u1 \
             <(grep == requirements-direct.txt | sed 's,==.*,,') \
