@@ -82,7 +82,7 @@ factory_boy==3.3.1 \
 gunicorn==23.0.0 \
     --hash=sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d \
     --hash=sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec
-gunicorn-color==0.1.0 \
+gunicorn_color==0.1.0 \
     --hash=sha256:c923dd956237c8884d30aa2111434373c2d5e7cc705246312fab99cb4c165e67 \
     --hash=sha256:dd57692a48137729547887e8ade20e0a6b434edb528ec40d5fe930c708771938
 ipython==8.31.0 \
