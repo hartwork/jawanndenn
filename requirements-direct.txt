@@ -303,9 +303,9 @@ python-rapidjson==1.20 \
     --hash=sha256:f974c4e11be833221062fc4c3129bed172082792b33ef9fc1b8104f49c514f1d \
     --hash=sha256:fbff5caf127c5bed4d6620f95a039dd9e293784d844af50782aaf278a743acb4 \
     --hash=sha256:fc7a095f77eb3bb6acff94acf868a100faaf06028c4b513428f161cd55030476
-sentry-sdk==2.26.1 \
-    --hash=sha256:759e019c41551a21519a95e6cef6d91fb4af1054761923dadaee2e6eca9c02c7 \
-    --hash=sha256:e99390e3f217d13ddcbaeaed08789f1ca614d663b345b9da42e35ad6b60d696a
+sentry-sdk==2.27.0 \
+    --hash=sha256:90f4f883f9eff294aff59af3d58c2d1b64e3927b28d5ada2b9b41f5aeda47daf \
+    --hash=sha256:c58935bfff8af6a0856d37e8adebdbc7b3281c2b632ec823ef03cd108d216ff0
 wait-for-it==2.3.0 \
     --hash=sha256:22ddbf08d6fe1b5f59b3807d539a932df7cab3de2823cb8b63591f81fa666c38 \
     --hash=sha256:bc6eaeb0912cf4d59c824067f36c73739bb7a6182912ec8984f2fb3447ef68c0
