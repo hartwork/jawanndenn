@@ -8,8 +8,8 @@ RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' 
         g++ \
         gcc \
         musl-dev \
-        postgresql-client \
-        postgresql-dev \
+        postgresql17-client \
+        postgresql17-dev \
         shadow \
         supercronic@edge-community
 
