@@ -3,7 +3,7 @@
 
 networks:
   ssl-reverse-proxy:
-    external: yes
+    external: true
 
 services:
   postgres:
