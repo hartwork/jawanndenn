@@ -1,5 +1,4 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
-
 [![image](https://github.com/hartwork/jawanndenn/workflows/Build%20and%20test%20using%20Docker/badge.svg)](https://github.com/hartwork/jawanndenn/actions)
 
 
