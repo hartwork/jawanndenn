@@ -118,90 +118,23 @@ in your environment. Altogether, there are these variables:
 
 ## Environment variables
 
-### `DJANGO_SETTINGS_MODULE`
-
-Django settings module to use, leave as is, defaults to
-`jawanndenn.settings` (see `docker-compose.yml`)
-
-### `JAWANNDENN_ALLOWED_HOSTS`
-
-Hostnames to serve jawanndenn at, list separated by comma, is set to
-`jawanndenn.de,www.jawanndenn.de` on the main production server,
-defaults to `127.0.0.1,0.0.0.0,localhost` (see `jawanndenn/settings.py`)
-
-### `JAWANNDENN_DEBUG`
-
-Debug mode, disabled for all values but `True`, disabled by default,
-should never be enabled in production for security (see
-`jawanndenn/settings.py`)
-
-### `JAWANNDENN_MAX_POLLS`
-
-Maximum total number of polls to store, denial of service protection,
-defaults to `1000` (see `jawanndenn/settings.py` and
-`docker-compose.yml`)
-
-### `JAWANNDENN_MAX_VOTES_PER_POLL`
-
-Maximum total number of polls to store, denial of service protection,
-defaults to `40` (see `jawanndenn/settings.py`)
-
-### `JAWANNDENN_POSTGRES_HOST`
-
-Hostname of the PostgreSQL database to connect to; defaults to
-`postgres` (see `docker-compose.yml`)
-
-### `JAWANNDENN_POSTGRES_NAME`
-
-Database name of the PostgreSQL database to connect to; no default,
-always required
-
-### `JAWANNDENN_POSTGRES_PASSWORD`
-
-Password for log-in with the PostgreSQL database; no default, always
-required
-
-### `JAWANNDENN_POSTGRES_PORT`
-
-Port of the PostgreSQL database to connect to; defaults to `5432` (see
-`docker-compose.yml`)
-
-### `JAWANNDENN_POSTGRES_USER`
-
-Username for log-in with the PostgreSQL database; no default, always
-required
-
-### `JAWANNDENN_REDIS_HOST`
-
-Hostname of the Redis database to connect to; defaults to `redis` (see
-`docker-compose.yml`)
-
-### `JAWANNDENN_REDIS_PORT`
-
-Port of the Redis database to connect to; defaults to `6379` (see
-`docker-compose.yml`)
-
-### `JAWANNDENN_SECRET_KEY`
-
-[Django secret
-key](https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key);
-should be long, generated, not used elsewhere; no default, always
-required
-
-### `JAWANNDENN_SENTRY_DSN`
-
-[Data source name
-(DSN)](https://docs.sentry.io/product/sentry-basics/dsn-explainer/) for
-use with [Sentry](https://sentry.io/), disabled/empty by default (see
-`jawanndenn/settings.py`)
-
-### `JAWANNDENN_URL_PREFIX`
-
-Prefix string to insert into URLs rather after the domain name to help
-with hosting multiple apps under the same domain side by side; e.g.
-prefix `prefix123` will result in URLs like
-`https://<domain>/prefix123/poll/<id>`; empty by default (see
-`jawanndenn/settings.py`)
+| Variable                        | Function                                                                                                                                                                                                                                                                       |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `DJANGO_SETTINGS_MODULE`        | Django settings module to use, leave as is, defaults to `jawanndenn.settings` (see `docker-compose.yml`)                                                                                                                                                                       |
+| `JAWANNDENN_ALLOWED_HOSTS`      | Hostnames to serve jawanndenn at, list separated by comma, is set to `jawanndenn.de,www.jawanndenn.de` on the main production server, defaults to `127.0.0.1,0.0.0.0,localhost` (see `jawanndenn/settings.py`)                                                                 |
+| `JAWANNDENN_DEBUG`              | Debug mode, disabled for all values but `True`, disabled by default, should never be enabled in production for security (see `jawanndenn/settings.py`)                                                                                                                         |
+| `JAWANNDENN_MAX_POLLS`          | Maximum total number of polls to store, denial of service protection, defaults to `1000` (see `jawanndenn/settings.py` and `docker-compose.yml`)                                                                                                                               |
+| `JAWANNDENN_MAX_VOTES_PER_POLL` | Maximum total number of polls to store, denial of service protection, defaults to `40` (see `jawanndenn/settings.py`)                                                                                                                                                          |
+| `JAWANNDENN_POSTGRES_HOST`      | Hostname of the PostgreSQL database to connect to; defaults to `postgres` (see `docker-compose.yml`)                                                                                                                                                                           |
+| `JAWANNDENN_POSTGRES_NAME`      | Database name of the PostgreSQL database to connect to; no default, always required                                                                                                                                                                                            |
+| `JAWANNDENN_POSTGRES_PASSWORD`  | Password for log-in with the PostgreSQL database; no default, always required                                                                                                                                                                                                  |
+| `JAWANNDENN_POSTGRES_PORT`      | Port of the PostgreSQL database to connect to; defaults to `5432` (see `docker-compose.yml`)                                                                                                                                                                                   |
+| `JAWANNDENN_POSTGRES_USER`      | Username for log-in with the PostgreSQL database; no default, always required                                                                                                                                                                                                  |
+| `JAWANNDENN_REDIS_HOST`         | Hostname of the Redis database to connect to; defaults to `redis` (see `docker-compose.yml`)                                                                                                                                                                                   |
+| `JAWANNDENN_REDIS_PORT`         | Port of the Redis database to connect to; defaults to `6379` (see `docker-compose.yml`)                                                                                                                                                                                        |
+| `JAWANNDENN_SECRET_KEY`         | [Django secret key](https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key); should be long, generated, not used elsewhere; no default, always required                                                                                                                |
+| `JAWANNDENN_SENTRY_DSN`         | [Data source name (DSN)](https://docs.sentry.io/product/sentry-basics/dsn-explainer/) for use with [Sentry](https://sentry.io/), disabled/empty by default (see `jawanndenn/settings.py`)                                                                                      |
+| `JAWANNDENN_URL_PREFIX`         | Prefix string to insert into URLs rather after the domain name to help with hosting multiple apps under the same domain side by side; e.g. prefix `prefix123` will result in URLs like `https://<domain>/prefix123/poll/<id>`; empty by default (see `jawanndenn/settings.py`) |
 
 
 ## Doing backups with Docker Compose
