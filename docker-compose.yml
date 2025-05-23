@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:5-alpine
+    image: redis:8.0.1-alpine3.21
     volumes:
       - ~/.jawanndenn-docker-redis/:/data
     logging:
