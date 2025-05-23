@@ -41,9 +41,9 @@
 !jawanndenn/views/tests/*.py
 !jawanndenn/views/*.py
 !jawanndenn/*.py
+!*.md
 !*.png
 !*.py
-!*.rst
 !*.sh
 !*.toml
 !*.txt
