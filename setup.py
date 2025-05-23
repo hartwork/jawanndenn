@@ -37,11 +37,15 @@ if __name__ == "__main__":
         version=VERSION_STR,
         license="AGPLv3+",
         description="Libre alternative to Doodle",
-        long_description=_read("README.rst"),
+        long_description=_read("README.md"),
+        long_description_content_type="text/markdown",
         author="Sebastian Pipping",
         author_email="sebastian@pipping.org",
         url="https://github.com/hartwork/jawanndenn",
         python_requires=">=3.9",
+        setup_requires=[
+            "setuptools>=38.6.0",  # for long_description_content_type
+        ],
         install_requires=[
             "django>=2.2.7",
             "django-extensions>=2.2.5",
