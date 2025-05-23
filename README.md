@@ -204,6 +204,33 @@ prefix `prefix123` will result in URLs like
 `jawanndenn/settings.py`)
 
 
+## Doing backups with Docker Compose
+
+A simple way to create and apply backups of Django's view on the
+PostgreSQL poll data is the following.
+
+Let's assume you add a `docker-compose.override.yml` like this:
+
+```yaml
+services:
+  jawanndenn:
+    volumes:
+     - ~/.jawanndenn-docker-backups/:/home/jawanndenn/backups/:rw
+```
+
+Now [Django management command `dumpdata`](https://docs.djangoproject.com/en/dev/ref/django-admin/#dumpdata) can be used to backup the poll data to a JSON file like this:
+
+```console
+# docker compose run jawanndenn python3 -m django dumpdata -v3 --format json -o "/home/jawanndenn/backups/data-$(date -I).json"
+```
+
+To reset the database to the state of a backup, [Django management `loaddata`](https://docs.djangoproject.com/en/dev/ref/django-admin/#loaddata) would do the job:
+
+```console
+# docker compose run jawanndenn python3 -m django loaddata -v3 /home/jawanndenn/backups/data-2025-05-23.json
+```
+
+
 # Command line usage
 
 When installed, invocation is as simple as
