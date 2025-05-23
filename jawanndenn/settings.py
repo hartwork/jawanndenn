@@ -115,6 +115,8 @@ else:
         }
     }
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 # Logging
 # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-LOGGING
 
