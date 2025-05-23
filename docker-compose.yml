@@ -1,11 +1,9 @@
 # Copyright (C) 2018 Sebastian Pipping <sebastian@pipping.org>
 # Licensed under GNU Affero GPL v3 or later
 
-version: "3"
-
 networks:
   ssl-reverse-proxy:
-    external: yes
+    external: true
 
 services:
   postgres:
@@ -76,7 +74,7 @@ services:
     tty: true
 
   cron:
-    image: ${COMPOSE_PROJECT_NAME:-jawanndenn}_jawanndenn
+    build: .
     command: ["sh", "-c", "supercronic -sentry-dsn \"${JAWANNDENN_SENTRY_DSN}\" ~/crontab"]
     depends_on:
       - postgres
