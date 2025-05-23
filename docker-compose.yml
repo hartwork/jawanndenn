@@ -75,7 +75,7 @@ services:
 
   cron:
     build: .
-    command: ["sh", "-c", "supercronic -sentry-dsn \"${JAWANNDENN_SENTRY_DSN}\" ~/crontab"]
+    command: ["sh", "-c", "/usr/bin/supercronic -sentry-dsn \"${JAWANNDENN_SENTRY_DSN}\" ~/crontab"]
     depends_on:
       - postgres
       - redis
