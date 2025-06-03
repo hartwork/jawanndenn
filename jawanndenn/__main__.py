@@ -11,6 +11,7 @@ import sys
 from unittest.mock import patch
 
 from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
+from jawanndenn.metadata import VERSION_STR
 
 _log = logging.getLogger(__name__)
 
@@ -58,6 +59,7 @@ def _process_django_secret_key_file(filename):
 
 def _inner_main():
     parser = argparse.ArgumentParser(prog="jawanndenn")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {VERSION_STR}")
     parser.add_argument(
         "--debug", action="store_true", default=False, help="Enable debug mode (default: disabled)"
     )

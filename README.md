@@ -182,15 +182,16 @@ using
 Currently supported arguments are:
 
 ```console
-# jawanndenn --help
-usage: jawanndenn [-h] [--debug] [--host HOST] [--port PORT]
+# COLUMNS=80 jawanndenn --help
+usage: jawanndenn [-h] [--version] [--debug] [--host HOST] [--port PORT]
                   [--url-prefix PATH] [--database-sqlite3 FILE]
                   [--django-secret-key-file FILE] [--max-polls COUNT]
                   [--max-votes-per-poll COUNT] [--dumpdata]
                   [--loaddata FILE.json]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
+  --version             show program's version number and exit
   --debug               Enable debug mode (default: disabled)
   --host HOST           Hostname or IP address to listen at (default:
                         127.0.0.1)
