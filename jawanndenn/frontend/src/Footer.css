@@ -1,0 +1,34 @@
+/* Copyright (c) 2025 Sebastian Pipping <sebastian@pipping.org>
+** Licensed under GNU GPL v3 or later
+*/
+footer {
+  margin: 0;
+  background-color: #848484;
+  padding: 6px 20px 24px 20px;
+}
+
+footer * {
+  color: #ccc;
+}
+
+footer p {
+  margin: 0;
+  text-align: center;
+}
+
+footer a {
+  color: #ddd;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer #github-star-button {
+  position: relative;
+  top: 5px;
+  margin-left: 10px;
+  width: 90px;
+}

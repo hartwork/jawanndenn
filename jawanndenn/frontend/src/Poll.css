@@ -1,0 +1,51 @@
+/* Copyright (c) 2025 Sebastian Pipping <sebastian@pipping.org>
+** Licensed under GNU GPL v3 or later
+*/
+.poll .MuiCardContent-root {
+  overflow-x: auto;
+  margin-right: 16px; /* distance from save button to edge */
+}
+
+.poll table {
+  margin: 10px -10px 0 5px;
+}
+
+.question {
+  text-align: center;
+  font-size: 40pt;
+  font-weight: 400;
+}
+
+.person {
+  text-align: right;
+  padding-right: 0.3em !important;
+}
+
+.vote {
+  text-align: center;
+  height: 26px;
+}
+
+.userVote td:first-child {
+  vertical-align: bottom;
+  padding-bottom: 0px !important;
+  min-width: 10ch;
+}
+
+.votedYes {
+  background-color: #dfd;
+}
+.votedNo {
+  background-color: #fdd;
+}
+.yetToVote {
+  background-color: #dfdfdf;
+}
+
+.submitVote {
+  margin-left: 1em !important;
+}
+
+.sumNonZero {
+  font-weight: bold;
+}
