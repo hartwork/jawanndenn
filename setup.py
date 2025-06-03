@@ -55,6 +55,7 @@ if __name__ == "__main__":
             "gunicorn-color>=0.1.0",
             "python-dateutil>=2.8.1",
             "python-rapidjson>=1.0",
+            "setuptools<81",  # for pkg_resources
         ],
         extras_require=_extras_require,
         tests_require=_tests_require,
