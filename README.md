@@ -28,8 +28,7 @@ It is using the following technology:
   - [wait-for-it](https://github.com/clarketm/wait-for-it)
 
 - **JavaScript / CSS / Fonts**
-  - [Google Webfonts
-    Helper](https://google-webfonts-helper.herokuapp.com/)
+  - [Google Webfonts Helper](https://github.com/majodev/google-webfonts-helper)
   - [jQuery](http://jquery.com/)
   - [jQuery noty](http://ned.im/noty/#/about)
   - [Materialize](http://materializecss.com/)
