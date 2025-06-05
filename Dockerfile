@@ -8,6 +8,7 @@ RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' 
         g++ \
         gcc \
         musl-dev \
+        npm \
         postgresql17-client \
         postgresql17-dev \
         shadow \
@@ -46,6 +47,16 @@ RUN cd /tmp/app \
 USER root
 RUN apk upgrade --update
 USER jawanndenn
+
+RUN mkdir -p /tmp/app/jawanndenn/
+COPY --chown=jawanndenn:jawanndenn jawanndenn/frontend/ /tmp/app/jawanndenn/frontend/
+RUN cd /tmp/app/jawanndenn/frontend/ \
+        && \
+    npm ci \
+        && \
+    npm run build \
+        && \
+    ls -lh ../index.html  # i.e. fail Docker build if missing
 
 COPY --chown=jawanndenn:jawanndenn jawanndenn/                     /tmp/app/jawanndenn/
 COPY --chown=jawanndenn:jawanndenn .coveragerc setup.py README.md  /tmp/app/
