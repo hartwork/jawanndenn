@@ -26,14 +26,6 @@
 !jawanndenn/migrations/*.py
 !jawanndenn/static/3rdparty/github-buttons-4.0.1/docs/*.html
 !jawanndenn/static/3rdparty/github-buttons-4.0.1/*.md
-!jawanndenn/static/3rdparty/jquery-3.5.1/*.js
-!jawanndenn/static/3rdparty/jquery-3.5.1/*.map
-!jawanndenn/static/3rdparty/jquery-3.5.1/*.txt
-!jawanndenn/static/3rdparty/materialize-1.0.0/css/*.css
-!jawanndenn/static/3rdparty/materialize-1.0.0/js/*.js
-!jawanndenn/static/3rdparty/materialize-1.0.0/LICENSE
-!jawanndenn/static/3rdparty/noty-2.4.1/js/noty/packaged/*.js
-!jawanndenn/static/3rdparty/noty-2.4.1/*.txt
 !jawanndenn/static/3rdparty/roboto-20/COPYING
 !jawanndenn/static/3rdparty/roboto-20/css/*.css
 !jawanndenn/static/3rdparty/roboto-20/fonts/*.eot
@@ -41,9 +33,6 @@
 !jawanndenn/static/3rdparty/roboto-20/fonts/*.ttf
 !jawanndenn/static/3rdparty/roboto-20/fonts/*.woff
 !jawanndenn/static/3rdparty/roboto-20/fonts/*.woff2
-!jawanndenn/static/css/*.css
-!jawanndenn/static/html/*.htm
-!jawanndenn/static/js/*.js
 !jawanndenn/static/well-known/*.txt
 !jawanndenn/tests/*.py
 !jawanndenn/views/tests/*.py

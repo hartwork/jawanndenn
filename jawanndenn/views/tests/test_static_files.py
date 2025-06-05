@@ -12,7 +12,7 @@ class ServeUsingFindersTest(TestCase):
     @parameterized.expand(
         [
             # Our app, some arbitrary asset
-            ("jawanndenn", "js/html.js", "DENY"),
+            ("jawanndenn", "well-known/security.txt", "DENY"),
             # Our app, asset used in <iframe>
             ("jawanndenn", "3rdparty/github-buttons-4.0.1/docs/github-btn.html", "sameorigin"),
             # Arbitrary asset of arbitary other app
