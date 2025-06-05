@@ -12,6 +12,14 @@
 !.coveragerc
 !crontab
 !Dockerfile
+!jawanndenn/frontend/src/*.css
+!jawanndenn/frontend/src/*.ts
+!jawanndenn/frontend/src/*.tsx
+!jawanndenn/frontend/*.htm
+!jawanndenn/frontend/*.json
+!jawanndenn/frontend/*.md
+!jawanndenn/frontend/*.mjs
+!jawanndenn/frontend/*.ts
 !jawanndenn/management/commands/tests/*.py
 !jawanndenn/management/commands/*.py
 !jawanndenn/management/*.py
