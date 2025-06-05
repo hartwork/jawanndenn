@@ -3,6 +3,7 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import os
+import sys
 
 from setuptools import find_packages, setup
 
@@ -30,8 +31,16 @@ def _collect_package_data(top_directory):
             relative_root = os.path.relpath(root, top_directory)
             yield os.path.join(relative_root, "*")
 
+    yield "index.html"
+
 
 if __name__ == "__main__":
+    frontend_index_html = os.path.join(os.path.dirname(__file__), "jawanndenn", "index.html")
+    if not os.path.exists(frontend_index_html):
+        sys.exit(
+            f"Frontend has not been built, file {frontend_index_html!r} is missing, please fix."
+        )
+
     setup(
         name=APP_NAME,
         version=VERSION_STR,

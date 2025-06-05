@@ -162,7 +162,7 @@ class PollGetViewTest(TestCase):
 
         response = self.client.get(url)
 
-        self.assertContains(response, "Vote!")
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_poll_does_not_exist(self):
         url = reverse("poll-detail", args=["no_such_poll"])

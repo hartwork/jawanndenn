@@ -48,7 +48,10 @@ def _except_validation_error(wrappee):
 
 @require_GET
 def index_get_view(request):
-    return TemplateResponse(request, template="html/setup.htm")
+    context = {
+        "JAWANNDENN_URL_PREFIX": settings.JAWANNDENN_URL_PREFIX,
+    }
+    return TemplateResponse(request, template="index.html", context=context)
 
 
 @require_POST
@@ -118,7 +121,10 @@ def poll_data_get_view(request, poll_id):
 def poll_get_view(request, poll_id):
     Poll.objects.get(slug=poll_id)
 
-    return TemplateResponse(request, template="html/poll.htm")
+    context = {
+        "JAWANNDENN_URL_PREFIX": settings.JAWANNDENN_URL_PREFIX,
+    }
+    return TemplateResponse(request, template="index.html", context=context)
 
 
 @require_POST
