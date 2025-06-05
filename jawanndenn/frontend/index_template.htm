@@ -1,0 +1,18 @@
+<!doctype html>
+<!--
+Copyright (c) 2025 Sebastian Pipping <sebastian@pipping.org>
+Licensed under GNU GPL v3 or later
+-->
+<html>
+  <head>
+    <title>jawanndenn: Create a new poll</title>
+    <base href="{{ JAWANNDENN_URL_PREFIX }}/" />
+    <link rel="stylesheet" href="./static/3rdparty/roboto-20/css/roboto.css" />
+    <script>
+      DJANGO_CSRF_TOKEN = '{{ csrf_token|escapejs }}';
+    </script>
+  </head>
+  <body>
+    <div id="<%= mountId %>"></div>
+  </body>
+</html>
