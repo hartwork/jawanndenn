@@ -48,7 +48,7 @@ class Ballot(TimeStampedModel):
 class Vote(models.Model):
     ballot = models.ForeignKey(Ballot, related_name="votes", on_delete=models.CASCADE)
     option = models.ForeignKey(PollOption, on_delete=models.CASCADE)
-    yes = models.BooleanField()
+    yes = models.BooleanField(null=True)
 
     class Meta:
         unique_together = ("ballot", "option")
