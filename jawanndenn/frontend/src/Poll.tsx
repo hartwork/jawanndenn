@@ -3,11 +3,11 @@
 
 import './Poll.css';
 import { textToSafeHtml } from './markup.ts';
+import TristateCheckbox from './TristateCheckbox.tsx';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 
 import { useState } from 'react';
@@ -42,7 +42,7 @@ const Poll = ({
   } else if (originalUsersVotes.length < config.options.length) {
     const filling = config.options
       .slice(originalUsersVotes.length)
-      .map((_) => null);
+      .map((_) => undefined);
     usersVotes = originalUsersVotes.concat(filling);
   }
   console.assert(usersVotes.length === config.options.length);
@@ -54,13 +54,13 @@ const Poll = ({
     ),
   );
 
-  const onCheckboxChange = (column) => {
-    const onChange = (e) => {
+  const createSetTribool = (column) => {
+    const setTribool = (yes) => {
       const newUsersVotes = usersVotes.slice();
-      newUsersVotes[column] = e.target.checked;
+      newUsersVotes[column] = yes;
       setUsersVotes(newUsersVotes);
     };
-    return onChange;
+    return setTribool;
   };
 
   return (
@@ -136,10 +136,10 @@ const Poll = ({
                       yes ? 'votedYes' : yes === null ? 'yetToVote' : 'votedNo'
                     }`}
                   >
-                    <Checkbox
+                    <TristateCheckbox
                       name={`option${column}`}
-                      checked={yes}
-                      onChange={onCheckboxChange(column)}
+                      tribool={yes}
+                      setTribool={createSetTribool(column)}
                     />
                   </td>
                 ))}
