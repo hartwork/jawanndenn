@@ -177,7 +177,7 @@ class VotePostViewTest(TestCase):
     def setUpTestData(cls):
         super().setUpTestData()
         cls.poll = PollFactory()
-        for _ in range(2):
+        for _ in range(3):
             PollOptionFactory(poll=cls.poll)
 
     def test_poll_exists(self):
@@ -187,6 +187,7 @@ class VotePostViewTest(TestCase):
             "voterName": voter_name,
             "option0": "on",
             "option1": "off",
+            "option2": "indeterminate",
         }
 
         response = self.client.post(url, data)
@@ -194,7 +195,7 @@ class VotePostViewTest(TestCase):
         ballot = Ballot.objects.get(poll=self.poll)
         self.assertEqual(
             list(ballot.votes.order_by("option__position").values_list("yes", flat=True)),
-            [True, False],
+            [True, False, None],
         )
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
