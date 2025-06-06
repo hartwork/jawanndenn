@@ -116,15 +116,11 @@ def poll_data_get_view(request, poll_id):
     return JsonResponse(data)
 
 
-@require_GET
 @_except_poll_does_not_exist
 def poll_get_view(request, poll_id):
     Poll.objects.get(slug=poll_id)
 
-    context = {
-        "JAWANNDENN_URL_PREFIX": settings.JAWANNDENN_URL_PREFIX,
-    }
-    return TemplateResponse(request, template="index.html", context=context)
+    return index_get_view(request)
 
 
 @require_POST
