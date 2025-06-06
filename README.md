@@ -27,12 +27,14 @@ It is using the following technology:
   - [sentry-python](https://github.com/getsentry/sentry-python)
   - [wait-for-it](https://github.com/clarketm/wait-for-it)
 
-- **JavaScript / CSS / Fonts**
+- **TypeScript / CSS / Fonts**
+  - [eslint](https://eslint.org/)
   - [Google Webfonts Helper](https://github.com/majodev/google-webfonts-helper)
-  - [jQuery](http://jquery.com/)
-  - [jQuery noty](http://ned.im/noty/#/about)
-  - [Materialize](http://materializecss.com/)
+  - [Material UI](https://mui.com/material-ui/)
+  - [Prettier](https://prettier.io/)
+  - [React](https://react.dev/)
   - [Roboto](https://fonts.google.com/specimen/Roboto)
+  - [Rsbuild](https://rsbuild.rs/)
 
 - **Storage**
   - [PostgreSQL](https://www.postgresql.org/)
@@ -279,7 +281,7 @@ Please check out the
 
 # Non-goals
 
-- Use of heavy frontend frameworks: building blocks only
+- Adding any new non-tiny features
 - Read availability from calendars
 
 
