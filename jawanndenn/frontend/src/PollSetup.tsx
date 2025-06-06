@@ -11,7 +11,6 @@ import TextField from '@mui/material/TextField';
 
 const DEFAULT_CONFIG_JSON = `{
   "lifetime": "month",
-  "equal_width": false,
   "title": "Which fruit do _**you**_ like?",
   "options": [
     "Apple",
