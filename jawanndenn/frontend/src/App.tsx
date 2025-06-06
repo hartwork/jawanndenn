@@ -10,6 +10,7 @@ import { DEFAULT_CONFIG_STATE, PollSetup } from './PollSetup.tsx';
 
 import { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { teal } from '@mui/material/colors';
 import Grid from '@mui/material/Grid';
 
 const fetchPollData = async (pollId, setResponse) => {
@@ -39,7 +40,7 @@ if (pollId) {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#26a69a',
+      main: teal[400],
     },
   },
 });
