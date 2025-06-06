@@ -19,6 +19,12 @@ from jawanndenn.markup import safe_html
 from jawanndenn.models import Ballot, Poll, Vote
 from jawanndenn.serializers import PollConfigSerializer
 
+_TO_TRIBOOL = {
+    "on": True,
+    "off": False,
+    "indeterminate": None,
+}
+
 
 def _except_poll_does_not_exist(wrappee):
     """Decorator that turns Poll.DoesNotExist into 404 Not Found"""
@@ -141,7 +147,8 @@ def vote_post_view(request, poll_id):
 
         voter_name = safe_html(request.POST.get("voterName"))
         votes = [
-            request.POST.get(f"option{i}", "off") == "on" for i in range(poll.options.count())
+            _TO_TRIBOOL.get(request.POST.get(f"option{i}", "off"), False)
+            for i in range(poll.options.count())
         ]
 
         ballot = Ballot.objects.create(poll=poll, voter_name=voter_name)
