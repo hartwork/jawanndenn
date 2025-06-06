@@ -21,3 +21,14 @@ updates:
       - "enhancement"
     schedule:
       interval: "daily"
+
+  - package-ecosystem: "npm"
+    commit-message:
+      include: "scope"
+      prefix: "requirements"
+    directory: "/jawanndenn/frontend/"
+    labels:
+      - "dependencies"
+      - "enhancement"
+    schedule:
+      interval: "daily"

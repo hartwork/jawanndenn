@@ -1,0 +1,23 @@
+/* Copyright (c) 2025 Sebastian Pipping <sebastian@pipping.org>
+** Licensed under GNU GPL v3 or later
+*/
+.setup .valid textarea {
+  background-color: #efe !important;
+}
+
+.setup .invalid textarea {
+  background-color: #fee !important;
+}
+
+.setup .MuiFormControl-root {
+  width: 100%;
+}
+
+.setup .MuiCardActions-root {
+  padding: 16px;
+  padding-top: 0px;
+}
+
+.setup .MuiCardContent-root {
+  padding-bottom: 12px;
+}
