@@ -105,7 +105,7 @@ const Poll = ({
                     {persons_votes.map((yes, column) => (
                       <td
                         key={column}
-                        className={`vote ${yes ? 'votedYes' : 'votedNo'}`}
+                        className={`vote ${yes ? 'votedYes' : yes === null ? 'votedMaybe' : 'votedNo'}`}
                       >
                         {yes ? HEAVY_CHECK_MARK : HEAVY_BALLOT_X}
                       </td>
@@ -133,7 +133,13 @@ const Poll = ({
                   <td
                     key={column}
                     className={`vote ${
-                      yes ? 'votedYes' : yes === null ? 'yetToVote' : 'votedNo'
+                      yes
+                        ? 'votedYes'
+                        : yes === null
+                          ? 'votedMaybe'
+                          : yes === false
+                            ? 'votedNo'
+                            : 'yetToVote'
                     }`}
                   >
                     <TristateCheckbox
