@@ -1,6 +1,6 @@
 #! /bin/bash
 # Copyright (C) 2020 Sebastian Pipping <sebastian@pipping.org>
-# Licensed under GNU GPL v3 or later
+# Licensed under GNU Affero GPL v3 or later
 
 cat <<EOF
 ##################################################################################
