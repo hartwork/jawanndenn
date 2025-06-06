@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rsbuild build",
+    "build": "rm -fv ../static/{css,js}/* && rsbuild build",
     "dev": "rsbuild dev --open",
     "format": "prettier --write .",
     "lint": "eslint .",
