@@ -70,7 +70,6 @@ if __name__ == "__main__":
         classifiers=[
             "Development Status :: 4 - Beta",
             "Framework :: Django",
-            "Framework :: Django :: 2.2",
             "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",  # noqa: E501
             "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",  # noqa: E501
             "Programming Language :: JavaScript",
