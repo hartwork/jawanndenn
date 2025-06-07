@@ -13,6 +13,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { teal, yellow } from '@mui/material/colors';
 import Grid from '@mui/material/Grid';
 
+const asyncSleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const fetchPollData = async (pollId, setResponse) => {
   const url = `data/${pollId}`;
   try {
@@ -26,6 +28,16 @@ const fetchPollData = async (pollId, setResponse) => {
     setResponse(parsed);
   } catch (error) {
     console.error('ERROR:', error.message);
+  }
+};
+
+const keepFetchingPollData = async (pollId, setResponse) => {
+  while (true) {
+    if (!document.hidden) {
+      await fetchPollData(pollId, setResponse);
+    }
+
+    await asyncSleep(1000);
   }
 };
 
@@ -83,7 +95,7 @@ const SinglePollApp = ({ pollId }: { pollId: string }) => {
     );
   }
 
-  fetchPollData(pollId, setResponse); // not blocking because async
+  keepFetchingPollData(pollId, setResponse); // not blocking because async
 
   return <></>;
 };
