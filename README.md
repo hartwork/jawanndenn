@@ -46,9 +46,8 @@ It is using the following technology:
 
 *jawanndenn* is [libre software](https://www.gnu.org/philosophy/free-sw.en.html)
 developed by [Sebastian Pipping](https://blog.hartwork.org/).
-The server code is licensed under the
-[GNU Affero GPL license](https://www.gnu.org/licenses/agpl.en.html) version 3 or later
-whereas the client code is licensed under the [GNU GPL license](https://www.gnu.org/licenses/gpl.html) version 3 or later.
+The code is licensed under the
+[GNU Affero GPL license](https://www.gnu.org/licenses/agpl.en.html) version 3 or later.
 
 Please [report bugs](https://github.com/hartwork/jawanndenn/issues) and
 let me know if you [like](mailto:sebastian@pipping.org) it.

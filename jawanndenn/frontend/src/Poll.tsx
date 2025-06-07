@@ -1,5 +1,5 @@
 // Copyright (c) 2025 Sebastian Pipping <sebastian@pipping.org>
-// Licensed under GNU GPL v3 or later
+// Licensed under GNU Affero GPL v3 or later
 
 import './Poll.css';
 import { textToSafeHtml } from './markup.ts';
