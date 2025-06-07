@@ -10,14 +10,14 @@ import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 
 const DEFAULT_CONFIG_JSON = `{
-  "lifetime": "month",
   "title": "Which fruit do _**you**_ like?",
   "options": [
     "Apple",
     "Banana",
     "Orange",
     "Papaya"
-  ]
+  ],
+  "lifetime": "month"
 }`;
 
 class InvalidConfigError extends Error {
