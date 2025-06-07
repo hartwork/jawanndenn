@@ -119,7 +119,13 @@ const Poll = ({
                         key={column}
                         className={`vote ${yes ? 'votedYes' : yes === null ? 'votedMaybe' : 'votedNo'}`}
                       >
-                        {yes ? HEAVY_CHECK_MARK : HEAVY_BALLOT_X}
+                        {yes ? (
+                          HEAVY_CHECK_MARK
+                        ) : yes === null ? (
+                          <b>?</b>
+                        ) : (
+                          HEAVY_BALLOT_X
+                        )}
                       </td>
                     ))}
                     <td />
