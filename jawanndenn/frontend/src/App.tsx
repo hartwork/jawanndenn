@@ -10,6 +10,7 @@ import { DEFAULT_CONFIG_STATE, PollSetup } from './PollSetup.tsx';
 
 import { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { teal, yellow } from '@mui/material/colors';
 import Grid from '@mui/material/Grid';
 
 const fetchPollData = async (pollId, setResponse) => {
@@ -36,11 +37,22 @@ if (pollId) {
   document.title = 'jawanndenn: Vote!';
 }
 
-const theme = createTheme({
+const baseTheme = createTheme({
   palette: {
     primary: {
-      main: '#26a69a',
+      main: teal[400],
     },
+  },
+});
+
+const theme = createTheme(baseTheme, {
+  palette: {
+    maybe: baseTheme.palette.augmentColor({
+      color: {
+        main: yellow[700],
+      },
+      name: 'maybe',
+    }),
   },
 });
 

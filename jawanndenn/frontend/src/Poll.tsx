@@ -3,11 +3,11 @@
 
 import './Poll.css';
 import { textToSafeHtml } from './markup.ts';
+import TristateCheckbox from './TristateCheckbox.tsx';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 
 import { useState } from 'react';
@@ -42,25 +42,37 @@ const Poll = ({
   } else if (originalUsersVotes.length < config.options.length) {
     const filling = config.options
       .slice(originalUsersVotes.length)
-      .map((_) => null);
+      .map((_) => undefined);
     usersVotes = originalUsersVotes.concat(filling);
   }
   console.assert(usersVotes.length === config.options.length);
 
-  const summary = config.options.map((_option, index) =>
+  const yesSummary = config.options.map((_option, index) =>
     votes.reduce(
       (sum, [_person, person_votes]) => sum + (person_votes[index] ? 1 : 0),
       usersVotes[index] ? 1 : 0,
     ),
   );
+  const notNoSummary = config.options.map((_option, index) =>
+    votes.reduce(
+      (sum, [_person, person_votes]) =>
+        sum + (person_votes[index] !== false ? 1 : 0),
+      [true, null].includes(usersVotes[index]) ? 1 : 0,
+    ),
+  );
+  const combinedSummary = config.options.map((_option, index) =>
+    notNoSummary[index] > yesSummary[index]
+      ? `${yesSummary[index]}–${notNoSummary[index]}`
+      : yesSummary[index],
+  );
 
-  const onCheckboxChange = (column) => {
-    const onChange = (e) => {
+  const createSetTribool = (column) => {
+    const setTribool = (yes) => {
       const newUsersVotes = usersVotes.slice();
-      newUsersVotes[column] = e.target.checked;
+      newUsersVotes[column] = yes;
       setUsersVotes(newUsersVotes);
     };
-    return onChange;
+    return setTribool;
   };
 
   return (
@@ -105,7 +117,7 @@ const Poll = ({
                     {persons_votes.map((yes, column) => (
                       <td
                         key={column}
-                        className={`vote ${yes ? 'votedYes' : 'votedNo'}`}
+                        className={`vote ${yes ? 'votedYes' : yes === null ? 'votedMaybe' : 'votedNo'}`}
                       >
                         {yes ? HEAVY_CHECK_MARK : HEAVY_BALLOT_X}
                       </td>
@@ -133,13 +145,19 @@ const Poll = ({
                   <td
                     key={column}
                     className={`vote ${
-                      yes ? 'votedYes' : yes === null ? 'yetToVote' : 'votedNo'
+                      yes
+                        ? 'votedYes'
+                        : yes === null
+                          ? 'votedMaybe'
+                          : yes === false
+                            ? 'votedNo'
+                            : 'yetToVote'
                     }`}
                   >
-                    <Checkbox
+                    <TristateCheckbox
                       name={`option${column}`}
-                      checked={yes}
-                      onChange={onCheckboxChange(column)}
+                      tribool={yes}
+                      setTribool={createSetTribool(column)}
                     />
                   </td>
                 ))}
@@ -159,10 +177,10 @@ const Poll = ({
               {/* Summary */}
               <tr>
                 <td />
-                {summary.map((sum, column) => (
+                {combinedSummary.map((sum, column) => (
                   <td
                     key={column}
-                    className={`vote ${sum > 0 ? 'sumNonZero' : ''}`}
+                    className={`vote ${sum ? 'sumNonZero' : ''}`}
                   >
                     {sum}
                   </td>
