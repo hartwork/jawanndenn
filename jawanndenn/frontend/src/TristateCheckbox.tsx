@@ -12,7 +12,6 @@ const TristateCheckbox = ({
   tribool: boolean | null;
   setTribool: (tribool: boolean | null) => void;
 }) => {
-  console.log(name, tribool, setTribool);
   const checked = tribool === true;
   const indeterminate = tribool === null;
   const color = indeterminate ? 'maybe' : checked ? 'primary' : 'error';
