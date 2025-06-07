@@ -47,11 +47,23 @@ const Poll = ({
   }
   console.assert(usersVotes.length === config.options.length);
 
-  const summary = config.options.map((_option, index) =>
+  const yesSummary = config.options.map((_option, index) =>
     votes.reduce(
       (sum, [_person, person_votes]) => sum + (person_votes[index] ? 1 : 0),
       usersVotes[index] ? 1 : 0,
     ),
+  );
+  const notNoSummary = config.options.map((_option, index) =>
+    votes.reduce(
+      (sum, [_person, person_votes]) =>
+        sum + (person_votes[index] !== false ? 1 : 0),
+      [true, null].includes(usersVotes[index]) ? 1 : 0,
+    ),
+  );
+  const combinedSummary = config.options.map((_option, index) =>
+    notNoSummary[index] > yesSummary[index]
+      ? `${yesSummary[index]}–${notNoSummary[index]}`
+      : yesSummary[index],
   );
 
   const createSetTribool = (column) => {
@@ -165,10 +177,10 @@ const Poll = ({
               {/* Summary */}
               <tr>
                 <td />
-                {summary.map((sum, column) => (
+                {combinedSummary.map((sum, column) => (
                   <td
                     key={column}
-                    className={`vote ${sum > 0 ? 'sumNonZero' : ''}`}
+                    className={`vote ${sum ? 'sumNonZero' : ''}`}
                   >
                     {sum}
                   </td>
