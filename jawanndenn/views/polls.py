@@ -3,6 +3,7 @@
 
 from functools import wraps
 
+import rapidjson
 import yaml
 from django.conf import settings
 from django.db import transaction
@@ -62,11 +63,15 @@ def index_get_view(request):
 @require_POST
 @_except_validation_error
 def poll_post_view(request):
-    config_yaml = request.POST.get("config", "{}")
+    # NOTE: In practice, YAML is not a true superset of JSON.
+    config_yaml_or_json = request.POST.get("config", "{}")
     try:
-        config = yaml.safe_load(config_yaml)
-    except yaml.parser.ParserError:
-        raise ValidationError("Poll configuration is neither well-formed YAML nor JSON.")
+        config = yaml.safe_load(config_yaml_or_json)
+    except (yaml.parser.ParserError, yaml.scanner.ScannerError):
+        try:
+            config = rapidjson.loads(config_yaml_or_json)
+        except rapidjson.JSONDecodeError:
+            raise ValidationError("Poll configuration is neither well-formed YAML nor JSON.")
 
     serializer = PollConfigSerializer(data=config)
     serializer.is_valid(raise_exception=True)
