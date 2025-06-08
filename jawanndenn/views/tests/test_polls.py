@@ -4,6 +4,7 @@
 import datetime
 import json
 from http import HTTPStatus
+from textwrap import dedent
 from unittest.mock import patch
 
 import yaml
@@ -107,6 +108,22 @@ class PollPostViewTest(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertEqual(response.url, poll.get_absolute_url())
+
+    def test_json_with_tabs(self):
+        # For some reason, the YAML parser crashes on this one, but the JSON parser does not
+        data = {
+            "config": dedent("""\
+                {
+                    "title": "title1",
+                    "options": [
+                    \t"one",
+                    \t"two"
+                    ]
+                }
+            """),
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
 
 class PollDataGetViewTest(TestCase):
