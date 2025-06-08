@@ -2,10 +2,11 @@
 # Licensed under GNU Affero GPL v3 or later
 
 import datetime
+import json
 from http import HTTPStatus
 from unittest.mock import patch
 
-import rapidjson as json
+import yaml
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -36,9 +37,9 @@ class IndexGetViewTest(TestCase):
 class PollPostViewTest(TestCase):
     url = reverse("poll-creation")
 
-    def test_malformed__config_not_json(self):
+    def test_malformed__config_neither_yaml_nor_json(self):
         data = {
-            "config": "not JSON",
+            "config": ": neither well-formed YAML nor JSON",
         }
         before_creation = timezone.now()
 
@@ -73,12 +74,18 @@ class PollPostViewTest(TestCase):
         self.assertEqual(response.url, poll.get_absolute_url())
         self.assertEqual(poll.expires_at.date(), expected_expiry_date)
 
-    def test_well_formed(self):
+    @parameterized.expand(
+        [
+            ("JSON", json.dumps),
+            ("YAML", yaml.dump),
+        ]
+    )
+    def test_well_formed(self, _label, dump_function):
         poll_title = "Some short title"
         poll_option_names = ["Option One", "Option Two"]
         poll_equal_width = True
         data = {
-            "config": json.dumps(
+            "config": dump_function(
                 {
                     "equal_width": poll_equal_width,
                     "title": poll_title,
@@ -139,7 +146,7 @@ class PollDataGetViewTest(TestCase):
         ):
             response = self.client.get(url)
 
-        actual_data = json.loads(response.content)
+        actual_data = yaml.safe_load(response.content)
         self.assertEqual(actual_data, expected_data)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
