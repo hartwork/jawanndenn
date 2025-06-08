@@ -2,6 +2,7 @@
 // Licensed under GNU Affero GPL v3 or later
 
 import './PollSetup.css';
+import dedent from './dedent.ts';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -9,16 +10,19 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 
-const DEFAULT_CONFIG_JSON = `{
-  "title": "Which fruit do _**you**_ like?",
-  "options": [
-    "Apple",
-    "Banana",
-    "Orange",
-    "Papaya"
-  ],
-  "lifetime": "month"
-}`;
+import { parse as parseYaml } from 'yaml';
+
+const DEFAULT_CONFIG_YAML = dedent(`\
+  title: Which fruit do _**you**_ like?
+
+  options:
+    - Apple
+    - Banana
+    - Orange
+    - Papaya
+
+  lifetime: month
+`);
 
 class InvalidConfigError extends Error {
   constructor(message: string) {
@@ -30,7 +34,7 @@ class InvalidConfigError extends Error {
 }
 
 const parseConfigText = (text: string) => {
-  const parsed = JSON.parse(text); // may throw SyntaxError
+  const parsed = parseYaml(text); // may throw
 
   // .equal_width
   if (
@@ -75,9 +79,9 @@ const parseConfigText = (text: string) => {
   return parsed;
 };
 
-const DEFAULT_CONFIG = parseConfigText(DEFAULT_CONFIG_JSON);
+const DEFAULT_CONFIG = parseConfigText(DEFAULT_CONFIG_YAML);
 
-const DEFAULT_CONFIG_STATE = [DEFAULT_CONFIG_JSON, true, DEFAULT_CONFIG];
+const DEFAULT_CONFIG_STATE = [DEFAULT_CONFIG_YAML, true, DEFAULT_CONFIG];
 
 type ConfigTripel = [string, boolean, PollConfig];
 type ConfigTripelSetter = (_: ConfigTripel) => void;
@@ -99,7 +103,7 @@ const PollSetup = ({
     } catch (error) {
       console.log(
         '[DEBUG]',
-        'Config JSON failed to validate with error:',
+        'Config YAML/JSON failed to validate with error:',
         error.message,
       );
       newParsed = latestValidConfig;
@@ -123,7 +127,7 @@ const PollSetup = ({
           <CardContent>
             <TextField
               name="config"
-              label="Setup (JSON)"
+              label="Setup (YAML or JSON)"
               multiline
               value={configText}
               variant="standard"

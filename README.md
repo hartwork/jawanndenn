@@ -35,6 +35,7 @@ It is using the following technology:
   - [React](https://react.dev/)
   - [Roboto](https://fonts.google.com/specimen/Roboto)
   - [Rsbuild](https://rsbuild.rs/)
+  - [yaml](https://www.npmjs.com/package/yaml)
 
 - **Storage**
   - [PostgreSQL](https://www.postgresql.org/)
