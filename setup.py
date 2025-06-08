@@ -63,7 +63,7 @@ if __name__ == "__main__":
             "gunicorn>=20.0.4",
             "gunicorn-color>=0.1.0",
             "python-dateutil>=2.8.1",
-            "python-rapidjson>=1.0",
+            "PyYAML>=6.0.2",
         ],
         extras_require=_extras_require,
         tests_require=_tests_require,

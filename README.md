@@ -23,7 +23,7 @@ It is using the following technology:
     [gunicorn-color-logger](https://github.com/swistakm/gunicorn-color-logger)
   - [parameterized](https://github.com/wolever/parameterized)
   - [pre-commit](https://pre-commit.com/)
-  - [python-rapidjson](https://github.com/python-rapidjson/python-rapidjson)
+  - [PyYAML](https://pypi.org/project/PyYAML/)
   - [sentry-python](https://github.com/getsentry/sentry-python)
   - [wait-for-it](https://github.com/clarketm/wait-for-it)
 
