@@ -42,7 +42,7 @@ const Poll = ({
   } else if (originalUsersVotes.length < config.options.length) {
     const filling = config.options
       .slice(originalUsersVotes.length)
-      .map((_) => undefined);
+      .map((_) => false);
     usersVotes = originalUsersVotes.concat(filling);
   }
   console.assert(usersVotes.length === config.options.length);
@@ -151,13 +151,7 @@ const Poll = ({
                   <td
                     key={column}
                     className={`vote ${
-                      yes
-                        ? 'votedYes'
-                        : yes === null
-                          ? 'votedMaybe'
-                          : yes === false
-                            ? 'votedNo'
-                            : 'yetToVote'
+                      yes ? 'votedYes' : yes === null ? 'votedMaybe' : 'votedNo'
                     }`}
                   >
                     <TristateCheckbox
