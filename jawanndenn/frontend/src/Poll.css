@@ -52,3 +52,18 @@
 .sumNonZero {
   font-weight: bold;
 }
+
+.poll.preview .MuiCardHeader-root {
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.poll.preview .MuiCardHeader-content span {
+  font-size: 30pt;
+  font-weight: 100;
+  color: #ccc;
+}
+
+.poll.preview .MuiCardContent-root h2 {
+  margin-top: 0;
+}

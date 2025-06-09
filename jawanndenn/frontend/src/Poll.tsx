@@ -8,6 +8,7 @@ import TristateCheckbox from './TristateCheckbox.tsx';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import TextField from '@mui/material/TextField';
 
 import { useState } from 'react';
@@ -76,7 +77,8 @@ const Poll = ({
   };
 
   return (
-    <Card className="poll">
+    <Card className={`poll ${pretend ? 'preview' : ''}`}>
+      {pretend && <CardHeader title="Preview" />}
       <CardContent>
         <h2
           dangerouslySetInnerHTML={{
