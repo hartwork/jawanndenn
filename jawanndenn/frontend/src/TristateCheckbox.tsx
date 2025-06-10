@@ -2,6 +2,11 @@
 // Licensed under GNU Affero GPL v3 or later
 
 import Checkbox from '@mui/material/Checkbox';
+import {
+  CheckBoxIcon,
+  CheckBoxOutlineBlankIcon,
+  IndeterminateCheckBoxIcon,
+} from './CheckboxIcons.tsx';
 
 const TristateCheckbox = ({
   name,
@@ -38,6 +43,9 @@ const TristateCheckbox = ({
         checked={checked}
         indeterminate={indeterminate}
         onChange={onChange}
+        icon={<CheckBoxOutlineBlankIcon />}
+        checkedIcon={<CheckBoxIcon />}
+        indeterminateIcon={<IndeterminateCheckBoxIcon />}
       />
     </>
   );
