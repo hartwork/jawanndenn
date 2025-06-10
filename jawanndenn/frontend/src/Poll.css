@@ -41,9 +41,6 @@
 .votedMaybe {
   background-color: #fff59d; /* yellow 200 */
 }
-.yetToVote {
-  background-color: #dfdfdf;
-}
 
 .submitVote {
   margin-left: 1em !important;
