@@ -11,6 +11,9 @@ jobs:
   build_and_lint_frontend:
     name: Build and lint frontend
     runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: jawanndenn/frontend/
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
 
@@ -20,21 +23,22 @@ jobs:
 
       - name: Install Node dependencies
         run: |-
-          cd jawanndenn/frontend
           npm ci
 
       - name: Build the frontend
         run: |-
-          cd jawanndenn/frontend
           npm run build
 
       - name: Lint frontend files
         run: |-
-          cd jawanndenn/frontend
           npm run lint
 
       - name: Enforce that all files match auto-formatting
         run: |-
-          cd jawanndenn/frontend
           npm run format
+          git diff --exit-code  # i.e. fail CI if there is a diff
+
+      - name: Enforce that file package-lock.json remains in sync
+        run: |-
+          npm install --package-lock-only
           git diff --exit-code  # i.e. fail CI if there is a diff
