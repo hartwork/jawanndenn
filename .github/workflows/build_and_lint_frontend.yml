@@ -38,3 +38,9 @@ jobs:
           cd jawanndenn/frontend
           npm run format
           git diff --exit-code  # i.e. fail CI if there is a diff
+
+      - name: Enforce that file package-lock.json remains in sync
+        run: |-
+          cd jawanndenn/frontend
+          npm install --package-lock-only
+          git diff --exit-code  # i.e. fail CI if there is a diff
