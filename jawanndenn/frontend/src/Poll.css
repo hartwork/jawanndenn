@@ -59,6 +59,7 @@
   font-size: 30pt;
   font-weight: 100;
   color: #ccc;
+  user-select: none;
 }
 
 .poll.preview .MuiCardContent-root h2 {
