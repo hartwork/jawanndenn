@@ -12,6 +12,7 @@ from django.views.defaults import permission_denied
 from django_ratelimit.decorators import ratelimit
 from django_ratelimit.exceptions import Ratelimited
 
+from .views.favicon import favicon_urlpatterns
 from .views.polls import (
     index_get_view,
     poll_data_get_view,
@@ -79,7 +80,9 @@ else:
 
 urlpatterns += [
     _decorate_view_of_url_pattern(_limit_read_access, url_pattern)
-    for url_pattern in chain(staticfiles_urlpatterns(), security_txt_urlpatterns())
+    for url_pattern in chain(
+        favicon_urlpatterns(), staticfiles_urlpatterns(), security_txt_urlpatterns()
+    )
 ]
 
 handler403 = _permission_denied_or_too_many_requests
