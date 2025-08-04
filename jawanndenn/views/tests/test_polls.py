@@ -84,11 +84,9 @@ class PollPostViewTest(TestCase):
     def test_well_formed(self, _label, dump_function):
         poll_title = "Some short title"
         poll_option_names = ["Option One", "Option Two"]
-        poll_equal_width = True
         data = {
             "config": dump_function(
                 {
-                    "equal_width": poll_equal_width,
                     "title": poll_title,
                     "options": poll_option_names,
                 }
@@ -99,7 +97,6 @@ class PollPostViewTest(TestCase):
         response = self.client.post(self.url, data)
 
         poll = Poll.objects.get(created__gte=before_creation)
-        self.assertEqual(poll.equal_width, poll_equal_width)
         self.assertEqual(
             list(poll.options.order_by("position").values_list("name", flat=True)),
             poll_option_names,
@@ -130,7 +127,7 @@ class PollDataGetViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.poll = PollFactory(equal_width=True)
+        cls.poll = PollFactory()
         cls.poll_options = [PollOptionFactory(poll=cls.poll) for _ in range(3)]
         cls.votes_of_ballot = {}
 
@@ -144,7 +141,6 @@ class PollDataGetViewTest(TestCase):
         url = reverse("poll-data", args=[self.poll.slug])
         expected_data = {
             "config": {
-                "equal_width": self.poll.equal_width,
                 "options": [option.name for option in self.poll_options],
                 "title": self.poll.title,
             },

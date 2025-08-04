@@ -94,7 +94,6 @@ def poll_data_get_view(request, poll_id):
     with transaction.atomic():
         poll = Poll.objects.get(slug=poll_id)
         poll_config = {
-            "equal_width": poll.equal_width,
             "title": poll.title,
             "options": list(poll.options.order_by("position").values_list("name", flat=True)),
         }

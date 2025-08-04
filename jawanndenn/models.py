@@ -22,7 +22,6 @@ class PollQuerySet(models.QuerySet):
 class Poll(TimeStampedModel):
     slug = models.CharField(max_length=64, default=_get_random_sha256, unique=True)
     title = models.CharField(max_length=255)
-    equal_width = models.BooleanField(default=False)
     expires_at = models.DateTimeField(null=True)
 
     objects = PollQuerySet.as_manager()
