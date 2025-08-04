@@ -36,16 +36,6 @@ class InvalidConfigError extends Error {
 const parseConfigText = (text: string) => {
   const parsed = parseYaml(text); // may throw
 
-  // .equal_width
-  if (
-    parsed.equal_width !== undefined &&
-    typeof parsed.equal_width !== 'boolean'
-  ) {
-    throw new InvalidConfigError(
-      "Attribute 'equal_width' is invalid, must be boolean.",
-    );
-  }
-
   // .lifetime
   if (!['month', 'week', undefined].includes(parsed.lifetime)) {
     throw new InvalidConfigError(
