@@ -10,6 +10,11 @@ on:
 jobs:
   build_and_test:
     name: Build and test using Docker
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.11, 3.13]  # oldest and most recent, no need for in-between
+
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
@@ -44,8 +49,10 @@ jobs:
           EOF
 
       - name: Build Docker image
+        env:
+          PY_VER: ${{ matrix.python-version }}
         run: |-
-          docker-compose build
+          docker-compose build --build-arg "PY_VER=${PY_VER}"
 
       - name: Run tests using Docker
         run: |-
