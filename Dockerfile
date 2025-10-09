@@ -1,4 +1,4 @@
-ARG PY_VER="3.13"
+ARG PY_VER="3.14"
 FROM python:${PY_VER}-alpine
 
 RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
