@@ -22,7 +22,7 @@
     "@eslint/compat": ">=1.4.1",
     "@eslint/js": ">=9.39.1",
     "@rsbuild/core": ">=1.6.2",
-    "@rsbuild/plugin-react": ">=1.4.1",
+    "@rsbuild/plugin-react": ">=1.4.2",
     "@types/react": ">=19.2.0",
     "@types/react-dom": ">=19.2.2",
     "eslint": ">=9.39.1",
