@@ -24,7 +24,7 @@
     "@rsbuild/core": ">=1.6.4",
     "@rsbuild/plugin-react": ">=1.4.2",
     "@types/react": ">=19.2.0",
-    "@types/react-dom": ">=19.2.2",
+    "@types/react-dom": ">=19.2.3",
     "eslint": ">=9.39.1",
     "eslint-plugin-react": ">=7.37.4",
     "eslint-plugin-react-hooks": ">=7.0.0",
