@@ -263,6 +263,7 @@ Migration takes four steps:
     ([Sources](https://git.framasoft.org/framasoft/framadate), ex.
     [OpenSondage](https://github.com/leblanc-simon/OpenSondage), ex.
     [STUdS](http://studs.unistra.fr/))
+  - [JaWannDennJetzt](https://github.com/mensinda/jawanndennjetzt)
   - [Nextcloud Polls](https://github.com/nextcloud/polls)
   - [Noodle](https://github.com/kmerz/noodle)
   - [Nuages](https://nuages.domainepublic.net/)
