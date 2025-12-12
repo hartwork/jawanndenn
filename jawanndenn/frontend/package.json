@@ -15,7 +15,7 @@
     "@emotion/styled": ">=11.14.1",
     "@mui/material": ">=7.3.5",
     "react": ">=19.2.0",
-    "react-dom": ">=19.2.0",
+    "react-dom": ">=19.2.3",
     "yaml": ">=2.8.1"
   },
   "devDependencies": {
