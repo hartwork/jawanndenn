@@ -26,7 +26,7 @@ It is using the following technology:
   - [python-rapidjson](https://github.com/python-rapidjson/python-rapidjson)
   - [PyYAML](https://pypi.org/project/PyYAML/)
   - [sentry-python](https://github.com/getsentry/sentry-python)
-  - [wait-for-it](https://github.com/clarketm/wait-for-it)
+  - [wait-for-it](https://github.com/hartwork/wait-for-it)
 
 - **TypeScript / CSS / Fonts**
   - [eslint](https://eslint.org/)
