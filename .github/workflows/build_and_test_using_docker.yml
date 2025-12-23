@@ -19,25 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1
 
-      # NOTE: docker-compose breaks with Python >=3.13
-      - name: Set up Python 3.12
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548  # v6.1.0
-        with:
-          python-version: 3.12
-
-      - name: Install dependencies
-        run: |-
-          pip install \
-            --disable-pip-version-check \
-            --user \
-            --no-warn-script-location \
-            'docker<7' \
-            'PyYAML==5.3.1' \
-            'requests<2.32.0' \
-            'urllib3<2' \
-            docker-compose
-          echo "PATH=${HOME}/.local/bin:${PATH}" >> "${GITHUB_ENV}"
-
       - name: Configure Docker environment
         run: |-
           docker network create --internal ssl-reverse-proxy
@@ -52,8 +33,8 @@ jobs:
         env:
           PY_VER: ${{ matrix.python-version }}
         run: |-
-          docker-compose build --build-arg "PY_VER=${PY_VER}"
+          docker compose build --build-arg "PY_VER=${PY_VER}"
 
       - name: Run tests using Docker
         run: |-
-          docker-compose run jawanndenn test -v2
+          docker compose run jawanndenn test -v2
