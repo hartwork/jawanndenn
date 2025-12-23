@@ -86,7 +86,7 @@ To install from a Git clone:
 ```
 
 
-# Deployment with docker-compose
+# Deployment with Docker Compose
 
 Create a simple file `.env` like this one:
 
@@ -100,7 +100,7 @@ JAWANNDENN_SECRET_KEY=606ea88f183a27919d5c27ec7f948906d23fdd7821684eb59e8bcf7377
 Make sure to **adjust these values** after copy and paste!
 
 You can then build and run a docker image using
-`docker-compose up --build`.
+`docker compose up --build`.
 
 The app is served on `localhost:54080`. PostgreSQL data is saved to
 `~/.jawanndenn-docker-pgdata/` on the host system. There is also an
@@ -228,8 +228,8 @@ Migration takes four steps:
 2.  Export existing polls:
     1.  If you're using the commend line app:
         `python2 -m jawanndenn --dumpdata > dump.json`
-    2.  If you're using docker-compose:
-        `docker-compose run -T jawanndenn --database-pickle /data/polls.pickle --dumpdata > dump.json`
+    2.  If you're using Docker Compose:
+        `docker compose run -T jawanndenn --database-pickle /data/polls.pickle --dumpdata > dump.json`
 
 3.  Deploy latest jawanndenn 2.x somewhere (as described above) or just
     `pip3 install 'jawanndenn>=2'` it somewhere
@@ -239,8 +239,8 @@ Migration takes four steps:
     1.  If you're using the commend line app:
         `python3 -m jawanndenn --loaddata dump.json`
 
-    2.  If you're using docker-compose:
-        `docker-compose run -T jawanndenn sh -c 'cat > /tmp/dump.json && DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django loaddata /tmp/dump.json' < dump.json`
+    2.  If you're using Docker Compose:
+        `docker compose run -T jawanndenn sh -c 'cat > /tmp/dump.json && DJANGO_SETTINGS_MODULE=jawanndenn.settings python3 -m django loaddata /tmp/dump.json' < dump.json`
 
 
 # Goals
