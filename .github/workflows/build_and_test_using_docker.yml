@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.11, 3.14]  # oldest and most recent, no need for in-between
+        python-version: [3.12, 3.14]  # oldest and most recent, no need for in-between
 
     runs-on: ubuntu-22.04
     steps:
