@@ -51,7 +51,7 @@ if __name__ == "__main__":
         author="Sebastian Pipping",
         author_email="sebastian@pipping.org",
         url="https://github.com/hartwork/jawanndenn",
-        python_requires=">=3.11",
+        python_requires=">=3.12",
         setup_requires=[
             "setuptools>=38.6.0",  # for long_description_content_type
         ],
@@ -84,7 +84,6 @@ if __name__ == "__main__":
             "Programming Language :: JavaScript",
             "Programming Language :: Python",
             "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3.11",
             "Programming Language :: Python :: 3.12",
             "Programming Language :: Python :: 3.13",
             "Programming Language :: Python :: 3.14",
