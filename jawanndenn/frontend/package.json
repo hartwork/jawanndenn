@@ -21,7 +21,7 @@
   "devDependencies": {
     "@eslint/compat": ">=2.0.0",
     "@eslint/js": ">=9.39.1",
-    "@rsbuild/core": ">=1.6.8",
+    "@rsbuild/core": ">=1.7.2",
     "@rsbuild/plugin-react": ">=1.4.2",
     "@types/react": ">=19.2.7",
     "@types/react-dom": ">=19.2.3",
