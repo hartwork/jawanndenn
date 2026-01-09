@@ -19,7 +19,7 @@
     "yaml": ">=2.8.1"
   },
   "devDependencies": {
-    "@eslint/compat": ">=2.0.0",
+    "@eslint/compat": ">=2.0.1",
     "@eslint/js": ">=9.39.1",
     "@rsbuild/core": ">=1.6.8",
     "@rsbuild/plugin-react": ">=1.4.2",
