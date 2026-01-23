@@ -762,9 +762,9 @@ tzdata==2025.3 \
 urllib3==2.6.3 \
     --hash=sha256:1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed \
     --hash=sha256:bf272323e553dfb2e87d9bfd225ca7b0f467b919d7bbd355436d3fd37cb0acd4
-wcwidth==0.3.0 \
-    --hash=sha256:073a1acb250e4add96cfd5ef84e0036605cd6e0d0782c8c15c80e42202348458 \
-    --hash=sha256:af1a2fb0b83ef4a7fc0682a4c95ca2576e14d0280bca2a9e67b7dc9f2733e123
+wcwidth==0.3.1 \
+    --hash=sha256:5aedb626a9c0d941b990cfebda848d538d45c9493a3384d080aff809143bd3be \
+    --hash=sha256:b2d355df3ec5d51bfc973a22fb4ea9a03b12fdcbf00d0abd22a2c78b12ccc177
 wrapt==2.0.1 \
     --hash=sha256:09c7476ab884b74dce081ad9bfd07fe5822d8600abade571cb1f66d5fc915af6 \
     --hash=sha256:0e17283f533a0d24d6e5429a7d11f250a58d28b4ae5186f8f47853e3e70d2590 \
