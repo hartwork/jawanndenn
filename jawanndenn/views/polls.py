@@ -4,6 +4,7 @@
 from functools import wraps
 
 import rapidjson
+import rest_framework.exceptions
 import yaml
 from django.conf import settings
 from django.db import transaction
@@ -12,7 +13,6 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.views.decorators.http import require_GET, require_POST
 from django.views.defaults import bad_request
-from rest_framework.exceptions import ValidationError
 
 from jawanndenn import DEFAULT_MAX_POLLS, DEFAULT_MAX_VOTES_PER_POLL
 from jawanndenn.markup import safe_html
@@ -46,7 +46,7 @@ def _except_validation_error(wrappee):
     def wrapper(request, *args, **kwargs):
         try:
             return wrappee(request, *args, **kwargs)
-        except ValidationError as exception:
+        except rest_framework.exceptions.ValidationError as exception:
             return bad_request(request, exception)
 
     return wrapper
@@ -71,7 +71,9 @@ def poll_post_view(request):
         try:
             config = rapidjson.loads(config_yaml_or_json)
         except rapidjson.JSONDecodeError:
-            raise ValidationError("Poll configuration is neither well-formed YAML nor JSON.")
+            raise rest_framework.exceptions.ValidationError(
+                "Poll configuration is neither well-formed YAML nor JSON."
+            )
 
     serializer = PollConfigSerializer(data=config)
     serializer.is_valid(raise_exception=True)
