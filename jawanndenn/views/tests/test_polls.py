@@ -15,7 +15,7 @@ from django.utils import timezone
 from django.utils.timezone import now
 from parameterized import parameterized
 
-from jawanndenn.models import Ballot, Poll
+from jawanndenn.models import MAX_LENGTH_VOTER_NAME, Ballot, Poll
 from jawanndenn.tests.factories import BallotFactory, PollFactory, PollOptionFactory, VoteFactory
 from jawanndenn.tests.helpers import RELEASE_SAVEPOINT, SAVEPOINT, SELECT
 
@@ -216,6 +216,8 @@ class VotePostViewTest(TestCase):
     @parameterized.expand(
         [
             ("Maria", HTTPStatus.FOUND),
+            ("X" * MAX_LENGTH_VOTER_NAME, HTTPStatus.FOUND),
+            ("X" * (MAX_LENGTH_VOTER_NAME + 1), HTTPStatus.BAD_REQUEST),
         ]
     )
     def test_poll_exists(self, voter_name, expected_status):
