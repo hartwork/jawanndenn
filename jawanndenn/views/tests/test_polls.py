@@ -15,7 +15,13 @@ from django.utils import timezone
 from django.utils.timezone import now
 from parameterized import parameterized
 
-from jawanndenn.models import MAX_LENGTH_VOTER_NAME, Ballot, Poll
+from jawanndenn.models import (
+    MAX_LENGTH_POLL_OPTION_NAME,
+    MAX_LENGTH_TITLE,
+    MAX_LENGTH_VOTER_NAME,
+    Ballot,
+    Poll,
+)
 from jawanndenn.tests.factories import BallotFactory, PollFactory, PollOptionFactory, VoteFactory
 from jawanndenn.tests.helpers import RELEASE_SAVEPOINT, SAVEPOINT, SELECT
 
@@ -84,6 +90,22 @@ class PollPostViewTest(TestCase):
             ],
             [
                 ("Some short title", ["Option One", "Option Two"], HTTPStatus.FOUND),
+                (
+                    "Some short title",
+                    ["Option One", "X" * MAX_LENGTH_POLL_OPTION_NAME],
+                    HTTPStatus.FOUND,
+                ),
+                (
+                    "Some short title",
+                    ["Option One", "X" * (MAX_LENGTH_POLL_OPTION_NAME + 1)],
+                    HTTPStatus.BAD_REQUEST,
+                ),
+                ("X" * MAX_LENGTH_TITLE, ["Option One", "Option Two"], HTTPStatus.FOUND),
+                (
+                    "X" * (MAX_LENGTH_TITLE + 1),
+                    ["Option One", "Option Two"],
+                    HTTPStatus.BAD_REQUEST,
+                ),
             ],
         )
     )
