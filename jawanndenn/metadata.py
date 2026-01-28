@@ -3,5 +3,5 @@
 
 APP_NAME = "jawanndenn"
 
-_VERSION = (4, 0, 1)
+_VERSION = (4, 1, 0)
 VERSION_STR = ".".join(map(str, _VERSION))
