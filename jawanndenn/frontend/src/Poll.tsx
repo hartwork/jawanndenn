@@ -147,6 +147,9 @@ const Poll = ({
                     onChange={(e) => setUsersName(e.target.value)}
                     error={!pretend && !usersName.trim()}
                     className="voterName"
+                    inputProps={{
+                      maxLength: 255,
+                    }}
                   />
                 </td>
                 {usersVotes.map((yes, column) => (
