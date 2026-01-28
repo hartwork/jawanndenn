@@ -8,7 +8,7 @@ from rest_framework.fields import CharField, ChoiceField, ListField
 from rest_framework.serializers import Serializer
 
 from jawanndenn.markup import safe_html
-from jawanndenn.models import Poll, PollOption
+from jawanndenn.models import MAX_LENGTH_POLL_OPTION_NAME, MAX_LENGTH_TITLE, Poll, PollOption
 
 
 class _PollLifetime:
@@ -29,8 +29,8 @@ class _PollLifetime:
 
 
 class PollConfigSerializer(Serializer):
-    title = CharField()
-    options = ListField(child=CharField(), allow_empty=False)
+    title = CharField(max_length=MAX_LENGTH_TITLE)
+    options = ListField(child=CharField(max_length=MAX_LENGTH_POLL_OPTION_NAME), allow_empty=False)
     lifetime = ChoiceField(choices=_PollLifetime.CHOICES, default=_PollLifetime.MONTH)
 
     def create(self, validated_data):

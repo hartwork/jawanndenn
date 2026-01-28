@@ -4,6 +4,7 @@
 import datetime
 import json
 from http import HTTPStatus
+from itertools import product
 from textwrap import dedent
 from unittest.mock import patch
 
@@ -14,7 +15,13 @@ from django.utils import timezone
 from django.utils.timezone import now
 from parameterized import parameterized
 
-from jawanndenn.models import Ballot, Poll
+from jawanndenn.models import (
+    MAX_LENGTH_POLL_OPTION_NAME,
+    MAX_LENGTH_TITLE,
+    MAX_LENGTH_VOTER_NAME,
+    Ballot,
+    Poll,
+)
 from jawanndenn.tests.factories import BallotFactory, PollFactory, PollOptionFactory, VoteFactory
 from jawanndenn.tests.helpers import RELEASE_SAVEPOINT, SAVEPOINT, SELECT
 
@@ -76,14 +83,40 @@ class PollPostViewTest(TestCase):
         self.assertEqual(poll.expires_at.date(), expected_expiry_date)
 
     @parameterized.expand(
-        [
-            ("JSON", json.dumps),
-            ("YAML", yaml.dump),
-        ]
+        product(
+            [
+                ("JSON", json.dumps),
+                ("YAML", yaml.dump),
+            ],
+            [
+                ("Some short title", ["Option One", "Option Two"], HTTPStatus.FOUND),
+                (
+                    "Some short title",
+                    ["Option One", "X" * MAX_LENGTH_POLL_OPTION_NAME],
+                    HTTPStatus.FOUND,
+                ),
+                (
+                    "Some short title",
+                    ["Option One", "X" * (MAX_LENGTH_POLL_OPTION_NAME + 1)],
+                    HTTPStatus.BAD_REQUEST,
+                ),
+                ("X" * MAX_LENGTH_TITLE, ["Option One", "Option Two"], HTTPStatus.FOUND),
+                (
+                    "X" * (MAX_LENGTH_TITLE + 1),
+                    ["Option One", "Option Two"],
+                    HTTPStatus.BAD_REQUEST,
+                ),
+            ],
+        )
     )
-    def test_well_formed(self, _label, dump_function):
-        poll_title = "Some short title"
-        poll_option_names = ["Option One", "Option Two"]
+    def test_well_formed(
+        self, label__dump_function, poll_title__poll_option_names__expected_status
+    ):
+        _label, dump_function = label__dump_function
+        poll_title, poll_option_names, expected_status = (
+            poll_title__poll_option_names__expected_status
+        )
+
         data = {
             "config": dump_function(
                 {
@@ -96,15 +129,17 @@ class PollPostViewTest(TestCase):
 
         response = self.client.post(self.url, data)
 
-        poll = Poll.objects.get(created__gte=before_creation)
-        self.assertEqual(
-            list(poll.options.order_by("position").values_list("name", flat=True)),
-            poll_option_names,
-        )
-        self.assertEqual(poll.title, poll_title)
+        if expected_status == HTTPStatus.FOUND:
+            poll = Poll.objects.get(created__gte=before_creation)
+            self.assertEqual(
+                list(poll.options.order_by("position").values_list("name", flat=True)),
+                poll_option_names,
+            )
+            self.assertEqual(poll.title, poll_title)
 
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertEqual(response.url, poll.get_absolute_url())
+            self.assertEqual(response.url, poll.get_absolute_url())
+
+        self.assertEqual(response.status_code, expected_status)
 
     def test_json_with_tabs(self):
         # For some reason, the YAML parser crashes on this one, but the JSON parser does not
@@ -200,9 +235,15 @@ class VotePostViewTest(TestCase):
         for _ in range(3):
             PollOptionFactory(poll=cls.poll)
 
-    def test_poll_exists(self):
+    @parameterized.expand(
+        [
+            ("Maria", HTTPStatus.FOUND),
+            ("X" * MAX_LENGTH_VOTER_NAME, HTTPStatus.FOUND),
+            ("X" * (MAX_LENGTH_VOTER_NAME + 1), HTTPStatus.BAD_REQUEST),
+        ]
+    )
+    def test_poll_exists(self, voter_name, expected_status):
         url = reverse("vote", args=[self.poll.slug])
-        voter_name = "Maria"
         data = {
             "voterName": voter_name,
             "option0": "on",
@@ -212,14 +253,15 @@ class VotePostViewTest(TestCase):
 
         response = self.client.post(url, data)
 
-        ballot = Ballot.objects.get(poll=self.poll)
-        self.assertEqual(
-            list(ballot.votes.order_by("option__position").values_list("yes", flat=True)),
-            [True, False, None],
-        )
+        if expected_status == HTTPStatus.FOUND:
+            ballot = Ballot.objects.get(poll=self.poll)
+            self.assertEqual(
+                list(ballot.votes.order_by("option__position").values_list("yes", flat=True)),
+                [True, False, None],
+            )
+            self.assertEqual(response.url, self.poll.get_absolute_url())
 
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertEqual(response.url, self.poll.get_absolute_url())
+        self.assertEqual(response.status_code, expected_status)
 
     def test_poll_does_not_exist(self):
         url = reverse("vote", args=["no_such_poll"])

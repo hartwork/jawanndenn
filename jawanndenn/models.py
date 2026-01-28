@@ -9,6 +9,10 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django_extensions.db.models import TimeStampedModel
 
+MAX_LENGTH_TITLE = 255
+MAX_LENGTH_POLL_OPTION_NAME = 255
+MAX_LENGTH_VOTER_NAME = 255
+
 
 def _get_random_sha256():
     return hashlib.sha256(os.urandom(256 // 8)).hexdigest()
@@ -21,7 +25,7 @@ class PollQuerySet(models.QuerySet):
 
 class Poll(TimeStampedModel):
     slug = models.CharField(max_length=64, default=_get_random_sha256, unique=True)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=MAX_LENGTH_TITLE)
     expires_at = models.DateTimeField(null=True)
 
     objects = PollQuerySet.as_manager()
@@ -33,7 +37,7 @@ class Poll(TimeStampedModel):
 class PollOption(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name="options")
     position = models.PositiveSmallIntegerField()  # starting at 0
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=MAX_LENGTH_POLL_OPTION_NAME)
 
     class Meta:
         unique_together = ("poll", "position")
@@ -41,7 +45,7 @@ class PollOption(models.Model):
 
 class Ballot(TimeStampedModel):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name="ballots")
-    voter_name = models.CharField(max_length=255)
+    voter_name = models.CharField(max_length=MAX_LENGTH_VOTER_NAME)
 
 
 class Vote(models.Model):
