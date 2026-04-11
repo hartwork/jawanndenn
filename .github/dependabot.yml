@@ -11,22 +11,22 @@ updates:
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "pip"
+  - package-ecosystem: "npm"
     commit-message:
       include: "scope"
       prefix: "requirements"
-    directory: "/"
+    directory: "/jawanndenn/frontend/"
     labels:
       - "dependencies"
       - "enhancement"
     schedule:
       interval: "daily"
 
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pip"
     commit-message:
       include: "scope"
       prefix: "requirements"
-    directory: "/jawanndenn/frontend/"
+    directory: "/"
     labels:
       - "dependencies"
       - "enhancement"
