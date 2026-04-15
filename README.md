@@ -1,6 +1,18 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![image](https://github.com/hartwork/jawanndenn/workflows/Build%20and%20test%20using%20Docker/badge.svg)](https://github.com/hartwork/jawanndenn/actions)
 
+> [!IMPORTANT]
+> This project is in **maintenance mode**. That means that I will:
+>
+> - :white_check_mark: continue to apply dependency updates and bug fixes, but will
+> - :no_entry_sign: not add any new features, and will
+> - :no_entry_sign: not take time to review pull requests adding features
+>   or making bigger changes.
+>
+> Thanks for your understanding! :pray:
+>
+> Sebastian Pipping — Berlin, 2026-04-15
+
 
 # What is jawanndenn?
 
