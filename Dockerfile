@@ -8,6 +8,7 @@ RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' 
         diffutils \
         g++ \
         gcc \
+        linux-headers \
         musl-dev \
         npm \
         postgresql17-client \
@@ -23,13 +24,15 @@ ENV PATH=/home/jawanndenn/.local/bin/:${PATH}
 
 
 COPY --chown=jawanndenn:jawanndenn requirements*.txt  /tmp/app/
-RUN cd /tmp/app \
+RUN set -x \
+        && \
+    cd /tmp/app \
         && \
     pip3 install --user --ignore-installed --disable-pip-version-check pip setuptools wheel \
         && \
     hash pip3 \
         && \
-    pip3 install --user --require-hashes -r requirements.txt \
+    pip3 install --user --no-binary :all: --require-hashes -r requirements.txt \
         && \
     pip3 check \
         && \
