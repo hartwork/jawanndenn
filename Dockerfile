@@ -32,7 +32,7 @@ RUN set -x \
         && \
     hash pip3 \
         && \
-    pip3 install --user --require-hashes -r requirements.txt \
+    pip3 install --user --no-binary :all: --require-hashes -r requirements.txt \
         && \
     pip3 check \
         && \
