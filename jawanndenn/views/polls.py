@@ -4,7 +4,7 @@
 from functools import wraps
 
 import django.core.exceptions
-import rapidjson
+import msgspec
 import rest_framework.exceptions
 import yaml
 from django.conf import settings
@@ -73,8 +73,8 @@ def poll_post_view(request):
         config = yaml.safe_load(config_yaml_or_json)
     except (yaml.parser.ParserError, yaml.scanner.ScannerError):
         try:
-            config = rapidjson.loads(config_yaml_or_json)
-        except rapidjson.JSONDecodeError:
+            config = msgspec.json.decode(config_yaml_or_json)
+        except (UnicodeEncodeError, msgspec.DecodeError):
             raise rest_framework.exceptions.ValidationError(
                 "Poll configuration is neither well-formed YAML nor JSON."
             )

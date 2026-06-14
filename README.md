@@ -33,9 +33,9 @@ It is using the following technology:
     - [Factory Boy](https://factoryboy.readthedocs.io/en/latest/)
   - [Gunicorn](https://gunicorn.org/) +
     [gunicorn-color-logger](https://github.com/swistakm/gunicorn-color-logger)
+  - [msgspec](https://github.com/msgspec/msgspec) (for stricter JSON parsing)
   - [parameterized](https://github.com/wolever/parameterized)
   - [pre-commit](https://pre-commit.com/)
-  - [python-rapidjson](https://github.com/python-rapidjson/python-rapidjson)
   - [PyYAML](https://pypi.org/project/PyYAML/)
   - [sentry-python](https://github.com/getsentry/sentry-python)
   - [wait-for-it](https://github.com/hartwork/wait-for-it)
