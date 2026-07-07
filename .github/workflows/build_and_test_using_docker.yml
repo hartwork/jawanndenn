@@ -35,6 +35,11 @@ jobs:
         run: |-
           docker compose build --build-arg "PY_VER=${PY_VER}"
 
+      - name: Report on image sizes
+        run: |-
+          set -o pipefail
+          docker image ls 2>/dev/null | cat
+
       - name: Run tests using Docker
         run: |-
           docker compose run jawanndenn test -v2
