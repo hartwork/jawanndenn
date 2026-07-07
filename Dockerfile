@@ -1,6 +1,7 @@
 ARG PY_VER="3.14"
 FROM python:${PY_VER}-alpine
 
+# NOTE: Build-only dependencies are uninstalled again further down, so the two lists need to be kept in sync!
 RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
         && \
     apk add --update \
@@ -49,10 +50,6 @@ RUN set -x \
             <(grep == requirements-indirect.txt | sed 's,==.*,,') \
             <(grep == requirements-indirect.txt | sed 's,==.*,,' | sort -f)
 
-USER root
-RUN apk upgrade --update
-USER jawanndenn
-
 RUN mkdir -p /tmp/app/jawanndenn/
 COPY --chown=jawanndenn:jawanndenn jawanndenn/frontend/ /tmp/app/jawanndenn/frontend/
 RUN cd /tmp/app/jawanndenn/frontend/ \
@@ -62,6 +59,21 @@ RUN cd /tmp/app/jawanndenn/frontend/ \
     npm run build \
         && \
     ls -lh ../index.html  # i.e. fail Docker build if missing
+
+USER root
+# NOTE: Build-only dependencies have been installed explicitely further up, so the two lists need to be kept in sync!
+RUN apk del \
+            diffutils \
+            g++ \
+            gcc \
+            linux-headers \
+            musl-dev \
+            npm \
+            postgresql17-dev \
+            shadow \
+        && \
+    apk upgrade --update
+USER jawanndenn
 
 COPY --chown=jawanndenn:jawanndenn jawanndenn/                     /tmp/app/jawanndenn/
 COPY --chown=jawanndenn:jawanndenn .coveragerc setup.py README.md  /tmp/app/
