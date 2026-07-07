@@ -4,16 +4,17 @@ FROM python:${PY_VER}-alpine
 RUN echo '@edge-community https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
         && \
     apk add --update \
-        bash \
         diffutils \
         g++ \
         gcc \
         linux-headers \
         musl-dev \
         npm \
-        postgresql17-client \
         postgresql17-dev \
         shadow \
+        \
+        bash \
+        postgresql17-client \
         supercronic@edge-community
 
 SHELL ["/bin/bash", "-c"]
