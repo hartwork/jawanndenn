@@ -48,7 +48,9 @@ RUN set -x \
         && \
     diff -u1 \
             <(grep == requirements-indirect.txt | sed 's,==.*,,') \
-            <(grep == requirements-indirect.txt | sed 's,==.*,,' | sort -f)
+            <(grep == requirements-indirect.txt | sed 's,==.*,,' | sort -f) \
+        && \
+    rm -R ~/.cache/
 
 RUN mkdir -p /tmp/app/jawanndenn/
 COPY --chown=jawanndenn:jawanndenn jawanndenn/frontend/ /tmp/app/jawanndenn/frontend/
