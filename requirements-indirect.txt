@@ -521,9 +521,9 @@ pexpect==4.9.0 \
 pickleshare==0.7.5 \
     --hash=sha256:87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca \
     --hash=sha256:9649af414d74d4df115d5d718f82acb59c9d418196b7b4290ed47a12ce62df56
-platformdirs==4.12.2 \
-    --hash=sha256:29dbf06d96c500bc6bdbce75fb0a14d63279c93b1842f97e72a135b33e856983 \
-    --hash=sha256:eab5f70271a490ef74618bb314fbb86e3c7e82fa3b9c922c2ea0e0a1a155d329
+platformdirs==4.12.3 \
+    --hash=sha256:080f3b39423b5abfca9a23d84c4e9795f54d395cd8459867a8ded44084fcd5f8 \
+    --hash=sha256:427fc0bb321ae0c5b037fa03238ca74820437be162e78b4848c4d4055b9b766c
 prompt-toolkit==3.0.53 \
     --hash=sha256:01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2 \
     --hash=sha256:9ec8a0ad96d5c56148b3f914aa79c1564c3fde5d2e6b876e7bc327e353cf8fa6
