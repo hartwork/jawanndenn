@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import copy
 import os
+from typing import Any
 
 from django.conf.global_settings import CACHES
 from django.utils.log import DEFAULT_LOGGING
@@ -210,8 +211,15 @@ if _SENTRY_DSN:
 
         _sentry_integrations.append(RedisIntegration())
 
+    def _before_send(event: dict[str, Any], hint: dict[str, Any]) -> dict[str, Any] | None:
+        # Prevent bad requests from showing up in Sentry
+        if event.get("logger") == "django.security.SuspiciousOperation":
+            return None
+        return event
+
     sentry_sdk.init(
         dsn=_SENTRY_DSN,
+        before_send=_before_send,
         data_collection={
             "user_info": False,
         },
