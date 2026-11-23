@@ -212,7 +212,9 @@ if _SENTRY_DSN:
 
     sentry_sdk.init(
         dsn=_SENTRY_DSN,
+        data_collection={
+            "user_info": False,
+        },
         integrations=_sentry_integrations,
-        send_default_pii=False,
         traces_sample_rate=1.0,
     )
