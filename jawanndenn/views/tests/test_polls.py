@@ -240,16 +240,18 @@ class VotePostViewTest(TestCase):
             ("Maria", HTTPStatus.FOUND),
             ("X" * MAX_LENGTH_VOTER_NAME, HTTPStatus.FOUND),
             ("X" * (MAX_LENGTH_VOTER_NAME + 1), HTTPStatus.BAD_REQUEST),
+            (None, HTTPStatus.BAD_REQUEST),
         ]
     )
     def test_poll_exists(self, voter_name, expected_status):
         url = reverse("vote", args=[self.poll.slug])
         data = {
-            "voterName": voter_name,
             "option0": "on",
             "option1": "off",
             "option2": "indeterminate",
         }
+        if voter_name is not None:
+            data["voterName"] = voter_name
 
         response = self.client.post(url, data)
 
