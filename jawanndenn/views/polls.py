@@ -155,7 +155,11 @@ def vote_post_view(request, poll_id):
                 ", please contact the administrator."
             )
 
-        voter_name = safe_html(request.POST.get("voterName"))
+        candidate_voter_name = request.POST.get("voterName")
+        if candidate_voter_name is None:
+            raise rest_framework.exceptions.ValidationError("Voter name cannot be null.")
+
+        voter_name = safe_html(candidate_voter_name)
         votes = [
             _TO_TRIBOOL.get(request.POST.get(f"option{i}", "off"), False)
             for i in range(poll.options.count())
